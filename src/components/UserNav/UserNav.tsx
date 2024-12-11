@@ -1,30 +1,34 @@
 'use client'
 import { signOut } from "next-auth/react";
+import { User } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
-
-export default function UserNav(){
+import { LogOutIcon } from "lucide-react";
+import UserAvatar from "../UserAvatar/UserAvatar";
+type Props = {
+    user: Pick<User, "name" | 'image' | 'email'>
+}
+export default function UserNav({user}:Props){
     return(
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
 <Button variant='ghost' className="relative h-10 w-10 rounded-sm">
-<Avatar className="h-10 w-10 rounded-sm">
-  <AvatarImage src="https://gokxczesysklzepbknzb.supabase.co/storage/v1/object/public/user-image/user.png"/>
-  <AvatarFallback className="rounded-sm"> avatar</AvatarFallback>  
-</Avatar>
+<UserAvatar user={user}/>
 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56" align="end" forceMount>
 <DropdownMenuLabel>
     <div className="flex flex-col space-y-1 ">
-        <p className="text-sm font-medium leading-none">name</p>
-        <p>i have a dropdown</p>
+        <p className="text-sm font-medium leading-none">{user.name}</p>
+        <p className="text-zinc-700 text-sm w-[200px">{user.email}</p>
     </div>
 </DropdownMenuLabel>
 <DropdownMenuSeparator/>
 <DropdownMenuItem>
-            <span onClick={()=>{signOut()}}>Sign Out</span>
+            <span onClick={()=>{signOut()}} className="inline-flex font-semibold cursor-pointer  text-red-800">Sign Out
+                <LogOutIcon className="w-4 h-4 ml-2"/>
+            </span>
             </DropdownMenuItem>
             </DropdownMenuContent>
            

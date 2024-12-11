@@ -1,11 +1,22 @@
-import { NextAuthOptions } from "next-auth";
+import {type NextAuthOptions,  type DefaultSession, getServerSession, } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 
 import prisma from "./db";
-
+declare module 'next-auth' {
+  interface Session extends DefaultSession{
+    user: {
+      id: string
+    } & DefaultSession['user']
+  }
+}
+declare module 'next-auth/jwt' {
+  interface JWT {
+    id:string
+  }
+}
 export const authOptions = {
     adapter: PrismaAdapter(prisma),
 providers:[
@@ -39,6 +50,33 @@ providers:[
 session:{
   strategy: 'jwt'
 },
+callbacks:{
+  jwt: async ({token})=>{
+    const db_user = await prisma.user.findFirst({
+      where:{
+        email: token?.email as string,
+      }
+    })
+    if(db_user){
+      token.id = db_user.id
+    }
+    return token
+  },
+  session: ({session, token})=>{
+    if (token){
+      session.user.id= token.id
+      session.user.name = token.name 
+      session.user.email = token.email
+      session.user.image = token.picture
+    }
+    return session
+  }
+},
 secret: process.env.NEXTAUTH_SECRET,
 
-} satisfies NextAuthOptions
+} satisfies NextAuthOptions;
+
+//get session to authenticate user is ligged in to render pages
+export const getAuthSession = ()=>{
+  return getServerSession(authOptions);
+}

@@ -1,45 +1,34 @@
 
-import {useSession } from "next-auth/react";
 import Link from "next/link";
-import { redirect, usePathname } from "next/navigation";
-
 import UserNav from "../UserNav/UserNav";
-interface LinkProps{
-    name:string;
-    href: string;
-}
+import { getAuthSession } from "@/lib/nextAuth";
+import { Session } from "@prisma/client";
+import NavBarList from "../NavBarList/NavBarList";
+import { Button } from "../ui/button";
+import { ThemeToggle } from "../ui/themeToggle";
 
-type Links= LinkProps[]
-const linksArray :Links=
-[
-    {name: 'Home', href:'/home'},
-    {name: 'About', href:'/about'},
-    {name: 'Create Quiz', href:'/new-quiz-form'},
-    {name: 'My Quizes', href:'/quiz-archive'},
-    
-]
+export default async function Navbar(){
+const session =await getAuthSession()
 
-export default function Navbar(){
-    const {data:session} = useSession()
-
-const pathName = usePathname()
     return(
+        <nav className="fixed top-0 right-0 left-0 ">
         <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-5 lg:py-5 lg:px-8 justify-between">
-            <Link href="/home" className="w-32 ">
+            <Link href="/home" className="w-32 rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white ">
             IQuiz
             </Link>
             <ul className="lg:flex gap-x-4 ml-14 hidden">
+<NavBarList/>
 
-{linksArray.map((link, i)=>( 
-    <li key={i}>
-        {pathName === link.href?<Link className="text-red-800" href={link.href} >{link.name}</Link>:<Link className="text-blue underline" href={link.href} >{link.name}</Link>}
-        </li>
-    ))}
             </ul>
-<div>
 
-<UserNav/>
+<div className=" flex items-center justify-center gap-2">
+    <ThemeToggle/>
+{session?.user ?
+(<UserNav user={session.user}/>):
+(<Button><Link href={'/login'}>Login</Link></Button>)}
+
 </div>
         </div>
+        </nav>
     )
 }

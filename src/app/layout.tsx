@@ -1,22 +1,16 @@
-'use client'
+
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import NextAuthProvider from "./providers/NextAuthProvider";
 import Navbar from "@/components/NavBar/Navbar";
-
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+import { cn } from "@/lib/utils";
 
 
+
+export const metadata: Metadata = {
+  title: "IQuiz",
+  description: "AI quiz generation app"
+};
 
 export default function RootLayout({
   children,
@@ -25,13 +19,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+        <NextAuthProvider>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={
+          cn( ' font-geist  antialiased min-h-screen mt-16 ')
+        }
       >
-       <NextAuthProvider>
         <Navbar/>
-        {children}</NextAuthProvider> 
+        {children} 
       </body>
+      </NextAuthProvider>
     </html>
   );
 }
