@@ -11,7 +11,7 @@ export async function POST(req:Request, res:Response){
         if(!session?.user){
             return NextResponse.json(
                 {
-                    error: "You must br logged in",
+                    error: "You must be logged in",
                 },
                 {
                     status: 401
@@ -67,6 +67,7 @@ export async function POST(req:Request, res:Response){
                 question:string,
                 answer:string,
             }
+            //create array of questions and answers to send to db
             let manyData = data.questions.map((question: openQuestion)=>{
                 return{
                     question : question.question,
@@ -75,10 +76,12 @@ export async function POST(req:Request, res:Response){
                     questionType:'open_ended'
                 }
             })
+            //store quiz in db
             await prisma.question.createMany({
                 data: manyData
             })
         }
+        //return game id in the db
         return NextResponse.json({
             gameId: game.id,
         })

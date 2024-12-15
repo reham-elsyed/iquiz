@@ -205,22 +205,22 @@ export async function strict_output(prompt:string, type: string){
             },
             answer: {
               type: SchemaType.STRING,
-              description:"answer" ,
+              description:"the correct answer" ,
               nullable: false,
             },
             option1:{
               type: SchemaType.STRING,
-              description:"option1 in mcq" ,
+              description:"option1 in mcq not the correct answer" ,
               nullable: false,
             },
             option2:{
               type: SchemaType.STRING,
-              description:"option2 in mcq" ,
+              description:"option2 in mcq not the correct answer" ,
               nullable: false,
             },
             option3:{
               type: SchemaType.STRING,
-              description:"option3 in mcq" ,
+              description:"option3 in mcq not the correct answer" ,
               nullable: false,
             },
             

@@ -19,6 +19,7 @@ const formFields: FormFieldsType= [{name:'amount',desc:"add number of questions 
 
 const QuizCreation = (props: Props) => {
   const router = useRouter()
+  //api call to game end point to call question end point and store questions in db and return game id
 const {mutate:getQuestions, isPending}= useMutation({
   mutationFn: async({amount, topic, type}: Input)=>{
     const response = await axios.post('/api/game',
@@ -114,7 +115,7 @@ form.watch()
 />
   ))}
  
-<Button type="submit">Submit</Button>
+<Button disabled={isPending} type="submit">Submit</Button>
   </form>
 </Form>
 
