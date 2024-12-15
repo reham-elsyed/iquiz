@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
+import CustomWordCloud from '../CutomWordCloud/CustomWordCloud'
 const TrendingTopics= () => {
   return (
     <Card className='col-span-4'>
@@ -10,7 +11,7 @@ const TrendingTopics= () => {
         </CardDescription>
         </CardHeader>
         <CardContent className='pl-2'>
-          word cloud
+          <CustomWordCloud/>
         </CardContent>
     </Card>  )
 }
