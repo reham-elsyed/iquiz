@@ -53,7 +53,6 @@ getQuestions({
     else{
       router.push(`/play/mcq/${gameId}`)
     }
-
   }
 })
 }

@@ -5,13 +5,14 @@ import { redirect } from 'next/navigation';
 import React from 'react'
 
 type Props = {
-    params:{
+    params: Promise<{
         gameId: string;
-    }
+    }>;
 }
 
 const McqPage = async({params}: Props) => {
-    const {gameId} = params;
+    const awaitedParams = await params;
+    const {gameId} = awaitedParams;
     const session = await getAuthSession()
     if(!session){
         return redirect('/');

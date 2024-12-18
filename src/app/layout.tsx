@@ -4,6 +4,7 @@ import "./globals.css";
 import NextAuthProvider from "./providers/NextAuthProvider";
 import Navbar from "@/components/NavBar/Navbar";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       >
         <Navbar/>
         {children} 
+        <Toaster/>
       </body>
       </NextAuthProvider>
     </html>
