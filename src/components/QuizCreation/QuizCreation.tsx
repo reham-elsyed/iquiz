@@ -28,6 +28,7 @@ const {mutate:getQuestions, isPending}= useMutation({
         type,
       }
     );
+ 
     return response.data
   }
 })
@@ -114,7 +115,9 @@ form.watch()
 />
   ))}
  
-<Button disabled={isPending} type="submit">Submit</Button>
+<Button
+className='mt-4'
+ disabled={isPending} type="submit">Submit</Button>
   </form>
 </Form>
 

@@ -3,7 +3,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
-
+import pRetry from 'p-retry'
 import prisma from "./db";
 declare module 'next-auth' {
   interface Session extends DefaultSession{
@@ -52,14 +52,22 @@ session:{
 },
 callbacks:{
   jwt: async ({token})=>{
-    const db_user = await prisma.user.findFirst({
-      where:{
-        email: token?.email as string,
-      }
-    })
+    try{ const db_user =
+      
+      await pRetry(()=>prisma.user.findFirst({
+        where:{
+          email: token?.email as string,
+        }
+      }),
+      {retries:3}
+    ) 
     if(db_user){
       token.id = db_user.id
-    }
+    }}
+  catch(error){
+    console.log("Database query failed", error)
+  }
+   
     return token
   },
   session: ({session, token})=>{

@@ -10,3 +10,7 @@ export const checkAnswerSchema = z.object({
     questionId: z.string(),
     userAnswer: z.string(),
 })
+export const questionReload = z.object({
+    questionId: z.string(),
+    
+})

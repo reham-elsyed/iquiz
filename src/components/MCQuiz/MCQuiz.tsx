@@ -1,17 +1,21 @@
 'use client'
 
 import { Game, Question } from '@prisma/client'
-import { ChevronRight, Timer } from 'lucide-react'
-import React, {  useCallback, useEffect, useMemo, useState } from 'react'
+import {differenceInSeconds} from 'date-fns'
+import { ChevronRight, LoaderCircle, Timer } from 'lucide-react'
+import React, {  use, useCallback, useEffect, useMemo, useState } from 'react'
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import ChoicesButton from '../ChoicesButton/ChoicesButton'
 import Counter from '../Counter/Counter'
-import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
-import { checkAnswerSchema } from '@/app/schemas/formSchema/quizSchema'
+import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query'
+import axios, { AxiosResponse } from 'axios'
+import { checkAnswerSchema, questionReload } from '@/app/schemas/formSchema/quizSchema'
 import { z } from 'zod'
 import { useToast } from '@/hooks/use-toast'
+import EndOfQuizModal from '../EndOfQuizModal/EndOfQuizModal'
+import { formatTimeDelta } from '@/lib/utils'
+import { clear } from 'console'
 
 type Props = {
     game: Game & {questions: Pick<Question, 'id'| 'options' | 'question'>[]}
@@ -23,9 +27,37 @@ const MCQuiz = ({game}: Props) => {
     const [selectedChoice, setSelectedChoice] = useState(0)
     const [questionIndex, setQuestuionIndex] = useState(0)
    const [isOver, setIsOver] = useState(false)
+   const [now, setNow] = useState<Date>(new Date())
     const {toast} = useToast()
+   
+   useEffect(()=>{   
+    if (localStorage.getItem('correctAnswers')){
+        console.log(Number(JSON.parse(localStorage.getItem('correctAnswers') as string)))
+              setCorrectAnswers( Number(JSON.parse(localStorage.getItem('correctAnswers') as string))) 
+            }
+           
+           if( localStorage.getItem('wrongAnswers')){
+            console.log(Number(JSON.parse(localStorage.getItem('wrongAnswers') as string)))
+
+            setWrongAnswers( Number(JSON.parse(localStorage.getItem('wrongAnswers') as string))) 
+           }
+          if(localStorage.getItem('questionIndex')) {
+            setQuestuionIndex( Number(JSON.parse(localStorage.getItem('questionIndex') as string))) }
+   },[])
+    useEffect(()=>{
+        const interval= setInterval(() => {
+            if (!isOver){
+                setNow(new Date())
+            }
+        }, 1000)
+        return()=>{
+            clearInterval(interval)
+        }
+    },[isOver])
+    //return the current question
     const currentQuestion = useMemo(()=>{
         return game.questions[questionIndex]
+
     },[questionIndex, game.questions])
 
     const{mutate: checkAnswer, isPending:isChecking,}= useMutation({
@@ -34,13 +66,14 @@ const MCQuiz = ({game}: Props) => {
                     questionId: currentQuestion.id,
                     userAnswer: options[selectedChoice],
                 }
+                localStorage.setItem('questionId', JSON.stringify(currentQuestion.id))
+
                 const response = await axios.post('/api/checkAnswer', payload)
                 return response.data
             }
         })
 const handleNext =  useCallback(()=>{
     if (isChecking) return;
-   
     checkAnswer(undefined, {
         onSuccess: ({isCorrect})=>{
             if (isCorrect){
@@ -49,18 +82,25 @@ const handleNext =  useCallback(()=>{
                     variant: "success"
                 })
                 setCorrectAnswers(prev=> prev +1)
+                localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers + 1))
             }else{
                 toast({
                     title:'Wrong',
                     variant: "destructive",
                 })
                 setWrongAnswers(prev=>prev+1)
+                localStorage.setItem('wrongAnswers', JSON.stringify(wrongAnswers +1))
             }
             if (questionIndex === game.questions.length -1){
                 setIsOver(true)
+                localStorage.removeItem('questionIndex')
+                localStorage.removeItem('correctAnswers')
+                localStorage.removeItem('wrongAnswers')
                 return
             }
             setQuestuionIndex(prev=> prev + 1)
+            localStorage.setItem('questionIndex', JSON.stringify(questionIndex +1))
+
         }
     })
 },[checkAnswer, toast, isChecking, game.questions.length, questionIndex])
@@ -85,13 +125,15 @@ useEffect(()=>{
         document.removeEventListener("keydown",handleKeyDown)
     }
 },[])
-   
+   //return [] parse the string of all options into array of strings
     const options = useMemo(()=>{
         if(!currentQuestion) return[]
         if(!currentQuestion.options) return[]
         return JSON.parse(currentQuestion.options as string) as string[]
     },[currentQuestion])
   return (
+    <>
+    {isOver?  <> <EndOfQuizModal gameId={game.id} /></>:
     <div className='absolute mt-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vm] max-w-4xl w-[90vm] '>
         <div className='flex flex-row justify-between items-center'>
           <div className="flex flex-col">
@@ -102,11 +144,11 @@ useEffect(()=>{
                 <span className='px-2 py-1 text-white rounded-lg bg-slate-800'>{game.topic}</span>
             </p>
             <div className="flex self-start mt-3 text-slate-400">
-                <Timer className='mr-2'/>
-                <span>00:00</span>
+                <Timer  className='mr-2'/>
+                <span>{formatTimeDelta(differenceInSeconds(now,game.timeStarted))}</span>
             </div>
           </div>
-            <Counter correctAnswers={3} wrongAnswers={2}/>
+            <Counter correctAnswers={correctAnswers} wrongAnswers={wrongAnswers}/>
         </div>
         <Card className='w-full mt-4'>
             <CardHeader className='flex flex-row item-center'>
@@ -137,10 +179,12 @@ option={option} />
 onClick={handleNext}
 disabled={isChecking}
 >
-    Next <ChevronRight className='w-4 h-4 ml-2'/>
+    {isChecking?<LoaderCircle className='w-4 h-4 me-2 animate-spin'/>:
+   <> Next <ChevronRight className='w-4 h-4 ml-2'/></>}
 </Button>
         </div>
-    </div>
+    </div>}
+    </>
   )
 }
 
