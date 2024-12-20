@@ -62,7 +62,7 @@ export async function POST(req:Request, res:Response){
                 data: manyData
             })
         }
-        else if (data === 'open_ended'){
+        else if (type === 'open_ended'){
             type openQuestion={
                 question:string,
                 answer:string,

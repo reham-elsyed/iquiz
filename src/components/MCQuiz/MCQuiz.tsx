@@ -3,19 +3,19 @@
 import { Game, Question } from '@prisma/client'
 import {differenceInSeconds} from 'date-fns'
 import { ChevronRight, LoaderCircle, Timer } from 'lucide-react'
-import React, {  use, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import ChoicesButton from '../ChoicesButton/ChoicesButton'
 import Counter from '../Counter/Counter'
-import { useMutation, useQuery, UseQueryResult } from '@tanstack/react-query'
-import axios, { AxiosResponse } from 'axios'
-import { checkAnswerSchema, questionReload } from '@/app/schemas/formSchema/quizSchema'
+import { useMutation} from '@tanstack/react-query'
+import axios from 'axios'
+import { checkAnswerSchema} from '@/app/schemas/formSchema/quizSchema'
 import { z } from 'zod'
 import { useToast } from '@/hooks/use-toast'
 import EndOfQuizModal from '../EndOfQuizModal/EndOfQuizModal'
-import { formatTimeDelta } from '@/lib/utils'
-import { clear } from 'console'
+import { durationOfQuiz, formatTimeDelta } from '@/lib/utils'
+
 
 type Props = {
     game: Game & {questions: Pick<Question, 'id'| 'options' | 'question'>[]}
@@ -124,16 +124,18 @@ useEffect(()=>{
     return ()=>{
         document.removeEventListener("keydown",handleKeyDown)
     }
-},[])
+},[handleNext])
    //return [] parse the string of all options into array of strings
     const options = useMemo(()=>{
         if(!currentQuestion) return[]
         if(!currentQuestion.options) return[]
         return JSON.parse(currentQuestion.options as string) as string[]
     },[currentQuestion])
+//calculate the duration of test/ timer
+    const duration = durationOfQuiz(now, game.timeStarted)
   return (
     <>
-    {isOver?  <> <EndOfQuizModal gameId={game.id} /></>:
+    {isOver?  <> <EndOfQuizModal gameId={game.id} duration={duration}/></>:
     <div className='absolute mt-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-[80vm] max-w-4xl w-[90vm] '>
         <div className='flex flex-row justify-between items-center'>
           <div className="flex flex-col">
@@ -145,7 +147,7 @@ useEffect(()=>{
             </p>
             <div className="flex self-start mt-3 text-slate-400">
                 <Timer  className='mr-2'/>
-                <span>{formatTimeDelta(differenceInSeconds(now,game.timeStarted))}</span>
+                <span>{duration}</span>
             </div>
           </div>
             <Counter correctAnswers={correctAnswers} wrongAnswers={wrongAnswers}/>
@@ -180,7 +182,7 @@ onClick={handleNext}
 disabled={isChecking}
 >
     {isChecking?<LoaderCircle className='w-4 h-4 me-2 animate-spin'/>:
-   <> Next <ChevronRight className='w-4 h-4 ml-2'/></>}
+   <> {questionIndex === game.questions.length -1? `finish`: `next`}  <ChevronRight className='w-4 h-4 ml-2'/></>}
 </Button>
         </div>
     </div>}

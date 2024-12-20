@@ -4,13 +4,15 @@ import React from 'react'
 
 type Props = {
     gameId : string
+    duration:string
 }
 
 function EndOfQuizModal(props: Props){
   return (
     <div className="modal-container flex flex-col">
         <div>
-            You completed the test in [2m]
+            You completed the test in 
+             <span>{props.duration}</span>
         </div>
         <Link
         href={`/statistics/${props.gameId}`}></Link>
