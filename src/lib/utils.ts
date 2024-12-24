@@ -1,3 +1,7 @@
+import { toast } from "@/hooks/use-toast";
+import { GameWithQuestions } from "@/types/gameTypes";
+import { Game, GameType } from "@prisma/client";
+import axios from "axios";
 import { clsx, type ClassValue } from "clsx"
 import { differenceInSeconds } from "date-fns";
 import { twMerge } from "tailwind-merge"
@@ -26,3 +30,37 @@ export function formatTimeDelta(seconds: number) {
 }
 
 export function durationOfQuiz(now:Date, timeStarted:Date):string{return formatTimeDelta(differenceInSeconds(now,timeStarted))} 
+
+export function calculateAccuracyOfMCQ(game:GameWithQuestions){
+  let totalCorrect = game.questions.reduce((acc, question)=>{
+    if(question.isCorrect){
+      return acc + 1
+    }
+    return acc;
+  },0);
+return (totalCorrect/ game.questions.length) * 100
+}
+
+
+export function calculateAccuracyOfOpenended(game:GameWithQuestions){
+  let totalCorrect = game.questions.reduce((acc, question)=>{
+   if (question.percentageCorrect){
+    return acc + question.percentageCorrect as number 
+   }  
+    return acc;
+  },0);
+ console.log(game.questions.length)
+return (totalCorrect/ game.questions.length)
+
+}
+export async function setEndOfQuizTime(gameId:string){
+  try{
+    const res = await axios.post('/api/endTime', {gameId})
+    if (res.status=== 200){
+      console.log("success")
+    }
+
+  }catch(error){
+    console.log(error)
+  }
+}

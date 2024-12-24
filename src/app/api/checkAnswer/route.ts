@@ -7,7 +7,7 @@ import { ZodError } from "zod";
 export async function POST(req: Request, res: Response){
 try{
     const body = await req.json()
-    const { questionId, userAnswer} = checkAnswerSchema.parse(body)
+    const { questionId, userAnswer, keyWords} = checkAnswerSchema.parse(body)
     //get the question data from db
     const question = await prisma.question.findUnique({
         where:{id: questionId}
@@ -41,7 +41,7 @@ data: {
             status:200
         })
    }else if(question.questionType === 'open_ended'){
-   let percentageSimilar = compareTwoStrings(userAnswer.toLowerCase().trim(), question.answer.toLowerCase().trim()) ;
+   let percentageSimilar = compareTwoStrings(keyWords.toLowerCase().trim() ,userAnswer.toLowerCase().trim()) ;
    percentageSimilar = Math.round(percentageSimilar * 100);
    await prisma.question.update({
     where:{id: questionId},
@@ -55,8 +55,7 @@ data: {
     status:200
    })
    }
-}catch(error){
-   
+}catch(error){ 
     if (error instanceof ZodError){
         return NextResponse.json(
             {

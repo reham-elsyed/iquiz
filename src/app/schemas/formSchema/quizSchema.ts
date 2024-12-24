@@ -9,8 +9,13 @@ export const quizCreationSchema = z.object({
 export const checkAnswerSchema = z.object({
     questionId: z.string(),
     userAnswer: z.string(),
+    keyWords: z.string().optional().default(""),
 })
 export const questionReload = z.object({
     questionId: z.string(),
+    
+})
+export const timeEnded = z.object({
+    gameId: z.string(),
     
 })

@@ -2,7 +2,7 @@
 
 import { Game, Question } from '@prisma/client'
 import { ChevronRight, LoaderCircle, Timer } from 'lucide-react'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import EndOfQuizModal from '../EndOfQuizModal/EndOfQuizModal'
@@ -12,20 +12,19 @@ import { useMutation } from '@tanstack/react-query'
 import { checkAnswerSchema } from '@/app/schemas/formSchema/quizSchema'
 import { z } from 'zod'
 import axios from 'axios'
+import BlankAnswerComponent from '../BlankAnswersComponent/BlankAnswerComponent'
 
 type Props = {
     game: Game & { questions: Pick<Question, 'id' | 'question' | 'answer'>[]}
 }
 
 const OpenEndedQuiz = ({game}: Props) => {
-   const [correctAnswers, setCorrectAnswers] = useState(0);
-      const[wrongAnswers, setWrongAnswers]= useState(0)
-          const [questionIndex, setQuestuionIndex] = useState(0)
-         const [selectedChoice, setSelectedChoice] = useState(0)
-      
+    const [questionIndex, setQuestuionIndex] = useState(0)      
       const [isOver, setIsOver] = useState(false)
       const [now, setNow] = useState<Date>(new Date())
+      const[keywords, setKeywords] =useState<string[]>([])
        const {toast} = useToast()
+       const inputRefs = useRef<HTMLInputElement[]>([]);
       // set current question on refresh or reload
        useEffect(()=>{
         if(localStorage.getItem('questionIndex')) {
@@ -49,11 +48,16 @@ const OpenEndedQuiz = ({game}: Props) => {
               return game.questions[questionIndex]
       
           },[questionIndex, game.questions])
-          const{mutate: checkAnswer, isPending:isChecking,}= useMutation({
+
+const{mutate: checkAnswer, isPending:isChecking,}= useMutation({       
             mutationFn: async()=>{
+                const userAnswers =  inputRefs.current.map(element => {
+                   return element.value
+                      })
                 const payload : z.infer<typeof checkAnswerSchema>= {
                     questionId: currentQuestion.id,
-                    userAnswer:"" ,
+                    userAnswer:userAnswers.toLocaleString() ,
+                    keyWords: keywords.toLocaleString()
                 }
                 const response = await axios.post('/api/checkAnswer', payload)
                 return response.data
@@ -68,14 +72,20 @@ const handleNext =  useCallback(()=>{
                     title:`Your answer is ${percentageSimilar}% similar to the correct answer`,
                     description:" answers are matched based on similarity comparison"
                   })  
-                    if (questionIndex === game.questions.length -1){
+                 
+                if (questionIndex === game.questions.length -1){
                         setIsOver(true)
                         localStorage.removeItem('questionIndex')
-                       
+                       inputRefs.current=[]
                         return
-                    }
+                    } 
+                    inputRefs.current.forEach((input) => {
+                        input.value = ""; 
+                        input?.focus();
+                      });
                     setQuestuionIndex(prev=> prev + 1)
                     localStorage.setItem('questionIndex', JSON.stringify(questionIndex +1))
+                   
                 }
             })
         },[checkAnswer, toast, isChecking, game.questions.length, questionIndex])
@@ -87,8 +97,7 @@ const handleNext =  useCallback(()=>{
                    handleNext();
                 }
             };
-            document.addEventListener("keydown", handleKeyDown);
-            
+            document.addEventListener("keydown", handleKeyDown);    
             return ()=>{
                 document.removeEventListener("keydown",handleKeyDown);
             }
@@ -131,7 +140,7 @@ const handleNext =  useCallback(()=>{
             </CardHeader>
         </Card>
         <div className='flex flex-col items-stretch justify-center w-full mt-4'>
-
+<BlankAnswerComponent answer={currentQuestion.answer} input={inputRefs} pkeyWords={setKeywords}/>
 <Button className='mt-2'
 onClick={handleNext}
 disabled={isChecking}

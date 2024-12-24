@@ -14,7 +14,7 @@ import { checkAnswerSchema} from '@/app/schemas/formSchema/quizSchema'
 import { z } from 'zod'
 import { useToast } from '@/hooks/use-toast'
 import EndOfQuizModal from '../EndOfQuizModal/EndOfQuizModal'
-import { durationOfQuiz, formatTimeDelta } from '@/lib/utils'
+import { durationOfQuiz, formatTimeDelta, setEndOfQuizTime } from '@/lib/utils'
 
 
 type Props = {
@@ -65,6 +65,7 @@ const MCQuiz = ({game}: Props) => {
                 const payload : z.infer<typeof checkAnswerSchema>= {
                     questionId: currentQuestion.id,
                     userAnswer: options[selectedChoice],
+                    keyWords:'',
                 }
                 localStorage.setItem('questionId', JSON.stringify(currentQuestion.id))
 
@@ -75,7 +76,7 @@ const MCQuiz = ({game}: Props) => {
 const handleNext =  useCallback(()=>{
     if (isChecking) return;
     checkAnswer(undefined, {
-        onSuccess: ({isCorrect})=>{
+        onSuccess:async ({isCorrect})=>{
             if (isCorrect){
                 toast({
                     title: "correct!", 
@@ -93,6 +94,7 @@ const handleNext =  useCallback(()=>{
             }
             if (questionIndex === game.questions.length -1){
                 setIsOver(true)
+                await setEndOfQuizTime(game.id)
                 localStorage.removeItem('questionIndex')
                 localStorage.removeItem('correctAnswers')
                 localStorage.removeItem('wrongAnswers')
