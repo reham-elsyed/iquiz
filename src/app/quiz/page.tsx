@@ -2,18 +2,22 @@ import QuizCreation from '@/components/QuizCreation/QuizCreation'
 import { getAuthSession } from '@/lib/nextAuth'
 import { redirect } from 'next/navigation'
 import React from 'react'
-type Props = {}
+type Props = {
+  searchParams:{
+    topic?: string;
+  }
+}
 const metadata ={
     title: 'quiz | IQuiz'
 }
-const Quiz = async(props: Props) => {
+const Quiz = async({searchParams}: Props) => {
     const session = await getAuthSession()
     if (!session?.user){
         redirect('./login')
     }
   return (
     <div className="relative min-h-screen">
-         <QuizCreation/>
+         <QuizCreation topicParam={searchParams.topic ?? ''}/>
     </div>
   
   )

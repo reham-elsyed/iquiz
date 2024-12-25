@@ -13,17 +13,17 @@ const QuestionList = ({questions}: Props) => {
   <Table className='mt-4'>
     <TableCaption>End Of List</TableCaption>
     <TableHeader>
-        <TableHeader>
+       
             <TableRow>
             <TableHead className='w-[10px]'>No</TableHead>
-            <TableHead className='w-[10px]'>Questions & Correct Answer</TableHead>
+            <TableHead className=''>Questions & Correct Answer</TableHead>
 
             <TableHead >Your Answer</TableHead>
             {gameType === 'open_ended' && (
                 <TableHead className='w-[10px] text-right'>accuracy</TableHead>
             )}
             </TableRow>
-        </TableHeader>
+       
     </TableHeader>
     <TableBody>
         <>

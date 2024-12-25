@@ -70,6 +70,7 @@ const MCQuiz = ({game}: Props) => {
                 localStorage.setItem('questionId', JSON.stringify(currentQuestion.id))
 
                 const response = await axios.post('/api/checkAnswer', payload)
+                
                 return response.data
             }
         })

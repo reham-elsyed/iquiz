@@ -2,8 +2,7 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import { signIn } from 'next-auth/react'
-import { GitFork } from 'lucide-react'
-
+import { FcGoogle } from 'react-icons/fc';
 function GoogleButton() {
   return (
     <Button
@@ -11,9 +10,8 @@ function GoogleButton() {
      variant='outline'
      size="icon"
      >
-   <GitFork
-   className="w-4 h-4"/>
-    google </Button>
+    <FcGoogle size={30} />
+   </Button>
   )
 }
 

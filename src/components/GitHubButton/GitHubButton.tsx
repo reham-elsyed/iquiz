@@ -2,8 +2,8 @@
 import React from 'react'
 import { Button } from '../ui/button'
 import { signIn } from 'next-auth/react'
-import { GitFork } from 'lucide-react'
 
+import { FaGithub } from 'react-icons/fa';
 function GitHubButton() {
   return (
     <Button
@@ -11,8 +11,7 @@ function GitHubButton() {
     variant='outline'
     size="icon"
     >
-  <GitFork 
-  className="w-4 h-4"/>
+  <FaGithub size={30} />
     </Button>
   )
 }

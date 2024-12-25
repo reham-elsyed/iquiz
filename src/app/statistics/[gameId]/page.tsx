@@ -14,14 +14,16 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 
 type Props = {
-    params:{
-        gameId:string
-    }
+    params: Promise<{
+        gameId: string;
+    }>;
 }
 
   
 const StatisticePage =async ({params}: Props) => {
-    const { gameId }= params
+    const awaitedParams = await params;
+    const {gameId} = awaitedParams;
+
     const session= await getAuthSession();
     if (!session?.user){
         redirect('/')
@@ -37,6 +39,7 @@ const StatisticePage =async ({params}: Props) => {
     if(!game){
         return redirect('/quiz');
     }
+    console.log("statistics game:   ", game)
    let accuracy:number=0;
    if (game.gameType === 'mcq'){
     accuracy = calculateAccuracyOfMCQ(game)

@@ -27,7 +27,22 @@ export async function POST(req:Request, res:Response){
                 userId: session.user.id,
                 topic
             }
-        })
+        });
+        await prisma.topic_count.upsert({
+            where: {
+                topic
+            },
+            create:{
+                topic,
+                count:1,
+            },
+            update:{
+                count:{
+                    increment:1
+                }
+            }
+    })
+        //send request to ai to create questions through question endpoint and receive response data with questiond
         const {data} = await axios.post(`${process.env.IQUIZ_URL_API}/api/questions`,
             {
                 amount,
@@ -58,6 +73,7 @@ export async function POST(req:Request, res:Response){
 
                 
             })
+            //save created question to db mcq
             await prisma.question.createMany({
                 data: manyData
             })
@@ -76,7 +92,7 @@ export async function POST(req:Request, res:Response){
                     questionType:'open_ended'
                 }
             })
-            //store quiz in db
+            //store quiz in db 'open ended
             await prisma.question.createMany({
                 data: manyData
             })

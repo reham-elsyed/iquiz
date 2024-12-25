@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Button } from '../ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import EndOfQuizModal from '../EndOfQuizModal/EndOfQuizModal'
-import { durationOfQuiz} from '@/lib/utils'
+import { durationOfQuiz, setEndOfQuizTime} from '@/lib/utils'
 import { useToast } from '@/hooks/use-toast'
 import { useMutation } from '@tanstack/react-query'
 import { checkAnswerSchema } from '@/app/schemas/formSchema/quizSchema'
@@ -60,6 +60,7 @@ const{mutate: checkAnswer, isPending:isChecking,}= useMutation({
                     keyWords: keywords.toLocaleString()
                 }
                 const response = await axios.post('/api/checkAnswer', payload)
+              
                 return response.data
             }
         })
@@ -67,7 +68,7 @@ const{mutate: checkAnswer, isPending:isChecking,}= useMutation({
 const handleNext =  useCallback(()=>{
             if (isChecking) return;
             checkAnswer(undefined, {
-                onSuccess: ({percentageSimilar})=>{
+                onSuccess:async ({percentageSimilar})=>{
                   toast({
                     title:`Your answer is ${percentageSimilar}% similar to the correct answer`,
                     description:" answers are matched based on similarity comparison"
@@ -75,10 +76,12 @@ const handleNext =  useCallback(()=>{
                  
                 if (questionIndex === game.questions.length -1){
                         setIsOver(true)
+                        await setEndOfQuizTime(game.id)
                         localStorage.removeItem('questionIndex')
                        inputRefs.current=[]
                         return
                     } 
+                    
                     inputRefs.current.forEach((input) => {
                         input.value = ""; 
                         input?.focus();

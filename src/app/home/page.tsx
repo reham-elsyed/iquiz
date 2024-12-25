@@ -1,3 +1,4 @@
+import LoadingQuestions from "@/components/LoadingQuestions/LoadingQuestions"
 import { getAuthSession } from "@/lib/nextAuth"
 
 export default async function  HomePage(){
@@ -7,6 +8,7 @@ export default async function  HomePage(){
     <div>hello
 
 {session?.user.name}
+<LoadingQuestions/>
     </div>
   )  
 }
