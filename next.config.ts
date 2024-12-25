@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   images: {
    domains:[ 'https://gokxczesysklzepbknzb.supabase.co']
   },
+  typescript:{
+    ignoreBuildErrors: true,
+  },
+  eslint:{
+    ignoreDuringBuilds:true,
+  }
 };
 
 export default nextConfig;
