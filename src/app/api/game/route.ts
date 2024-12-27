@@ -50,7 +50,7 @@ export async function POST(req:Request, res:Response){
                 type,
             }
         );
-        console.log("data from game route aka api", data)
+       // console.log("data from game route aka api", data)
         if(type=== 'mcq'){
             type mcqQuestion={
                 question:string,

@@ -32,7 +32,7 @@ else if (type === "mcq") {
         `You are a expert question designer and interviewer that is able to generate exactly ${amount} mcq questions and answers about ${topic}, the length of each answer should not be more than 15 words always return one right answer in the choices`,type
       );
     }
-    console.log(questions)
+   // console.log(questions)
     return NextResponse.json(
       {
         questions: questions,

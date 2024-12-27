@@ -39,21 +39,21 @@ const StatisticePage =async ({params}: Props) => {
     if(!game){
         return redirect('/quiz');
     }
-    console.log("statistics game:   ", game)
+   // console.log("statistics game:   ", game)
    let accuracy:number=0;
    if (game.gameType === 'mcq'){
     accuracy = calculateAccuracyOfMCQ(game)
    }else if(game.gameType === 'open_ended'){
     accuracy = calculateAccuracyOfOpenended(game)
    }
-   console.log(game.timeEnded, game.timeStarted)
+  // console.log(game.timeEnded, game.timeStarted)
   return (
     <>
     <section  className="p-8 mx-auto- max-w-7xl">
         <div className='flex items-center justify-between space-y-2'>
             <h2 className='text-3xl font-bold tracking-tight'>Statistics</h2>
             <div className='flex items-center space-x-2'>
-                <Link href='/dashboard' className={buttonVariants()}>
+                <Link href='/userDashboard' className={buttonVariants()}>
                 <LucideLayoutDashboard className='mr-2'/> Back To Dashboard</Link>
                
             </div>
