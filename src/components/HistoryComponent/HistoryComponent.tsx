@@ -18,6 +18,7 @@ const HistoryComponent =async ({limit, userId}: Props) => {
       timeStarted:'desc'
     }
   })
+
   return (
     <div className='space-y-8'>
       {games.map((game)=>{

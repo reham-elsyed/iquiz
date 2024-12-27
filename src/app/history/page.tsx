@@ -20,7 +20,7 @@ const History =async (props: Props) => {
         <CardHeader>
           <div className='flex items-center justify-between'>
             <CardTitle className='text-2xl font-bold'>History</CardTitle>
-            <Link href='./userDashboard'>
+            <Link href='/userDashboard'>
             Back to Dashboard</Link>
             
           </div>
