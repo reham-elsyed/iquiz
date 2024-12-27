@@ -16,7 +16,7 @@ export default async function Login() {
         redirect('/home')
     }
   return (
-    <div className ="mt-34 rounded bg-black/50 py-10 px-10 md:mt-0 md:max-w-sm md:px-14">
+    <div className ="mt-34 rounded bg-stone-700 py-10 px-10 md:mt-0 md:max-w-sm md:px-14">
      <form method="POST" action={'/api/auth/signin'}>
      <h1 className="text-xl font-semibold text-white">Login</h1>
     <div className="space-y-4 mt-5">
