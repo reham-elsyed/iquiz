@@ -13,7 +13,7 @@ const metadata ={
 const Quiz = async({searchParams}: Props) => {
     const session = await getAuthSession()
     if (!session?.user){
-        redirect('./login')
+        redirect('/login')
     }
   return (
     <div className="relative min-h-screen">
