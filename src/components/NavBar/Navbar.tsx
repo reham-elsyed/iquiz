@@ -6,6 +6,7 @@ import { Session } from "@prisma/client";
 import NavBarList from "../NavBarList/NavBarList";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../ui/themeToggle";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem } from "../ui/navigation-menu";
 
 export default async function Navbar(){
 const session =await getAuthSession()
@@ -16,11 +17,15 @@ const session =await getAuthSession()
             <Link href="/home" className="w-32 rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white ">
             IQuiz
             </Link>
+        <NavigationMenu>
+           
+               
             <ul className="lg:flex gap-x-4 ml-14 hidden">
 <NavBarList/>
 
-            </ul>
-
+            </ul> 
+   
+            </NavigationMenu>
 <div className=" flex items-center justify-center gap-2">
     <ThemeToggle/>
 {session?.user ?

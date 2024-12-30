@@ -1,24 +1,29 @@
-'use client'
-import { LinkProps, linksArray } from '@/types/navbarTypes'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import React from 'react'
-
+"use client";
+import { LinkProps, linksArray } from "@/types/navbarTypes";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React from "react";
+import {
+  NavigationMenuItem,
+  NavigationMenuLink,
+  navigationMenuTriggerStyle,
+} from "../ui/navigation-menu";
 
 const NavBarList = () => {
-
-    const pathName = usePathname()
+  const pathName = usePathname();
   return (
     <>
-    {linksArray.map((link:LinkProps, i:number)=>( 
-        <li key={i}>
-            {pathName === link.href?<Link className="text-red-800" href={link.href} >{link.name}</Link>:<Link className="text-blue underline" href={link.href} >{link.name}</Link>}
-            </li>
-        ))}
-        </>
-  )
-}
+      {linksArray.map((link: LinkProps, i: number) => (
+        <NavigationMenuItem key={i}>
+          <Link className="" href={link.href} passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              {link.name}
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+      ))}
+    </>
+  );
+};
 
-
-
-export default NavBarList
+export default NavBarList;

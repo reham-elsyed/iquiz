@@ -1,9 +1,9 @@
 'use client'
-
+import React from 'react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/navigation';
-import React from 'react';
-import D3WordCloud from 'react-d3-cloud';
+//import D3WordCloud from 'react-d3-cloud';
+import dynamic from 'next/dynamic';
 type Props = {
     formattedTopics:{
         text: string;
@@ -14,6 +14,9 @@ type Props = {
 const fontSizeMapp= (word:{value: number})=>{
     return Math.log2(word.value) * 5 +16
 }
+
+// Dynamically import react-d3-cloud, disabling SSR
+const D3WordCloud = dynamic(() => import('react-d3-cloud'), { ssr: false });
 const CustomWordCloud = ({formattedTopics}: Props) => {
     const theme = useTheme();
    const router=useRouter()
