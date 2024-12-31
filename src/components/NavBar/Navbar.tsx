@@ -12,7 +12,7 @@ export default async function Navbar(){
 const session =await getAuthSession()
 
     return(
-        <nav className="fixed top-0 right-0 left-0 ">
+        <nav className="fixed top-0 right-0 left-0 z-20 bg-background text-forground">
         <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-5 lg:py-5 lg:px-8 justify-between">
             <Link href="/home" className="w-32 rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white ">
             IQuiz

@@ -14,7 +14,7 @@ export default async function Login() {
     redirect("/home");
   }
   return (
-    <div className="mt-34 rounded bg-stone-700 py-10 px-10 md:mt-0 md:max-w-sm md:px-14">
+    <div className="mt-34 rounded dark:bg-background dark:text-foreground bg-secondary py-10 px-10 md:mt-0 md:max-w-md md:px-14">
       <form method="POST" action={"/api/auth/signin"}>
         <h1 className="text-xl font-semibold text-white">Login</h1>
         <div className="space-y-4 mt-5">
@@ -22,7 +22,7 @@ export default async function Login() {
             type="email"
             name="email"
             placeholder="email"
-            className="bg-[#333] placeholder:text-grey-400 w-full inline-block"
+            className="bg-muted placeholder:text-grey-400 w-full inline-block text-muted-forground"
           />
           <div className="w-full h-full">
             <LoginButton />
@@ -33,7 +33,7 @@ export default async function Login() {
         <p className="text-grey-500 text-sm mt-2 ">New To IQuiz?</p>
         <Link
           className="btn border-l-stone-600 text-white hover:underline"
-          href="/SignUp"
+          href="/signup"
         >
           Sign Up
         </Link>

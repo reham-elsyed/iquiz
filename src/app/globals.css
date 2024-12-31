@@ -116,3 +116,16 @@ body {
 .modal-container {
   @apply absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
+
+.frame::after{
+content:"";
+width:100%;
+height: 100%;
+translate:5% 5% 15rem;
+border-radius: 5px;
+border:2px solid rgb(251, 205, 21) ;
+position: absolute;
+inset:0;
+z-index: -1;
+
+}

@@ -13,6 +13,8 @@ import {
 } from "../ui/dropdown-menu";
 import { LogOutIcon } from "lucide-react";
 import UserAvatar from "../UserAvatar/UserAvatar";
+import NavBarList from "../NavBarList/NavBarList";
+import { NavigationMenu } from "@radix-ui/react-navigation-menu";
 type Props = {
   user: Pick<User, "name" | "image" | "email">;
 };
@@ -31,6 +33,14 @@ export default function UserNav({ user }: Props) {
             <p className="text-zinc-700 text-sm w-[200px">{user.email}</p>
           </div>
         </DropdownMenuLabel>
+        <DropdownMenuItem>
+        <NavigationMenu>
+
+        <ul>
+          <NavBarList/>
+        </ul>
+        </NavigationMenu>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <span
