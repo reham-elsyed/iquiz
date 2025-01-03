@@ -126,6 +126,29 @@ border-radius: 5px;
 border:2px solid rgb(251, 205, 21) ;
 position: absolute;
 inset:0;
-z-index: -1;
+z-index: 0;
 
+}
+.prespective{
+  perspective: 1000px;
+}
+.trans{
+  transform-style: preserve-3d;
+  transition:transform 1s;
+}
+.backface{
+  backface-visibility: hidden;
+}
+.back:hover{
+  transform: rotateY(360deg);
+}
+.flip{
+  transition: all .6s;
+  transform:rotateY(90deg);
+  opacity:0;
+}
+.flip-back{
+  transition:all .6s;
+  transform:rotateY(0deg);
+  opacity:1;
 }

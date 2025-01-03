@@ -4,6 +4,7 @@ import NextAuthProvider from "./providers/NextAuthProvider";
 import Navbar from "@/components/NavBar/Navbar";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "IQuiz",
@@ -18,9 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={cn(" font-geist  antialiased min-h-screen mt-16 ")}>
+        <body className={cn("font-geist  antialiased min-h-screen mt-16 ")}>
           <Navbar />
           {children}
+          <Footer/>
           <Toaster />
         </body>
       </NextAuthProvider>

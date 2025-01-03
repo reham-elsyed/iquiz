@@ -1,3 +1,18 @@
+
+Transform Learning with IQUIZ – AI-powered quiz creation and feedback tailored just for you.
+Create, share, and grow your knowledge effortlessly.
+
+
+Hero section Image Attributes :Photo by <a href="https://unsplash.com/@brookecagle?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Brooke Cagle</a> on <a href="https://unsplash.com/photos/a-group-of-friends-at-a-coffee-shop--uHVRvDr7pg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      
+
+
+
+
+
+
+User Authentication And EndPoints in IQuiz app:
+
 POST Quiz checkAnswer API
 This file implements the POST endpoint for handling quiz answer submissions in a Next.js application. It validates user input using Zod, retrieves the relevant question from the database, and updates the database with the user's answer. Depending on the question type (mcq or open_ended), it determines correctness or calculates a similarity percentage using the string-similarity library. The endpoint ensures proper error handling, including validation errors and missing question records.
 

@@ -16,7 +16,7 @@ type Props = {
 };
 
 const QuestionList = ({ questions }: Props) => {
-  let gameType = questions[0].questionType;
+  let gameType = questions[0]?.questionType;
   return (
     <Table className="mt-4">
       <TableCaption>End Of List</TableCaption>

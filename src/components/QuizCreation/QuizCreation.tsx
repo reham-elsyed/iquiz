@@ -47,6 +47,7 @@ const formFields: FormFieldsType = [
 ];
 
 const QuizCreation = ({ topicParam }: Props) => {
+ 
   const router = useRouter();
   //api call to game end point to call question end point and store questions in db and return game id
   const {
@@ -93,7 +94,7 @@ const QuizCreation = ({ topicParam }: Props) => {
       {isPending || isSuccess ? (
         <LoadingQuestions />
       ) : (
-        <div className=" ">
+        <div className=" p-8 mx-auto max-w-7xl">
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl font-bold">Quiz</CardTitle>
@@ -103,7 +104,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                   <form onSubmit={form.handleSubmit(onSubmit)}>
                     {formFields.map((info, i) =>
                       info.name === "type" ? (
-                        <div key={i} className="flex justify-between order2">
+                        <div key={i} className="flex gap-3 justify-between order2">
                           <Button
                             type="button"
                             onClick={() => {

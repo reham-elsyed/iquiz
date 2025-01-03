@@ -14,7 +14,8 @@ const History = async (props: Props) => {
   }
 
   return (
-    <div className="modal-container w-[60vw]">
+    <div className="flex justify-center items-center h-screen">
+       <div className=" w-[60vw]">
       <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
@@ -29,6 +30,8 @@ const History = async (props: Props) => {
         </CardContent>
       </Card>
     </div>
+    </div>
+   
   );
 };
 
