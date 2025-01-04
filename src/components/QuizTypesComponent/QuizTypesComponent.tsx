@@ -40,7 +40,7 @@ const QuizTypesComponent = (props: Props) => {
             </div>
             
             <CardTitle className='text-lg sm:text-xl md:text-2xl font-bold leading-tight'>
-                <Link href={`/quiz`}>
+                <Link href="/quiz">
                 {game.name}
                 </Link>
             </CardTitle>
