@@ -22,7 +22,7 @@ export async function POST(req: Request, res: Response) {
     const body = await req.json();
     const { amount, topic, type } = quizCreationSchema.parse(body);
     let questions: any;
-    if (type === "open_ended") {
+    if (type === "open_ended" || type === "flash_card") {
       questions = await strict_output(
         `You are a professional question creator that generate a pair of question and answers, the length of each answer should not be more than 15 words, store all the pairs of answers and questions in a JSON array You are to generate exactly ${amount} open-ended questions about ${topic}`,
         type,

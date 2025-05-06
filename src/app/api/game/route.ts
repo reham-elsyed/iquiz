@@ -52,7 +52,7 @@ export async function POST(req: Request, res: Response) {
         type,
       },
     );
-    // console.log("data from game route aka api", data)
+    console.log("data from game route aka api", data)
     if (type === "mcq") {
       type mcqQuestion = {
         question: string;
@@ -81,12 +81,13 @@ export async function POST(req: Request, res: Response) {
       await prisma.question.createMany({
         data: manyData,
       });
-    } else if (type === "open_ended") {
+    } else if (type === "open_ended" || type === "flash_card") {
       type openQuestion = {
         question: string;
         answer: string;
       };
       //create array of questions and answers to send to db
+      console.log("data from game route aka api", data);
       let manyData = data.questions.map((question: openQuestion) => {
         return {
           question: question.question,
