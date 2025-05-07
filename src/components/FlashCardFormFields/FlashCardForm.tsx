@@ -31,9 +31,11 @@ export default  function CreateFlashcardForm(){
 console.log("create flashcard")             
 const [step, setStep] = useState(0)
 const router = useRouter()
+//next button
 const handleNext = () =>{
   if (step <formFields.length - 1) setStep((prev)=> prev + 1);
 }
+//back button
 const handleBack = ()=>{
   if (step > 0) setStep((prev)=> prev - 1);
 }
@@ -56,6 +58,7 @@ const handleBack = ()=>{
       if (response.status !== 200) {
         throw new Error("Error creating flashcards")
       }
+      console.log("response", response.data)
       return response.data
     },
   })
