@@ -2,7 +2,7 @@ import { quizCreationSchema } from "@/app/schemas/formSchema/quizSchema";
 import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
 import { NextResponse } from "next/server";
-import { ZodError } from "zod";
+import { number, ZodError } from "zod";
 import axios from "axios";
 
 export async function POST(req: Request, res: Response) {
@@ -20,6 +20,28 @@ export async function POST(req: Request, res: Response) {
     }
     const body = await req.json();
     const { amount, type, topic } = quizCreationSchema.parse(body);
+  
+    //send request to ai to create questions through question endpoint and receive response data with questiond
+   let data;
+   try{
+    data = await axios.post(
+      `${process.env.IQUIZ_URL_API}/api/questions`,
+      {
+        amount,
+        topic,
+        type,
+      },
+    );}
+    catch(aiError) {
+      return NextResponse.json(
+        {
+          error: aiError,
+        },
+        {
+          status: 502,
+        },
+      );}
+    //create game in db and store game id
     const game = await prisma.game.create({
       data: {
         gameType: type,
@@ -43,44 +65,10 @@ export async function POST(req: Request, res: Response) {
         },
       },
     });
-    //send request to ai to create questions through question endpoint and receive response data with questiond
-    const { data } = await axios.post(
-      `${process.env.IQUIZ_URL_API}/api/questions`,
-      {
-        amount,
-        topic,
-        type,
-      },
-    );
-    console.log("data from game route aka api", data)
+   // console.log("data from game route aka api", data)
     if (type === "mcq") {
-      type mcqQuestion = {
-        question: string;
-        answer: string;
-        option1: string;
-        option2: string;
-        option3: string;
-      };
-      let manyData = data.questions.map((question: mcqQuestion) => {
-        let options = [
-          question.answer,
-          question.option1,
-          question.option2,
-          question.option3,
-        ];
-        options = options.sort(() => Math.random() - 0.5);
-        return {
-          question: question.question,
-          answer: question.answer,
-          options: JSON.stringify(options),
-          gameId: game.id,
-          questionType: "mcq",
-        };
-      });
-      //save created question to db mcq
-      await prisma.question.createMany({
-        data: manyData,
-      });
+
+    await createMCQQuizPrisma(data.data, game.id )
     } else if (type === "open_ended" || type === "flash_card") {
       type openQuestion = {
         question: string;
@@ -88,7 +76,7 @@ export async function POST(req: Request, res: Response) {
       };
       //create array of questions and answers to send to db
       console.log("data from game route aka api", data);
-      let manyData = data.questions.map((question: openQuestion) => {
+      let manyData = data.data.questions.map((question: openQuestion) => {
         return {
           question: question.question,
           answer: question.answer,
@@ -125,4 +113,45 @@ export async function POST(req: Request, res: Response) {
       },
     );
   }
+}
+
+interface MCQQuestion {
+  question: string;
+  answer: string;
+  option1: string;
+  option2: string;
+  option3: string;
+}
+
+import { GameType } from "@prisma/client";
+
+interface MCQQuestionData {
+  question: string;
+  answer: string;
+  options: string;
+  gameId: string;
+  questionType: GameType;
+}
+
+async function createMCQQuizPrisma(qData: { questions: MCQQuestion[] }, gameId: string): Promise<void> {
+  let manyData: MCQQuestionData[] = qData.questions.map((question: MCQQuestion) => {
+    let options = [
+      question.answer,
+      question.option1,
+      question.option2,
+      question.option3,
+    ];
+    options = options.sort(() => Math.random() - 0.5);
+    return {
+      question: question.question,
+      answer: question.answer,
+      options: JSON.stringify(options),
+      gameId: gameId,
+      questionType: "mcq",
+    };
+  });
+  //save created question to db mcq
+  await prisma.question.createMany({
+    data: manyData,
+  });
 }

@@ -33,7 +33,16 @@ export async function POST(req: Request, res: Response) {
         type,
       );
     }
-    // console.log(questions)
+  if (!questions) {
+      return NextResponse.json(
+        {
+          error: "Failed to generate questions",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
     return NextResponse.json(
       {
         questions: questions,
@@ -44,20 +53,17 @@ export async function POST(req: Request, res: Response) {
     );
   } catch (error) {
     if (error instanceof ZodError) {
-      return NextResponse.json(
-        { error: error.issues },
-        {
-          status: 400,
-        },
-      );
-    } else {
-      console.error("elle gpt error", error);
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        {
-          status: 500,
-        },
-      );
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
+  
+    if (
+      error instanceof Error &&
+      error.message.includes("Too Many Requests")
+    ) {
+      return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
+    }
+  
+    console.error("elle gpt error", error);
+    return NextResponse.json({ error: "An unexpected error occurred." }, { status: 500 });
   }
 }
