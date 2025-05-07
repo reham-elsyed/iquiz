@@ -22,7 +22,7 @@ export async function POST(req: Request, res: Response) {
     const body = await req.json();
     const { amount, topic, type } = quizCreationSchema.parse(body);
     let questions: any;
-    if (type === "open_ended") {
+    if (type === "open_ended" || type === "flash_card") {
       questions = await strict_output(
         `You are a professional question creator that generate a pair of question and answers, the length of each answer should not be more than 15 words, store all the pairs of answers and questions in a JSON array You are to generate exactly ${amount} open-ended questions about ${topic}`,
         type,
@@ -33,7 +33,16 @@ export async function POST(req: Request, res: Response) {
         type,
       );
     }
-    // console.log(questions)
+  if (!questions) {
+      return NextResponse.json(
+        {
+          error: "Failed to generate questions",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
     return NextResponse.json(
       {
         questions: questions,
@@ -44,20 +53,17 @@ export async function POST(req: Request, res: Response) {
     );
   } catch (error) {
     if (error instanceof ZodError) {
-      return NextResponse.json(
-        { error: error.issues },
-        {
-          status: 400,
-        },
-      );
-    } else {
-      console.error("elle gpt error", error);
-      return NextResponse.json(
-        { error: "An unexpected error occurred." },
-        {
-          status: 500,
-        },
-      );
+      return NextResponse.json({ error: error.issues }, { status: 400 });
     }
+  
+    if (
+      error instanceof Error &&
+      error.message.includes("Too Many Requests")
+    ) {
+      return NextResponse.json({ error: "Rate limit exceeded" }, { status: 429 });
+    }
+  
+    console.error("elle gpt error", error);
+    return NextResponse.json({ error: "An unexpected error occurred." }, { status: 500 });
   }
 }
