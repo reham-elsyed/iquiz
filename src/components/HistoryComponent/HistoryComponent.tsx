@@ -42,7 +42,7 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
                   {new Date(game.timeStarted).toLocaleDateString()}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {game.gameType === "mcq" ? "MCQ" : "Open Ended"}
+                  {game.gameType.split("_").join(" ").toUpperCase()}
                 </p>
               </div>
             </div>
