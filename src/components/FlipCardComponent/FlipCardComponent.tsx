@@ -1,11 +1,14 @@
 'use client'
 import React, { useState } from 'react'
 import { Button } from '../ui/button';
-
-type Props = {}
+import { Game, Question } from "@prisma/client";
+type Props = {
+    game: Game & { questions: Pick<Question, "id" | "question" | "answer" >[] };
+    
+}
 
 const FlipCardComponent =(props: Props) => {
-//const {question, answer} = await axios.post('/api/flashCard')
+//const {question, answer} = await axios.post('/api/game')
     const [flip, setFlip] = useState(false);
     function flipCard(){
         setFlip(prev=> !prev)

@@ -19,26 +19,21 @@ import { checkAnswerSchema } from "@/app/schemas/formSchema/quizSchema";
 import { z } from "zod";
 import axios from "axios";
 import BlankAnswerComponent from "../BlankAnswersComponent/BlankAnswerComponent";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
 
 const OpenEndedQuiz = ({ game }: Props) => {
-  const [questionIndex, setQuestuionIndex] = useState(0);
+ // const [storedValue, setQuestuionIndex] = useState(0);
   const [isOver, setIsOver] = useState(false);
   const [now, setNow] = useState<Date>(new Date());
   const [keywords, setKeywords] = useState<string[]>([]);
   const { toast } = useToast();
   const inputRefs = useRef<HTMLInputElement[]>([]);
   // set current question on refresh or reload
-  useEffect(() => {
-    if (localStorage.getItem("questionIndex")) {
-      setQuestuionIndex(
-        Number(JSON.parse(localStorage.getItem("questionIndex") as string)),
-      );
-    }
-  }, []);
+ const [storedValue, setStoredValue ] = useLocalStorage({key:"storedValue",value:0});
   //duration of quiz setting current date
   console.log(game.questions);
   useEffect(() => {
@@ -53,9 +48,9 @@ const OpenEndedQuiz = ({ game }: Props) => {
   }, [isOver]);
   //return the current question
   const currentQuestion = useMemo(() => {
-    console.log(game.questions[questionIndex]);
-    return game.questions[questionIndex];
-  }, [questionIndex, game.questions]);
+    console.log(game.questions[storedValue]);
+    return game.questions[storedValue];
+  }, [storedValue, game.questions]);
 
   const { mutate: checkAnswer, isPending: isChecking } = useMutation({
     mutationFn: async () => {
@@ -82,10 +77,10 @@ const OpenEndedQuiz = ({ game }: Props) => {
           description: " answers are matched based on similarity comparison",
         });
 
-        if (questionIndex === game.questions.length - 1) {
+        if (storedValue === game.questions.length - 1) {
           setIsOver(true);
           await setEndOfQuizTime(game.id);
-          localStorage.removeItem("questionIndex");
+          localStorage.removeItem("storedValue");
           inputRefs.current = [];
           return;
         }
@@ -94,14 +89,10 @@ const OpenEndedQuiz = ({ game }: Props) => {
           input.value = "";
           input?.focus();
         });
-        setQuestuionIndex((prev) => prev + 1);
-        localStorage.setItem(
-          "questionIndex",
-          JSON.stringify(questionIndex + 1),
-        );
+        setStoredValue((prev: number) => prev+= 1);        
       },
     });
-  }, [checkAnswer, toast, isChecking, game.questions.length, questionIndex]);
+  }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -145,7 +136,7 @@ const OpenEndedQuiz = ({ game }: Props) => {
           <Card className="w-full mt-4">
             <CardHeader className="flex flex-row item-center">
               <CardTitle className="mr-5 text-center divide-y divide-zinc-600/50">
-                <div>{questionIndex + 1}</div>
+                <div>{storedValue + 1}</div>
                 <div className="text-base text-slate-400">
                   {game.questions.length}
                 </div>
@@ -167,7 +158,7 @@ const OpenEndedQuiz = ({ game }: Props) => {
               ) : (
                 <>
                   {" "}
-                  {questionIndex === game.questions.length - 1
+                  {storedValue === game.questions.length - 1
                     ? `finish`
                     : `next`}{" "}
                   <ChevronRight className="w-4 h-4 ml-2" />

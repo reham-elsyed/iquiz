@@ -81,7 +81,7 @@ export async function POST(req: Request, res: Response) {
           question: question.question,
           answer: question.answer,
           gameId: game.id,
-          questionType: "open_ended",
+          questionType: type,
         };
       });
       //store quiz in db 'open ended
