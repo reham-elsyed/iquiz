@@ -30,6 +30,7 @@ export type InputValue = z.infer<typeof quizCreationSchema>;
 export default  function CreateFlashcardForm(){
 console.log("create flashcard")             
 const [step, setStep] = useState(0)
+const[disabled, setDisabled]=useState(false)
 const router = useRouter()
 //next button
 const handleNext = () =>{
@@ -58,13 +59,14 @@ const handleBack = ()=>{
       if (response.status !== 200) {
         throw new Error("Error creating flashcards")
       }
-      console.log("response", response.data)
       return response.data
     },
   })
  
     const   onSubmit = async (input: InputValue) => {
     console.log("input", input)
+    setDisabled(true)
+    try{
     createFlashCards({
       amount: input.amount,
       topic: input.topic,
@@ -74,7 +76,11 @@ const handleBack = ()=>{
         console.log("gameId", gameId)
 router.push(`/play/flash_card/${gameId}`)
    
-       }})
+       }})}catch(error){
+        console.log(error)
+       }finally{
+setDisabled(false)
+       }
    
   }
  
@@ -94,7 +100,7 @@ router.push(`/play/flash_card/${gameId}`)
   {step < formFields.length - 1 ? (
     <Button onClick={handleNext}>Next</Button>
   ) : (
-    <Button type="submit">Submit</Button>
+    <>{disabled?<Button disabled={disabled}>...Loading</Button>:<Button disabled={disabled} type="submit">Submit</Button>}</>
   )}
 </div>                </form>
                 </FormProvider>

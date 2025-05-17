@@ -25,7 +25,7 @@ export default async function FlashCardPage({params}: Props) {
 
    })
 return (
-    <div className="flex h-screen">
+    <div className=" h-[calc(100vh-4rem)]">
         {game ? (
             <FlipCardComponent game={game} />
         ) : (

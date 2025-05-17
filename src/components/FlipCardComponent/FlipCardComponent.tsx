@@ -17,8 +17,9 @@ const FlipCardComponent =({game}: Props) => {
 switch(action.type)
 {
     case 'done':
-        const  newState= state.slice(0,-1)
         handleNext()
+        const  newState= state.slice(0,-1)
+        console.log('done', newState)
         return newState
     case 'notSure':
         return [...state, action.payload]
@@ -47,30 +48,35 @@ function handleNext(){
     setFlip(false);
 }
    return (
-    <div className='modal-container bg-muted h-2/3 w-1/3 perspective'
-    >
-        <div className='h-2/3 relative trans'>
-        {game && game.questions && game.questions.length > 0 && (<>   <div className={`h-full duration-300 ${flip?'flip':'flip-back'} bg-accent`}> {questions[storedValue].question}</div>
-        <div className={`absolute duration-300 inset-0 h-full backface ${flip?'flip-back':'flip'} bg-background`}>{questions[storedValue].answer}
-            </div></>
-)}
-{questions.length ===0 && <div>you are done</div>}
+    <div className='flex flex-col lg:flex-row justify-center  items-center mt-16 gap-8 lg:p-16 h-full'>
+        <div className=' card lg:w-1/2'>
+        {game && questions && questions.length > 0 ? (<>   <div className={` duration-300 ${flip?'flip':'flip-back'} bg-accent  card-face`}> {questions[storedValue]?.question}</div>
+        <div className={` card-face  backface ${flip?'flip-back':'flip'} `}>{questions[storedValue]?.answer}
+            </div></>):<div className='card-face'>you are done</div>
+}
+
         </div>
       
-<div>
-    <Button onClick={()=>dispatch({type:'done'})}>done</Button>
-    <Button onClick={()=>dispatch({type:'notSure', payload:questions[storedValue]})}>not sure</Button>
-        <Button onClick={()=>dispatch({type:'still',payload:questions[storedValue]})}>still</Button>
- <Button onClick={()=>dispatch({type:'retry',payload:game.questions})}>retry</Button>
+<div className="lg:w-1/2 flex flex-col gap-6 p-4">
+  {/* Response Buttons */}
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <Button onClick={() => dispatch({ type: 'done' })}>Done</Button>
+    <Button onClick={() => dispatch({ type: 'notSure', payload: questions[storedValue] })}>
+      Not Sure
+    </Button>
+    <Button onClick={() => dispatch({ type: 'still', payload: questions[storedValue] })}>
+      Still
+    </Button>
+    <Button onClick={() => dispatch({ type: 'retry', payload: game.questions })}>Retry</Button>
+  </div>
+
+  {/* Navigation Buttons */}
+  <div className="flex justify-center gap-8">
+    <Button onClick={flipCard}>Flip</Button>
+    <Button onClick={handleNext}>Next</Button>
+  </div>
 </div>
-        <div className='flex justify-evenly'>
-            <Button
-    onClick={flipCard}
-    >flip</Button>
-    <Button
-    onClick={handleNext}
-    >Next</Button>
-    </div>
+
     </div>
   )
 }

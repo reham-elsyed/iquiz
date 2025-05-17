@@ -138,6 +138,7 @@ z-index: 0;
 }
 .backface{
   backface-visibility: hidden;
+
 }
 .back:hover{
   transform: rotateY(360deg);
@@ -151,21 +152,7 @@ z-index: 0;
   transition:all .6s;
   transform:rotateY(0deg);
   opacity:1;
-}
 
-
-.card-container {
-  perspective: 1000px;
-  width: 100%;
-  height: 100%;
-}
-
-.card {
-  transform-style: preserve-3d;
-  transition: transform 0.6s ease-in-out;
-  position: relative;
-  width: 100%;
-  height: 100%;
 }
 
 .card-face {
@@ -180,6 +167,21 @@ z-index: 0;
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.card-container {
+  perspective: 1000px;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease-in-out;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
 
 .card-front {
   background-color: hsl(var(--accent));

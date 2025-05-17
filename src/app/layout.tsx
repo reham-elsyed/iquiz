@@ -19,9 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={cn("font-geist  antialiased min-h-screen mt-16 ")}>
+        <body className={cn("font-geist  antialiased mt-16 ")}>
           <Navbar />
-          <main className="flex flex-col min-h-[calc(100vh-4rem)]">
+          <main className="flex flex-col ">
           {children}
           </main>
           
