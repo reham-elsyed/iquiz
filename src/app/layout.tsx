@@ -5,6 +5,7 @@ import Navbar from "@/components/NavBar/Navbar";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/Footer/Footer";
+import Sidebar from "@/components/SideBar/SideBar";
 
 export const metadata: Metadata = {
   title: "IQuiz",
@@ -19,14 +20,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={cn("font-geist  antialiased mt-16 ")}>
-          <Navbar />
-          <main className="flex flex-col ">
+        <body className={cn("font-geist  antialiased flex  ")}>
+           <Navbar/>
+          <Sidebar/>
+          <main className="flex flex-col w-full mt-16">
+           
           {children}
-          </main>
-          
           <Footer/>
           <Toaster />
+          </main>
         </body>
       </NextAuthProvider>
     </html>

@@ -12,8 +12,8 @@ export default async function Navbar(){
 const session =await getAuthSession()
 
     return(
-        <nav className="fixed top-0 right-0 left-0 z-20 bg-background text-forground shadow-md shadow-border">
-        <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-5 lg:py-5 lg:px-8 justify-between">
+        <nav className="fixed top-0 right-0 left-56 z-20 bg-background text-forground ">
+        <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-5 lg:py-5 lg:px-8 lg:pe-20 justify-between">
           <div>
           <NavigationMenu>
             <Link href="/home" className="w-32 rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white ">
@@ -23,7 +23,8 @@ const session =await getAuthSession()
            
                
             <ul className="lg:flex gap-x-4 ml-14 hidden self-start">
-<NavBarList/>
+                <li className=""><input type='text' placeholder="search"/> </li>
+{/* <NavBarList/> */}
 
             </ul> 
             </NavigationMenu>

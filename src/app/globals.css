@@ -116,6 +116,27 @@ body {
 .modal-container {
   @apply absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
+@layer utilities {
+    @keyframes growWidth {
+      0% {
+        width: 200px;
+      }
+      100% {
+        width: 224px;
+      }
+    }
+  
+    .animate-growWidth {
+      animation: growWidth 1s ease-in-out forwards;
+    }
+   
+  }
+  @layer  components{
+.tab{
+  padding: 12px 20px 12px 20px;
+  border-radius: 24px;
+}
+  }
 
 .frame::after{
 content:"";
