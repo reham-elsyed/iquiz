@@ -11,7 +11,7 @@ const ExpandedSidebar = () => {
   const pathname = usePathname()
    const navItems = [
     {
-      href: '/',
+      href: '/home',
       label: 'Overview',
       icon: '/si_dashboard-fill.svg',
       activeIcon: '/si_dashboard-fill-white.svg',

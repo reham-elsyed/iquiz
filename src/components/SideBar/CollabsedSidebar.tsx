@@ -10,7 +10,7 @@ const Collabsed = () => {
    const pathname = usePathname()
      const navItems = [
       {
-        href: '/',
+        href: '/home',
         label: 'Overview',
         icon: '/si_dashboard-fill.svg',
         activeIcon: '/si_dashboard-fill-white.svg',
@@ -20,6 +20,7 @@ const Collabsed = () => {
         href: '/userDashboard',
         label: 'Dashboard',
         icon: '/material-symbols_quiz.svg',
+        activeIcon: '/material-symbols_quiz.svg',
       },
     ]
   return (

@@ -14,7 +14,7 @@ const Sidebar = () => {
         console.log(isToggled)
     }
   return (
-    <header className='bg-[#F4ECE5] rounded-md h-screen w-fit  top-0 left-0 z-10 shadow-lg'>
+    <header className='bg-[#F4ECE5] rounded-md  w-fit  top-0 left-0 bottom-0 z-10 shadow-lg'>
 
         <h1 className='cursor-pointer  text-start p-2' onClick={handleToggle}>Study DUO</h1>
         {isToggled? <div className={` flex flex-col items-start  ${isToggled&& "animate-growWidth"} `}>
