@@ -15,6 +15,7 @@ import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import EndOfQuizModal from "../EndOfQuizModal/EndOfQuizModal";
 import { durationOfQuiz, formatTimeDelta, setEndOfQuizTime } from "@/lib/utils";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
@@ -24,10 +25,11 @@ const MCQuiz = ({ game }: Props) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [selectedChoice, setSelectedChoice] = useState(0);
-  const [questionIndex, setQuestuionIndex] = useState(0);
+ // const [storedValue, setQuestuionIndex] = useState(0);
   const [isOver, setIsOver] = useState(false);
   const [now, setNow] = useState<Date>(new Date());
   const { toast } = useToast();
+  const[storedValue, setStoredValue, removeItem] = useLocalStorage({key:"MCQIndex",value:0});
 
   useEffect(() => {
     if (localStorage.getItem("correctAnswers")) {
@@ -48,26 +50,24 @@ const MCQuiz = ({ game }: Props) => {
         Number(JSON.parse(localStorage.getItem("wrongAnswers") as string)),
       );
     }
-    if (localStorage.getItem("questionIndex")) {
-      setQuestuionIndex(
-        Number(JSON.parse(localStorage.getItem("questionIndex") as string)),
+    // set current question on refresh or reload
+    if (storedValue) {
+      setStoredValue(
+        Number(storedValue),
       );
     }
   }, []);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isOver) {
-        setNow(new Date());
-      }
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [isOver]);
+ useEffect(() => {
+  if (!isOver) {
+    const interval = setInterval(() => setNow(new Date()), 3000);
+    return () => clearInterval(interval);
+  }
+}, [isOver]);
+
   //return the current question
   const currentQuestion = useMemo(() => {
-    return game.questions[questionIndex];
-  }, [questionIndex, game.questions]);
+    return game.questions[storedValue];
+  }, [storedValue, game.questions]);
 
   const { mutate: checkAnswer, isPending: isChecking } = useMutation({
     mutationFn: async () => {
@@ -108,22 +108,22 @@ const MCQuiz = ({ game }: Props) => {
             JSON.stringify(wrongAnswers + 1),
           );
         }
-        if (questionIndex === game.questions.length - 1) {
+        if (storedValue === game.questions.length - 1) {
           setIsOver(true);
           await setEndOfQuizTime(game.id);
-          localStorage.removeItem("questionIndex");
+          removeItem("MCQIndex");
           localStorage.removeItem("correctAnswers");
           localStorage.removeItem("wrongAnswers");
           return;
         }
-        setQuestuionIndex((prev) => prev + 1);
-        localStorage.setItem(
-          "questionIndex",
-          JSON.stringify(questionIndex + 1),
-        );
+        setStoredValue((prev) => prev + 1);
+        // localStorage.setItem(
+        //   "storedValue",
+        //   JSON.stringify(storedValue + 1),
+        // );
       },
     });
-  }, [checkAnswer, toast, isChecking, game.questions.length, questionIndex]);
+  }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -158,7 +158,9 @@ const MCQuiz = ({ game }: Props) => {
       {isOver ? (
         <>
           {" "}
+          <div className="relative h-screen">
           <EndOfQuizModal gameId={game.id} duration={duration} />
+          </div>
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">
@@ -184,7 +186,7 @@ const MCQuiz = ({ game }: Props) => {
           <Card className="w-full mt-4">
             <CardHeader className="flex flex-row item-center">
               <CardTitle className="mr-5 text-center divide-y divide-zinc-600/50">
-                <div>{questionIndex + 1}</div>
+                <div>{storedValue + 1}</div>
                 <div className="text-base text-slate-400">
                   {game.questions.length}
                 </div>
@@ -212,7 +214,7 @@ const MCQuiz = ({ game }: Props) => {
               ) : (
                 <>
                   {" "}
-                  {questionIndex === game.questions.length - 1
+                  {storedValue === game.questions.length - 1
                     ? `finish`
                     : `next`}{" "}
                   <ChevronRight className="w-4 h-4 ml-2" />

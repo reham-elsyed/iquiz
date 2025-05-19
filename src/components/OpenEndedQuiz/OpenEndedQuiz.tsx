@@ -26,7 +26,6 @@ type Props = {
 };
 
 const OpenEndedQuiz = ({ game }: Props) => {
- // const [storedValue, setQuestuionIndex] = useState(0);
   const [isOver, setIsOver] = useState(false);
   const [now, setNow] = useState<Date>(new Date());
   const [keywords, setKeywords] = useState<string[]>([]);
@@ -35,7 +34,7 @@ const OpenEndedQuiz = ({ game }: Props) => {
   // set current question on refresh or reload
  const [storedValue, setStoredValue ] = useLocalStorage({key:"storedValue",value:0});
   //duration of quiz setting current date
-  console.log(game.questions);
+  //console.log(game.questions);
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isOver) {
