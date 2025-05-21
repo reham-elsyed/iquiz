@@ -17,8 +17,8 @@ const useLocalStorage = <T,>({ key, value }: useLocalStorageProps<T>) => {
    console.log(storedValue)
  },[key, storedValue])
 
- const removeItem = (key:string)=>{
-   localStorage.removeItem(key)
+ const removeItem = ()=>{
+   removeItem()
    
  }
 

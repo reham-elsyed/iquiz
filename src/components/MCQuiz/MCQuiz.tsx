@@ -22,8 +22,8 @@ type Props = {
 };
 
 const MCQuiz = ({ game }: Props) => {
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [correctAnswers, setCorrectAnswers, removeCorrectAnswer] = useLocalStorage({key:'correctAnswers', value:0})
+  const [wrongAnswers, setWrongAnswers, RemoveWrongAnswer] = useLocalStorage({key:'wrongAnswers', value:0})
   const [selectedChoice, setSelectedChoice] = useState(0);
  // const [storedValue, setQuestuionIndex] = useState(0);
   const [isOver, setIsOver] = useState(false);
@@ -31,32 +31,8 @@ const MCQuiz = ({ game }: Props) => {
   const { toast } = useToast();
   const[storedValue, setStoredValue, removeItem] = useLocalStorage({key:"MCQIndex",value:0});
 
-  useEffect(() => {
-    if (localStorage.getItem("correctAnswers")) {
-      console.log(
-        Number(JSON.parse(localStorage.getItem("correctAnswers") as string)),
-      );
-      setCorrectAnswers(
-        Number(JSON.parse(localStorage.getItem("correctAnswers") as string)),
-      );
-    }
-
-    if (localStorage.getItem("wrongAnswers")) {
-      console.log(
-        Number(JSON.parse(localStorage.getItem("wrongAnswers") as string)),
-      );
-
-      setWrongAnswers(
-        Number(JSON.parse(localStorage.getItem("wrongAnswers") as string)),
-      );
-    }
-    // set current question on refresh or reload
-    if (storedValue) {
-      setStoredValue(
-        Number(storedValue),
-      );
-    }
-  }, []);
+ 
+ 
  useEffect(() => {
   if (!isOver) {
     const interval = setInterval(() => setNow(new Date()), 3000);
@@ -93,34 +69,26 @@ const MCQuiz = ({ game }: Props) => {
             variant: "success",
           });
           setCorrectAnswers((prev) => prev + 1);
-          localStorage.setItem(
-            "correctAnswers",
-            JSON.stringify(correctAnswers + 1),
-          );
+         
         } else {
           toast({
             title: "Wrong",
             variant: "destructive",
           });
           setWrongAnswers((prev) => prev + 1);
-          localStorage.setItem(
-            "wrongAnswers",
-            JSON.stringify(wrongAnswers + 1),
-          );
+         
         }
         if (storedValue === game.questions.length - 1) {
           setIsOver(true);
           await setEndOfQuizTime(game.id);
-          removeItem("MCQIndex");
-          localStorage.removeItem("correctAnswers");
-          localStorage.removeItem("wrongAnswers");
+          //remove savedIndex(storedValue) from localstorage
+          removeItem();
+          removeCorrectAnswer();
+          RemoveWrongAnswer();
           return;
         }
         setStoredValue((prev) => prev + 1);
-        // localStorage.setItem(
-        //   "storedValue",
-        //   JSON.stringify(storedValue + 1),
-        // );
+       
       },
     });
   }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);

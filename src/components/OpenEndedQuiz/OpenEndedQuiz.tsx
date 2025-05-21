@@ -110,8 +110,9 @@ const OpenEndedQuiz = ({ game }: Props) => {
       {isOver ? (
         <>
           {" "}
+  <div className="relative h-screen">
           <EndOfQuizModal gameId={game.id} duration={duration} />
-        </>
+          </div>        </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">
            <div className=" mt-10 p-x-2 md:w-[80vm] max-w-4xl w-[90vm] ">
