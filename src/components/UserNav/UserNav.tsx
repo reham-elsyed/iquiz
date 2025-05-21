@@ -34,12 +34,11 @@ export default function UserNav({ user }: Props) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuItem>
-        <NavigationMenu>
-
-        <ul>
-          <NavBarList/>
-        </ul>
-        </NavigationMenu>
+          <NavigationMenu>
+            <ul>
+              <NavBarList />
+            </ul>
+          </NavigationMenu>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>

@@ -1,21 +1,22 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const Loading = (props: Props) => {
   return (
     <div
-    className="flex items-center justify-center h-screen bg-[hsl(var(--background))]"
-    aria-label="Loading"
-  >
-    <div
-      className="w-16 h-16 border-4 border-[hsl(var(--muted))] border-t-[hsl(var(--primary))] rounded-full animate-spin"
-      role="status"
-      aria-busy="true"
+      className="flex items-center justify-center h-screen bg-[hsl(var(--background))]"
+      aria-label="Loading"
     >
-      <span className="sr-only">Loading...</span>
+      <div
+        className="w-16 h-16 border-4 border-[hsl(var(--muted))] border-t-[hsl(var(--primary))] rounded-full animate-spin"
+        role="status"
+        aria-busy="true"
+      >
+        <span className="sr-only">Loading...</span>
+      </div>
     </div>
-  </div>  )
-}
+  );
+};
 
-export default Loading
+export default Loading;

@@ -15,23 +15,22 @@ const History = async (props: Props) => {
 
   return (
     <div className="flex justify-center items-center h-screen">
-       <div className=" w-[60vw]">
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl font-bold">History</CardTitle>
-            <Link className="hover:text-accent" href="/userDashboard">
-              Back to Dashboard
-            </Link>
-          </div>
-        </CardHeader>
-        <CardContent className="max-h-[60vh] overflow-scroll">
-          <HistoryComponent limit={100} userId={session.user.id} />
-        </CardContent>
-      </Card>
+      <div className=" w-[60vw]">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-2xl font-bold">History</CardTitle>
+              <Link className="hover:text-accent" href="/userDashboard">
+                Back to Dashboard
+              </Link>
+            </div>
+          </CardHeader>
+          <CardContent className="max-h-[60vh] overflow-scroll">
+            <HistoryComponent limit={100} userId={session.user.id} />
+          </CardContent>
+        </Card>
+      </div>
     </div>
-    </div>
-   
   );
 };
 

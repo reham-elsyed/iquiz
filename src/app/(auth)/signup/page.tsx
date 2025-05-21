@@ -35,8 +35,8 @@ export default function Signup() {
         <Button variant="outline" size="icon">
           <GitFork className="w-4 h-4" />
         </Button> */}
-        <GitHubButton/>
-        <GoogleButton/>
+        <GitHubButton />
+        <GoogleButton />
       </div>
     </div>
   );

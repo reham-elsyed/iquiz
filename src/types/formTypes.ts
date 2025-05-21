@@ -12,4 +12,4 @@ export type flashcardFormFieldType = {
   desc: string;
   type: string;
 };
-export type flashcardFormFieldProps = flashcardFormFieldType []
+export type flashcardFormFieldProps = flashcardFormFieldType[];

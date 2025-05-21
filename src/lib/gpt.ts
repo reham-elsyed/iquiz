@@ -7,7 +7,7 @@ import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 import { GoogleGenAI, Schema } from "@google/genai";
 
-const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY as string});
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string });
 export async function strict_output(prompt: string, type: string) {
   console.log(prompt, type, "wellcome to gemini config");
   try {
@@ -78,19 +78,19 @@ export async function strict_output(prompt: string, type: string) {
     //     responseSchema: schema,
     //   },
     // });
-const result = await ai.models.generateContent({
-  model: "gemini-2.0-flash",
-  config: {
-    responseMimeType: "application/json",
-    responseSchema: schema as unknown as Schema},
-  contents:prompt})
-  //  const result = await model.generateContent(prompt);
-  
+    const result = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: schema as unknown as Schema,
+      },
+      contents: prompt,
+    });
+    //  const result = await model.generateContent(prompt);
+
     console.log(result.text);
     return JSON.parse(result.text as string);
   } catch (error) {
     console.log(error);
   }
 }
-
-

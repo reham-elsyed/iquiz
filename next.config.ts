@@ -5,16 +5,14 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'gokxczesysklzepbknzb.supabase.co',
-        pathname: '/storage/v1/object/public/hero-image/**',
-
+        protocol: "https",
+        hostname: "gokxczesysklzepbknzb.supabase.co",
+        pathname: "/storage/v1/object/public/hero-image/**",
       },
       {
-        protocol: 'https',
-        hostname: 'gokxczesysklzepbknzb.supabase.co',
-        pathname: '/storage/v1/object/public/user-image/**',
-        
+        protocol: "https",
+        hostname: "gokxczesysklzepbknzb.supabase.co",
+        pathname: "/storage/v1/object/public/user-image/**",
       },
     ],
   },
@@ -24,7 +22,7 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-   devIndicators: {
+  devIndicators: {
     buildActivity: false,
   },
 };

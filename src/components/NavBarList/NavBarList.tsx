@@ -14,10 +14,15 @@ const NavBarList = () => {
   return (
     <>
       {linksArray.map((link: LinkProps, i: number) => (
-        <NavigationMenuItem key={i}
-        className={`${pathName=== link.href}?'bg-red-900':'bg-forground'`} 
+        <NavigationMenuItem
+          key={i}
+          className={`${pathName === link.href}?'bg-red-900':'bg-forground'`}
         >
-          <Link className={`${pathName=== link.href}?'bg-red-900':'bg-forground'`} href={link.href} passHref>
+          <Link
+            className={`${pathName === link.href}?'bg-red-900':'bg-forground'`}
+            href={link.href}
+            passHref
+          >
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               {link.name}
             </NavigationMenuLink>
