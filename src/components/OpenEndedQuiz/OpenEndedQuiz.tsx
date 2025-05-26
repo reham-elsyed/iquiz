@@ -28,8 +28,9 @@ type Props = {
 };
 
 const OpenEndedQuiz = ({ game }: Props) => {
-  const [isOver, setIsOver] = useState(false);
-  const [now, setNow] = useState<Date>(new Date());
+ const [isOver, setIsOver,removeIsOver] = useLocalStorage({
+    key: "isOver",
+    value: false,});  const [now, setNow] = useState<Date>(new Date());
   const [keywords, setKeywords] = useState<string[]>([]);
   const { toast } = useToast();
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -113,9 +114,7 @@ const OpenEndedQuiz = ({ game }: Props) => {
       {isOver ? (
         <>
           {" "}
-          <div className="relative h-screen">
-            <EndOfQuizModal gameId={game.id} duration={duration} />
-          </div>{" "}
+            <EndOfQuizModal gameId={game.id} duration={duration}  removeIsOver={removeIsOver}/> 
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">

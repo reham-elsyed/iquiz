@@ -20,7 +20,7 @@ const Collabsed = () => {
       href: "/userDashboard",
       label: "Dashboard",
       icon: "/material-symbols_quiz.svg",
-      activeIcon: "/material-symbols_quiz.svg",
+      activeIcon: "/symbols_question.svg",
     },
   ];
   return (

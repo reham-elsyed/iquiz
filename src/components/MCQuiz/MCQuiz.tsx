@@ -32,21 +32,32 @@ const MCQuiz = ({ game }: Props) => {
   });
   const [selectedChoice, setSelectedChoice] = useState(0);
   // const [storedValue, setQuestuionIndex] = useState(0);
-  const [isOver, setIsOver] = useState(false);
+  //const [isOver, setIsOver] = useState(false);
+    const [isOver, setIsOver,removeIsOver] = useLocalStorage({
+    key: "isOver",
+    value: false,});
+
   const [now, setNow] = useState<Date>(new Date());
   const { toast } = useToast();
   const [storedValue, setStoredValue, removeItem] = useLocalStorage({
     key: "MCQIndex",
     value: 0,
   });
-
+//calculate the duration of test/ timer
+  const duration = durationOfQuiz(now, game.timeStarted);
   useEffect(() => {
     if (!isOver) {
       const interval = setInterval(() => setNow(new Date()), 3000);
       return () => clearInterval(interval);
     }
   }, [isOver]);
-
+ useEffect(() => {
+    if (isOver) {
+      removeItem();
+      removeCorrectAnswer();
+      RemoveWrongAnswer();
+    }
+  }, []);
   //return the current question
   const currentQuestion = useMemo(() => {
     return game.questions[storedValue];
@@ -83,16 +94,20 @@ const MCQuiz = ({ game }: Props) => {
           });
           setWrongAnswers((prev) => prev + 1);
         }
-        if (storedValue === game.questions.length - 1) {
+        if (storedValue === game.questions.length-1) {
           setIsOver(true);
           await setEndOfQuizTime(game.id);
           //remove savedIndex(storedValue) from localstorage
+          if (isOver){
           removeItem();
           removeCorrectAnswer();
-          RemoveWrongAnswer();
+          RemoveWrongAnswer();}
           return;
         }
-        setStoredValue((prev) => prev + 1);
+        else{
+setStoredValue((prev) => prev + 1);
+        }
+        
       },
     });
   }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);
@@ -121,16 +136,15 @@ const MCQuiz = ({ game }: Props) => {
     if (!currentQuestion.options) return [];
     return JSON.parse(currentQuestion.options as string) as string[];
   }, [currentQuestion]);
-  //calculate the duration of test/ timer
-  const duration = durationOfQuiz(now, game.timeStarted);
+  
   return (
     <>
       {isOver ? (
         <>
           {" "}
-          <div className="relative h-screen">
-            <EndOfQuizModal gameId={game.id} duration={duration} />
-          </div>
+         
+            <EndOfQuizModal gameId={game.id} duration={duration}  removeIsOver={removeIsOver}/>
+          
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">
