@@ -67,7 +67,7 @@ body {
     /* Light mode colors */
     --background: 0, 0%, 100%; /* White background */
     --foreground: 0, 0%, 10%; /* Near-black text */
-    --card: 0, 0%, 98%; /* Light gray cards */
+    --card: 28, 41%, 93%; /* Light gray cards */
     --card-foreground: 0, 0%, 10%; /* Text for card background */
     --primary: 220, 100%, 40%; /* Vibrant blue (#0056CC) */
     --primary-foreground: 0, 0%, 100%; /* White text for primary */
@@ -75,7 +75,7 @@ body {
     --secondary-foreground: 0, 0%, 10%; /* Dark text for secondary */
     --accent: 50, 100%, 50%; /* Warm yellow (#FFC700) */
     --accent-foreground: 0, 0%, 10%; /* Dark text for accent */
-    --destructive: 0, 70%, 50%; /* Soft coral (#FF4A3B) */
+    --destructive: 259, 71%, 65%; /* purple */
     --destructive-foreground: 0, 0%, 100%; /* White text for destructive */
     --muted: 0, 0%, 95%; /* Very light gray for muted elements */
     --muted-foreground: 0, 0%, 40%; /* Darker gray for muted text */

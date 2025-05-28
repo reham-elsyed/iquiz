@@ -18,6 +18,9 @@ import FlashCardFormFieldOne from "@/components/FlashCardFormFields/FlashCardFor
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import LoadingQuestions from "../LoadingQuestions/LoadingQuestions";
+import { Loader } from "lucide-react";
+import ProgressBar from "../ProgressBar/ProgressBar";
 
 const formFields: flashcardFormFieldProps = [
   {
@@ -25,8 +28,9 @@ const formFields: flashcardFormFieldProps = [
     name: "amount",
     desc: "add number of questions min: 3 max: 10",
     type: "number",
+    placeholder: "3",
   },
-  { id: 2, name: "topic", desc: "add your Flash Card topic ", type: "text" },
+  { id: 2, name: "topic", desc: "add your Flash Card topic ", type: "text" , placeholder: "createflash cards about cats" },
 ];
 export type InputValue = z.infer<typeof quizCreationSchema>;
 
@@ -47,7 +51,7 @@ export default function CreateFlashcardForm() {
     resolver: zodResolver(quizCreationSchema),
     defaultValues: {
       amount: 3,
-      topic: "database",
+      topic: "",
       type: "flash_card",
     },
   });
@@ -55,6 +59,7 @@ export default function CreateFlashcardForm() {
   const {
     mutate: createFlashCards,
     isPending,
+    isError,
     isSuccess,
   } = useMutation({
     mutationFn: async ({ amount, topic, type }: InputValue) => {
@@ -92,7 +97,10 @@ export default function CreateFlashcardForm() {
   };
 
   return (
-    <div className="h-full flex items-center justify-center">
+    <div className="h-full flex items-center justify-center relative">
+      <div className="absolute top-5 left-0 w-full z-10"><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none" variant='destructive' /></div>
+      {isError && <div className="flex items-center justify-center text-red-500">Error creating flashcards. Please try again.</div>}
+      {isPending && (<LoadingQuestions/>)}
       <Card className="w-full max-w-2xl mx-auto ">
         <CardHeader className="text-center">
           <CardTitle>Create Flashcard</CardTitle>
@@ -113,7 +121,7 @@ export default function CreateFlashcardForm() {
                 ) : (
                   <>
                     {disabled ? (
-                      <Button disabled={disabled}>...Loading</Button>
+                      <Button disabled={disabled}><Loader/></Button>
                     ) : (
                       <Button disabled={disabled} type="submit">
                         Submit

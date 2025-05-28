@@ -26,7 +26,7 @@ const FlashCardFormFieldOne = ({ fieldData, form }: Props) => {
           <FormLabel>{fieldData.name}</FormLabel>
           <FormControl>
             <Input
-              placeholder={fieldData.name}
+              placeholder={fieldData.placeholder || ""}
               {...field}
               onChange={(e) => {
                 const value = e.target.value;
