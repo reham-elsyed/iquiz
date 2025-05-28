@@ -16,10 +16,10 @@ export default async function CreateFlashcard() {
   return (
     <>
       <div className="flex h-screen">
-        <div className="w-1/2 h-full">
+        <div className="w-full lg:w-1/2 h-full">
           <CreateFlashcardForm />
         </div>
-        <div className="w-1/2 bg-slate-500"></div>
+        <div className="lg:w-1/2 bg-slate-500"></div>
       </div>
     </>
   );

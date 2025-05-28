@@ -4,6 +4,8 @@ import React from "react";
 //import DashboardiconWhite from '/si_dashboard-fill-white.svg?url'
 
 //import QuizIcon from '/material-symbols_quiz.svg?url'
+import Icon from "../SVGComponents/DashboardWhite";
+import BookIcon from "../SVGComponents/Booksvg";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 const Collabsed = () => {
@@ -12,15 +14,15 @@ const Collabsed = () => {
     {
       href: "/home",
       label: "Overview",
-      icon: "/si_dashboard-fill.svg",
-      activeIcon: "/si_dashboard-fill-white.svg",
+      icon: <Icon fill="black"  className="h-6 w-6  text-black" />,
+      activeIcon: <Icon fill="white"  className="h-6 w-6  text-white" />,
       exact: true,
     },
     {
       href: "/userDashboard",
       label: "Dashboard",
-      icon: "/material-symbols_quiz.svg",
-      activeIcon: "/symbols_question.svg",
+      icon:<BookIcon fill="black" className="h-6 w-6 text-black" />,
+      activeIcon: <BookIcon fill="white" className="h-6 w-6 text-white" />,
     },
   ];
   return (
@@ -39,11 +41,15 @@ const Collabsed = () => {
                           ${isActive ? "bg-[#121212] text-white" : "bg-[#F4ECE5] text-black"} 
                           flex justify-center items-center rounded-full h-12 w-12`}
                 >
-                  <img
+                  <div >
+                    {isActive? activeIcon : icon}
+                  </div>
+                  {/* <img
                     src={isActive ? activeIcon : icon}
                     alt="Dashboard Icon"
                     className="h-6 w-6"
-                  />
+                  /> */}
+
                 </Link>
               </li>
             );
