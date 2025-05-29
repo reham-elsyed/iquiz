@@ -1,26 +1,40 @@
 "use client";
 import React, { useEffect, useReducer, useState } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Game, Question } from "@prisma/client";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import saveFeedbackFlashCard from "@/lib/saveFeedbackFlashCard";
 import axios from "axios";
 import { flashcardFeedbackinterface } from "@/types/feedbackFlashcardTypes";
 import { getAuthSession } from "@/lib/nextAuth";
+import { durationOfQuiz } from "@/lib/utils";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
 
 const FlipCardComponent = ({ game }: Props) => {
-   // const session = await getAuthSession(); // should work if it uses cookies
   
-  //const {question, answer} = await axios.post('/api/game')
   const [flip, setFlip] = useState(false);
   const [studySessionId, setStudySessionId] = useState<string | null>(null);
-  const [storedValue, setStoredValue] = useLocalStorage({
+  const [storedValue, setStoredValue, removeValue] = useLocalStorage({
     key: "currentIndex",
     value: 0,
   });
+  // time duration of the flashcard
+     const [isOver, setIsOver,removeIsOver] = useLocalStorage({
+    key: "isOver",
+    value: false,});
+  const [TimeStarted, setTimeStarted,removeTimeStarted] = useLocalStorage({
+    key: "timeStarted",
+    value: new Date(),});
+  const [now, setNow] = useState<Date>(new Date());
+    const duration = durationOfQuiz(now, TimeStarted as Date);
+    useEffect(() => {
+      if (!isOver) {
+        const interval = setInterval(() => setNow(new Date()), 3000);
+        return () => clearInterval(interval);
+      }
+    }, [isOver]);
   interface ReducerAction {
     type: "EASY" | "MEDIUM" | "HARD";
     payload?: Pick<Question, "id" | "question" | "answer"> | Pick<Question, "id" | "question" | "answer">[];
@@ -38,31 +52,33 @@ const FlipCardComponent = ({ game }: Props) => {
  
     createStudySession();
   }, []);
+
+
 async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
   const respone = await axios.post('/api/flashCardFeedback', JSON.stringify(payload))
 }
   const reducer = async(state: ReducerState, action: ReducerAction): ReducerState => {
-    switch (action.type) {
-      case "EASY":
-        const index = storedValue
-       // handleNext();
-  //       const newState = [
-  //   ...state.slice(0, index),
-  //   ...state.slice(index + 1)
-  // ];
+      const index = storedValue
   console.log("studysession",studySessionId)
   const payload ={
     questionId: game.questions[index].id,
     feedback: action.type,
-    timeSpent: 0,
+    timeSpent: Number(durationOfQuiz(now, TimeStarted as Date)),
     sessionId: studySessionId as string,
   }
+    switch (action.type) {
+      case "EASY":
+      
  await saveFeedbackFlashCardEasy(payload)
        // console.log("done", newState);
         return state;
       case "MEDIUM":
+  
+ await saveFeedbackFlashCardEasy(payload)
         return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
       case "HARD":
+         await saveFeedbackFlashCardEasy(payload)
+
         return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
      
       default:
@@ -75,13 +91,22 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
     setFlip((prev) => !prev);
   }
   function handleNext() {
+     if( questions.length === 0 || storedValue >= questions.length - 1) {
+        removeValue();
+        
+        removeTimeStarted();
+        setIsOver(true);
+        return
+      } 
     setStoredValue((prevValue: number) => {
-      if (prevValue < game.questions.length - 1) {
+      if (prevValue < questions.length - 1) {
         return prevValue + 1;
       } else {
         return 0;
-      }
-    });
+      }});
+setTimeStarted(new Date());
+     
+    
     setFlip(false);
   }
   return (
@@ -110,26 +135,22 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
       <div className="lg:w-1/2 flex flex-col gap-6 p-4">
         {/* Response Buttons */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Button onClick={() => dispatch({ type: "EASY" })}>EASY</Button>
+          <Button onClick={() => dispatch({ type: "EASY" })}>Easy</Button>
           <Button
             onClick={() =>
               dispatch({ type: "MEDIUM", payload: questions[storedValue] })
             }
           >
-            Not Sure
+           Medium
           </Button>
           <Button
             onClick={() =>
               dispatch({ type: "HARD", payload: questions[storedValue] })
             }
           >
-            Still
+            Hard
           </Button>
-          <Button
-           
-          >
-            Retry
-          </Button>
+         
         </div>
 
         {/* Navigation Buttons */}

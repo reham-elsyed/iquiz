@@ -1,5 +1,5 @@
 import { flashcardFormFieldProps } from "@/types/formTypes";
-import CreateFlashcardForm from "@/components/FlashCardFormFields/FlashCardForm";
+import CreateFlashcardForm from "@/components/FlashCard/FlashCardFormFields/FlashCardForm";
 
 
 export default async function CreateFlashcard() {

@@ -1,4 +1,4 @@
-import FlipCardComponent from "@/components/FlipCardComponent/FlipCardComponent";
+import FlipCardComponent from "@/components/FlashCard/FlipCardComponent/FlipCardComponent";
 import prisma from "@/lib/db";
 type Props = {
   params: Promise<{

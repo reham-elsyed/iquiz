@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Form, FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { quizCreationSchema } from "../../app/schemas/formSchema/quizSchema";
+import { quizCreationSchema } from "../../../app/schemas/formSchema/quizSchema";
 import { z } from "zod";
 import {
   Card,
@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { flashcardFormFieldProps } from "@/types/formTypes";
-import FlashCardFormFieldOne from "@/components/FlashCardFormFields/FlashCardFormFieldOne";
+import FlashCardFormFieldOne from "@/components/FlashCard/FlashCardFormFields/FlashCardFormFieldOne";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import LoadingQuestions from "../LoadingQuestions/LoadingQuestions";
+import LoadingQuestions from "../../LoadingQuestions/LoadingQuestions";
 import { Loader } from "lucide-react";
-import ProgressBar from "../ProgressBar/ProgressBar";
+import ProgressBar from "../../ProgressBar/ProgressBar";
 
 const formFields: flashcardFormFieldProps = [
   {
@@ -100,7 +100,7 @@ export default function CreateFlashcardForm() {
     <div className="h-full flex items-center justify-center relative">
       <div className="absolute top-5 left-0 w-full z-10"><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none" variant='destructive' /></div>
       {isError && <div className="flex items-center justify-center text-red-500">Error creating flashcards. Please try again.</div>}
-      {isPending && (<LoadingQuestions/>)}
+     
       <Card className="w-full max-w-2xl mx-auto ">
         <CardHeader className="text-center">
           <CardTitle>Create Flashcard</CardTitle>
@@ -120,10 +120,10 @@ export default function CreateFlashcardForm() {
                   <Button onClick={handleNext}>Next</Button>
                 ) : (
                   <>
-                    {disabled ? (
-                      <Button disabled={disabled}><Loader/></Button>
+                    {isPending ? (
+                      <Button disabled={isPending}><Loader/></Button>
                     ) : (
-                      <Button disabled={disabled} type="submit">
+                      <Button disabled={isPending} type="submit">
                         Submit
                       </Button>
                     )}
