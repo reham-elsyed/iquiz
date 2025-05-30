@@ -7,13 +7,13 @@ import saveFeedbackFlashCard from "@/lib/saveFeedbackFlashCard";
 import axios from "axios";
 import { flashcardFeedbackinterface } from "@/types/feedbackFlashcardTypes";
 import { getAuthSession } from "@/lib/nextAuth";
-import { durationOfQuiz } from "@/lib/utils";
+import { calculateDurationOfFlashCardStudy, durationOfQuiz } from "@/lib/utils";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
 
 const FlipCardComponent = ({ game }: Props) => {
-  
+  const [isEasy,setIsEasy]  = useState<boolean>(false);
   const [flip, setFlip] = useState(false);
   const [studySessionId, setStudySessionId] = useState<string | null>(null);
   const [storedValue, setStoredValue, removeValue] = useLocalStorage({
@@ -55,41 +55,76 @@ const FlipCardComponent = ({ game }: Props) => {
 
 
 async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
-  const respone = await axios.post('/api/flashCardFeedback', JSON.stringify(payload))
+  return await axios.post('/api/flashCardFeedback', JSON.stringify(payload));
 }
-  const reducer = async(state: ReducerState, action: ReducerAction): ReducerState => {
+  const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
       const index = storedValue
   console.log("studysession",studySessionId)
-  const payload ={
-    questionId: game.questions[index].id,
-    feedback: action.type,
-    timeSpent: Number(durationOfQuiz(now, TimeStarted as Date)),
-    sessionId: studySessionId as string,
-  }
     switch (action.type) {
       case "EASY":
-      
- await saveFeedbackFlashCardEasy(payload)
-       // console.log("done", newState);
-        return state;
-      case "MEDIUM":
-  
- await saveFeedbackFlashCardEasy(payload)
-        return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
-      case "HARD":
-         await saveFeedbackFlashCardEasy(payload)
-
-        return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
+   if (action.payload && !Array.isArray(action.payload)) {
+     const newState = state.filter((question, i) => question.id !== (action.payload as Pick<Question, "id" | "question" | "answer">)?.id);
+     console.log("done", newState);
      
+     return newState;
+   }
+   
+      case "MEDIUM":
+          return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
+      case "HARD":
+        return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
       default:
         return state;
     }
   };
+
   const [questions, dispatch] = useReducer(reducer, game.questions);
+
+
+async function handleDispatch(action: ReducerAction) {
+  console.log('time started', TimeStarted)
+  console.log('now', now)
+  console.log(calculateDurationOfFlashCardStudy(now, TimeStarted as Date))
+  const time = (calculateDurationOfFlashCardStudy(now, TimeStarted as Date))
+  const index = storedValue;
+   const  payload={
+    questionId: game.questions[index].id,
+    feedback: action.type,
+    timeSpent: time,
+    sessionId:studySessionId as string,
+  }
+ const response = await saveFeedbackFlashCardEasy(payload)
+ if(response.status === 200) {
+  console.log("response", response)
+ dispatch(action);
+  if (action.type === "EASY") {
+    setIsEasy(true);
+  } else {
+    setIsEasy(false);
+  }
+  console.log("action", action);
+ }
+
+}
 
   function flipCard() {
     setFlip((prev) => !prev);
   }
+  useEffect(() => {
+    if (isEasy && questions)
+      {
+      
+        setTimeStarted(new Date());
+        setFlip(false);
+
+
+    }
+    if (isOver) {
+      removeValue();
+      removeTimeStarted();
+
+    }
+  }, [isOver, isEasy]);
   function handleNext() {
      if( questions.length === 0 || storedValue >= questions.length - 1) {
         removeValue();
@@ -114,11 +149,9 @@ setTimeStarted(new Date());
       <div className=" card lg:w-1/2">
         {game && questions && questions.length > 0 ? (
           <>
-            {" "}
             <div
               className={` duration-300 ${flip ? "flip" : "flip-back"} bg-accent  card-face`}
             >
-              {" "}
               {questions[storedValue]?.question}
             </div>
             <div
@@ -135,24 +168,22 @@ setTimeStarted(new Date());
       <div className="lg:w-1/2 flex flex-col gap-6 p-4">
         {/* Response Buttons */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Button onClick={() => dispatch({ type: "EASY" })}>Easy</Button>
+          <Button onClick={() => handleDispatch({ type: "EASY" , payload:questions[storedValue]})}>Easy</Button>
           <Button
             onClick={() =>
-              dispatch({ type: "MEDIUM", payload: questions[storedValue] })
+              handleDispatch({ type: "MEDIUM", payload: questions[storedValue] })
             }
           >
            Medium
           </Button>
           <Button
             onClick={() =>
-              dispatch({ type: "HARD", payload: questions[storedValue] })
+              handleDispatch({ type: "HARD", payload: questions[storedValue] })
             }
           >
             Hard
           </Button>
-         
         </div>
-
         {/* Navigation Buttons */}
         <div className="flex justify-center gap-8">
           <Button onClick={flipCard}>Flip</Button>

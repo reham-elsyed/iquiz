@@ -32,6 +32,19 @@ export function formatTimeDelta(seconds: number) {
 export function durationOfQuiz(now: Date, timeStarted: Date): string {
   return formatTimeDelta(differenceInSeconds(now, timeStarted));
 }
+function parseTimeStringToSeconds(input: string): number {
+  const minutes = parseInt(input.match(/(\d+)m/)?.[1] || "0");
+  const seconds = parseInt(input.match(/(\d+)s/)?.[1] || "0");
+  return minutes * 60 + seconds;
+}
+
+export function calculateDurationOfFlashCardStudy(now: Date, timeStarted: Date): number {
+  const duration = differenceInSeconds(now, timeStarted);
+  const durationInSeconds = parseTimeStringToSeconds(duration.toString());
+  
+  return durationInSeconds;
+
+}
 
 export function calculateAccuracyOfMCQ(game: GameWithQuestions) {
   let totalCorrect = game.questions.reduce((acc, question) => {
