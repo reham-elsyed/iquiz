@@ -40,10 +40,8 @@ function parseTimeStringToSeconds(input: string): number {
 
 export function calculateDurationOfFlashCardStudy(now: Date, timeStarted: Date): number {
   const duration = differenceInSeconds(now, timeStarted);
-  const durationInSeconds = parseTimeStringToSeconds(duration.toString());
-  
-  return durationInSeconds;
-
+  console.log("Duration in seconds:", duration); 
+  return duration;
 }
 
 export function calculateAccuracyOfMCQ(game: GameWithQuestions) {

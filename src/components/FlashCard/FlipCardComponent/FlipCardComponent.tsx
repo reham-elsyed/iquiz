@@ -8,6 +8,8 @@ import axios from "axios";
 import { flashcardFeedbackinterface } from "@/types/feedbackFlashcardTypes";
 import { getAuthSession } from "@/lib/nextAuth";
 import { calculateDurationOfFlashCardStudy, durationOfQuiz } from "@/lib/utils";
+import { set } from "date-fns";
+import EndOfQuizModal from "@/components/EndOfQuizModal/EndOfQuizModal";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
@@ -15,7 +17,7 @@ type Props = {
 const FlipCardComponent = ({ game }: Props) => {
   const [isEasy,setIsEasy]  = useState<boolean>(false);
   const [flip, setFlip] = useState(false);
-  const [studySessionId, setStudySessionId] = useState<string | null>(null);
+  const [studySessionId, setStudySessionId, removeStudySessionId] = useLocalStorage({key: "studySessionId", value: ""});
   const [storedValue, setStoredValue, removeValue] = useLocalStorage({
     key: "currentIndex",
     value: 0,
@@ -28,7 +30,7 @@ const FlipCardComponent = ({ game }: Props) => {
     key: "timeStarted",
     value: new Date(),});
   const [now, setNow] = useState<Date>(new Date());
-    const duration = durationOfQuiz(now, TimeStarted as Date);
+ const duration = durationOfQuiz(new Date(),  as Date);
     useEffect(() => {
       if (!isOver) {
         const interval = setInterval(() => setNow(new Date()), 3000);
@@ -42,6 +44,7 @@ const FlipCardComponent = ({ game }: Props) => {
 
   type ReducerState = Pick<Question, "id" | "question" | "answer">[];
   useEffect(() => {
+    if (studySessionId) return; // Prevent multiple calls if already set
     const createStudySession = async () => {
       const response = await axios.post('/api/studySessionCreation', {
         userId: game.userId, // or get user from server session
@@ -51,7 +54,7 @@ const FlipCardComponent = ({ game }: Props) => {
     };
  
     createStudySession();
-  }, []);
+  }, [studySessionId, game.userId]);
 
 
 async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
@@ -64,11 +67,9 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
       case "EASY":
    if (action.payload && !Array.isArray(action.payload)) {
      const newState = state.filter((question, i) => question.id !== (action.payload as Pick<Question, "id" | "question" | "answer">)?.id);
-     console.log("done", newState);
-     
+     console.log("done", newState);   
      return newState;
    }
-   
       case "MEDIUM":
           return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
       case "HARD":
@@ -84,8 +85,9 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
 async function handleDispatch(action: ReducerAction) {
   console.log('time started', TimeStarted)
   console.log('now', now)
-  console.log(calculateDurationOfFlashCardStudy(now, TimeStarted as Date))
-  const time = (calculateDurationOfFlashCardStudy(now, TimeStarted as Date))
+  const endTime = new Date();
+  console.log(calculateDurationOfFlashCardStudy(endTime, TimeStarted as Date))
+  const time = (calculateDurationOfFlashCardStudy(endTime, TimeStarted as Date))
   const index = storedValue;
    const  payload={
     questionId: game.questions[index].id,
@@ -111,42 +113,32 @@ async function handleDispatch(action: ReducerAction) {
     setFlip((prev) => !prev);
   }
   useEffect(() => {
-    if (isEasy && questions)
+    if (isEasy && questions.length > 0)
       {
       
         setTimeStarted(new Date());
         setFlip(false);
-
-
     }
     if (isOver) {
       removeValue();
       removeTimeStarted();
-
+removeStudySessionId();
     }
   }, [isOver, isEasy]);
+
   function handleNext() {
      if( questions.length === 0 || storedValue >= questions.length - 1) {
-        removeValue();
-        
-        removeTimeStarted();
         setIsOver(true);
         return
       } 
-    setStoredValue((prevValue: number) => {
-      if (prevValue < questions.length - 1) {
-        return prevValue + 1;
-      } else {
-        return 0;
-      }});
-setTimeStarted(new Date());
-     
-    
+    setStoredValue((prevValue: number) => {return prevValue + 1;} );
+setTimeStarted(new Date());  
     setFlip(false);
   }
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center mt-16 gap-8 lg:p-16 h-full">
-      <div className=" card lg:w-1/2">
+    {isOver? <EndOfQuizModal duration={duration}/>:<>
+        <div className=" card lg:w-1/2">
         {game && questions && questions.length > 0 ? (
           <>
             <div
@@ -190,6 +182,8 @@ setTimeStarted(new Date());
           <Button onClick={handleNext}>Next</Button>
         </div>
       </div>
+    </>}
+  
     </div>
   );
 };
