@@ -5,3 +5,9 @@ export interface flashcardFeedbackinterface  {
     sessionId: string;
 
 }
+export interface studySessionInterface {
+  id: string;
+  userId: string;
+  createdAt: Date;
+  notes: string;
+}

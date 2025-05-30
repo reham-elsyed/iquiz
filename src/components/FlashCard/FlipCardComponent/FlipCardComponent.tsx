@@ -1,15 +1,16 @@
 "use client";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { Button } from "../../ui/button";
 import { Game, Question } from "@prisma/client";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import saveFeedbackFlashCard from "@/lib/saveFeedbackFlashCard";
 import axios from "axios";
-import { flashcardFeedbackinterface } from "@/types/feedbackFlashcardTypes";
+import { flashcardFeedbackinterface, studySessionInterface } from "@/types/feedbackFlashcardTypes";
 import { getAuthSession } from "@/lib/nextAuth";
 import { calculateDurationOfFlashCardStudy, durationOfQuiz } from "@/lib/utils";
 import { set } from "date-fns";
 import EndOfQuizModal from "@/components/EndOfQuizModal/EndOfQuizModal";
+import { findStudySession } from "@/lib/findStudySeeeion";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
@@ -17,7 +18,7 @@ type Props = {
 const FlipCardComponent = ({ game }: Props) => {
   const [isEasy,setIsEasy]  = useState<boolean>(false);
   const [flip, setFlip] = useState(false);
-  const [studySessionId, setStudySessionId, removeStudySessionId] = useLocalStorage({key: "studySessionId", value: ""});
+  const [studySession, setStudySession, removeStudySession] = useLocalStorage<studySessionInterface | null>({key: "studySessionId", value: null});
   const [storedValue, setStoredValue, removeValue] = useLocalStorage({
     key: "currentIndex",
     value: 0,
@@ -30,7 +31,6 @@ const FlipCardComponent = ({ game }: Props) => {
     key: "timeStarted",
     value: new Date(),});
   const [now, setNow] = useState<Date>(new Date());
- const duration = durationOfQuiz(new Date(),  as Date);
     useEffect(() => {
       if (!isOver) {
         const interval = setInterval(() => setNow(new Date()), 3000);
@@ -44,17 +44,20 @@ const FlipCardComponent = ({ game }: Props) => {
 
   type ReducerState = Pick<Question, "id" | "question" | "answer">[];
   useEffect(() => {
-    if (studySessionId) return; // Prevent multiple calls if already set
+    if (studySession && typeof studySession === "object" && "id" in studySession) return; // Prevent multiple calls if already set
     const createStudySession = async () => {
       const response = await axios.post('/api/studySessionCreation', {
         userId: game.userId, // or get user from server session
       });
-    setStudySessionId(response.data.response.id);
+    setStudySession(response.data.response);
       console.log("______________________response_____________________", response.data.response.id)
     };
  
     createStudySession();
-  }, [studySessionId, game.userId]);
+  }, [studySession, game.userId]);
+
+  //const studySessionData = useMemo(() => findStudySession(studySession?.id as string, game.userId as string), [studySessionId, game.userId])
+ const duration = durationOfQuiz(new Date(),studySession?.createdAt  as Date);
 
 
 async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
@@ -62,7 +65,7 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
 }
   const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
       const index = storedValue
-  console.log("studysession",studySessionId)
+  console.log("studysession",studySession)
     switch (action.type) {
       case "EASY":
    if (action.payload && !Array.isArray(action.payload)) {
@@ -93,7 +96,7 @@ async function handleDispatch(action: ReducerAction) {
     questionId: game.questions[index].id,
     feedback: action.type,
     timeSpent: time,
-    sessionId:studySessionId as string,
+    sessionId:studySession?.id as string,
   }
  const response = await saveFeedbackFlashCardEasy(payload)
  if(response.status === 200) {
@@ -122,7 +125,7 @@ async function handleDispatch(action: ReducerAction) {
     if (isOver) {
       removeValue();
       removeTimeStarted();
-removeStudySessionId();
+removeStudySession();
     }
   }, [isOver, isEasy]);
 
@@ -135,9 +138,10 @@ removeStudySessionId();
 setTimeStarted(new Date());  
     setFlip(false);
   }
+  
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center mt-16 gap-8 lg:p-16 h-full">
-    {isOver? <EndOfQuizModal duration={duration}/>:<>
+    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} gameId={studySession?.id as string}/>:<>
         <div className=" card lg:w-1/2">
         {game && questions && questions.length > 0 ? (
           <>
