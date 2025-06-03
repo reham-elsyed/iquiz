@@ -1,6 +1,5 @@
 import { toast } from "@/hooks/use-toast";
 import { GameWithQuestions } from "@/types/gameTypes";
-import { Game, GameType } from "@prisma/client";
 import axios from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { differenceInSeconds } from "date-fns";

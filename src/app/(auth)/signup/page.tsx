@@ -1,5 +1,5 @@
-import GitHubButton from "@/components/GitHubButton/GitHubButton";
-import GoogleButton from "@/components/GoogleButton/GoogleButton";
+import GitHubButton from "@/components/Buttons/GitHubButton/GitHubButton";
+import GoogleButton from "@/components/Buttons/GoogleButton/GoogleButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";

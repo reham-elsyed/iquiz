@@ -54,7 +54,7 @@ const FlipCardComponent = ({ game }: Props) => {
     };
  
     createStudySession();
-  }, [studySession, game.userId]);
+  }, [studySession, game.id]);
 
   //const studySessionData = useMemo(() => findStudySession(studySession?.id as string, game.userId as string), [studySessionId, game.userId])
  const duration = durationOfQuiz(new Date(),studySession?.createdAt  as Date);
@@ -64,8 +64,6 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
   return await axios.post('/api/flashCardFeedback', JSON.stringify(payload));
 }
   const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
-      const index = storedValue
-  console.log("studysession",studySession)
     switch (action.type) {
       case "EASY":
    if (action.payload && !Array.isArray(action.payload)) {
@@ -141,17 +139,19 @@ setTimeStarted(new Date());
   
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center mt-16 gap-8 lg:p-16 h-full">
+      {studySession?.createdAt as Date && (<p>{studySession?.createdAt.toString()}</p>)}
     {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} gameId={studySession?.id as string}/>:<>
-        <div className=" card lg:w-1/2">
+       <div className="card-container lg:w-1/2 flex justify-center items-center"> 
+         <div className={`card ${flip ? "flip":''}`} >
         {game && questions && questions.length > 0 ? (
           <>
             <div
-              className={` duration-300 ${flip ? "flip" : "flip-back"} bg-accent  card-face`}
+              className={` duration-300 bg-accent card-front  card-face hover:bg-accent/80`}
             >
               {questions[storedValue]?.question}
             </div>
             <div
-              className={` card-face  backface ${flip ? "flip-back" : "flip"} `}
+              className={` card-face card-back hover:bg-destructive/80 `}
             >
               {questions[storedValue]?.answer}
             </div>
@@ -160,11 +160,15 @@ setTimeStarted(new Date());
           <div className="card-face">you are done</div>
         )}
       </div>
+       </div>
 
       <div className="lg:w-1/2 flex flex-col gap-6 p-4">
         {/* Response Buttons */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Button onClick={() => handleDispatch({ type: "EASY" , payload:questions[storedValue]})}>Easy</Button>
+          <Button 
+          onClick={() => handleDispatch({ type: "EASY" , payload:questions[storedValue]})}>
+            Easy
+            </Button>
           <Button
             onClick={() =>
               handleDispatch({ type: "MEDIUM", payload: questions[storedValue] })

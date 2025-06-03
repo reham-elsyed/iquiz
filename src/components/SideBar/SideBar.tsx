@@ -1,8 +1,5 @@
 "use client";
 import React, { useState } from "react";
-
-import NavBarList from "../NavBarList/NavBarList";
-import { NavigationMenu } from "../ui/navigation-menu";
 import ExpandedSidebar from "./ExpandedSideBar";
 import Collabsed from "./CollabsedSidebar";
 const Sidebar = () => {

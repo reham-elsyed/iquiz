@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 function GoogleButton() {
