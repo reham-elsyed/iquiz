@@ -130,6 +130,13 @@ body {
   .animate-growWidth {
     animation: growWidth 1s ease-in-out forwards;
   }
+  .hover-effect{
+    transition: transform 0.3s ease-in-out;
+  }
+  .hover-effect:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 }
 @layer components {
   .tab {
@@ -147,7 +154,6 @@ body {
   transform: rotateY(360deg);
 }
 .flip {
-  transition: all 0.9s;
   transform: rotateY(180deg);
  
 }

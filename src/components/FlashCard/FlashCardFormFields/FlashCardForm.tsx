@@ -18,9 +18,10 @@ import FlashCardFormFieldOne from "@/components/FlashCard/FlashCardFormFields/Fl
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import LoadingQuestions from "../../LoadingQuestions/LoadingQuestions";
-import { Loader } from "lucide-react";
+import { BookAIcon, Hash, LightbulbIcon, List, ListCheckIcon, ListOrdered, ListXIcon, Loader } from "lucide-react";
 import ProgressBar from "../../ProgressBar/ProgressBar";
+import SVGGeneric from "@/components/SVGComponents/SVGComponent";
+import { FaSortNumericDown } from "react-icons/fa";
 
 const formFields: flashcardFormFieldProps = [
   {
@@ -97,11 +98,12 @@ export default function CreateFlashcardForm() {
   };
 
   return (
-    <div className="h-full flex items-center justify-center relative">
-      <div className="absolute top-5 left-0 w-full z-10"><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none" variant='destructive' /></div>
+    <div className="h-full flex items-center justify-center ">
       {isError && <div className="flex items-center justify-center text-red-500">Error creating flashcards. Please try again.</div>}
      
-      <Card className="w-full max-w-2xl mx-auto ">
+      <Card className="w-full md:w-1/2 rounded-none h-full flex flex-col justify-center  max-w-2xl mx-auto relative ">
+       <div className=""><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none" variant='destructive' /></div>
+
         <CardHeader className="text-center">
           <CardTitle>Create Flashcard</CardTitle>
           <CardDescription>Make your own flashcards</CardDescription>
@@ -134,6 +136,21 @@ export default function CreateFlashcardForm() {
           </FormProvider>
         </CardContent>
       </Card>
+      <div className="bg-gray-500 hidden  w-1/2 h-full md:flex flec-col items-center justify-center">
+     {formFields[step].name === "amount" ? (
+      <>
+       <FaSortNumericDown className="w-1/2 h-1/2 text-white" />
+      <p className="text-white text-2xl font-bold">Pick Number Of Flash Cards</p>
+      </>): formFields[step].name === "topic" ? (
+        <>
+         <BookAIcon className="w-1/2 h-1/2 text-white" />
+      <p className="text-white text-2xl font-bold">Pick Topic Of Flash Cards</p>
+        </>) : (
+          <>
+          <LightbulbIcon/>
+          </>
+        )}
+      </div>
     </div>
   );
 }

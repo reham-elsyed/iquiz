@@ -1,8 +1,6 @@
 import Link from "next/link";
 import UserNav from "../UserNav/UserNav";
 import { getAuthSession } from "@/lib/nextAuth";
-import { Session } from "@prisma/client";
-import NavBarList from "../NavBarList/NavBarList";
 import { Button } from "../ui/button";
 import { ThemeToggle } from "../ui/themeToggle";
 import {

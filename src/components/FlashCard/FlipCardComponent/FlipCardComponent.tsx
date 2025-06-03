@@ -3,14 +3,10 @@ import React, { useEffect, useMemo, useReducer, useState } from "react";
 import { Button } from "../../ui/button";
 import { Game, Question } from "@prisma/client";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import saveFeedbackFlashCard from "@/lib/saveFeedbackFlashCard";
 import axios from "axios";
 import { flashcardFeedbackinterface, studySessionInterface } from "@/types/feedbackFlashcardTypes";
-import { getAuthSession } from "@/lib/nextAuth";
 import { calculateDurationOfFlashCardStudy, durationOfQuiz } from "@/lib/utils";
-import { set } from "date-fns";
 import EndOfQuizModal from "@/components/EndOfQuizModal/EndOfQuizModal";
-import { findStudySession } from "@/lib/findStudySeeeion";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
@@ -186,7 +182,7 @@ setTimeStarted(new Date());
         </div>
         {/* Navigation Buttons */}
         <div className="flex justify-center gap-8">
-          <Button onClick={flipCard}>Flip</Button>
+          <Button className="hover-effect" onClick={flipCard}>Flip</Button>
           <Button onClick={handleNext}>Next</Button>
         </div>
       </div>
