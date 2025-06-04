@@ -71,8 +71,8 @@ body {
     --card-foreground: 0, 0%, 10%; /* Text for card background */
     --primary: 220, 100%, 40%; /* Vibrant blue (#0056CC) */
     --primary-foreground: 0, 0%, 100%; /* White text for primary */
-    --secondary: 160, 60%, 50%; /* Mint green (#2AD3B0) */
-    --secondary-foreground: 0, 0%, 10%; /* Dark text for secondary */
+    --secondary: 190, 78%, 44%; /* teal green */
+    --secondary-foreground: 0, 0%, 95%; /* near white for secondary */
     --accent: 50, 100%, 50%; /* Warm yellow (#FFC700) */
     --accent-foreground: 0, 0%, 10%; /* Dark text for accent */
     --destructive: 259, 71%, 65%; /* purple */
@@ -89,17 +89,16 @@ body {
     --foreground: 0, 0%, 90%; /* Light gray text */
     --card: 0, 0%, 15%; /* Slightly lighter dark gray for cards */
     --card-foreground: 0, 0%, 90%; /* Light gray text for card background */
-    --primary:
-      220, 100%, 60%; /* Vibrant blue (#0056CC, lighter for dark mode) */
+    --primary: 220, 100%, 60%; /* Vibrant blue (#0056CC, lighter for dark mode) */
     --primary-foreground: 0, 0%, 10%; /* Dark gray text for primary */
-    --secondary: 160, 60%, 50%; /* Mint green (#2AD3B0) */
-    --secondary-foreground: 0, 0%, 90%; /* Light text for secondary */
+   --secondary: 190, 78%, 44%; /* teal green */
+    --secondary-foreground: 0, 0%, 95%; /* near white for secondary */
     --accent: 50, 100%, 60%; /* Warm yellow (#FFC700, lighter for dark mode) */
     --accent-foreground: 0, 0%, 10%; /* Dark gray text for accent */
-    --destructive: 0, 70%, 40%; /* Soft coral (#FF4A3B, deeper for dark mode) */
+    --destructive: 259, 71%, 65%; /* purple */
     --destructive-foreground: 0, 0%, 90%; /* Light text for destructive */
     --muted: 0, 0%, 20%; /* Darker muted elements */
-    --muted-foreground: 160, 60%, 50%; /* Mint green text for muted elements */
+    --muted-foreground: 190, 78%, 44%; /* teal green text for muted elements */
     --border: 0, 0%, 20%; /* Dark gray for borders */
     --input: 0, 0%, 20%; /* Dark gray for inputs */
     --ring: 50, 100%, 60%; /* Warm yellow for focus rings */
@@ -135,7 +134,7 @@ body {
   }
   .hover-effect:hover {
     transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(hsl(var(--accent)), 0.1);
   }
 }
 @layer components {
@@ -150,9 +149,7 @@ body {
 }
 
 
-.back:hover {
-  transform: rotateY(360deg);
-}
+
 .flip {
   transform: rotateY(180deg);
  

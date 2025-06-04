@@ -13,7 +13,7 @@ export default async function Navbar() {
   const session = await getAuthSession();
 
   return (
-    <nav className="fixed top-0 right-0 left-56 z-20 bg-background text-forground ">
+    <nav className="fixed top-0 right-0 left-56 z-20 bg-background/40 text-forground ">
       <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-5 lg:py-5 lg:px-8 lg:pe-20 justify-between">
         <div>
           <NavigationMenu>

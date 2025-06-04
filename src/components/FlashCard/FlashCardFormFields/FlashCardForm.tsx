@@ -22,6 +22,7 @@ import { BookAIcon, Hash, LightbulbIcon, List, ListCheckIcon, ListOrdered, ListX
 import ProgressBar from "../../ProgressBar/ProgressBar";
 import SVGGeneric from "@/components/SVGComponents/SVGComponent";
 import { FaSortNumericDown } from "react-icons/fa";
+import NumberSvg from "@/components/SVGComponents/NumberSvg";
 
 const formFields: flashcardFormFieldProps = [
   {
@@ -73,9 +74,7 @@ export default function CreateFlashcardForm() {
     },
   });
 
-  const onSubmit = async (input: InputValue) => {
-    console.log("input", input);
-    setDisabled(true);
+  const onSubmit = (input: InputValue) => {
     try {
       createFlashCards(
         {
@@ -92,17 +91,21 @@ export default function CreateFlashcardForm() {
       );
     } catch (error) {
       console.log(error);
-    } finally {
-      setDisabled(false);
     }
   };
-
+form.watch();
   return (
-    <div className="h-full flex items-center justify-center ">
-      {isError && <div className="flex items-center justify-center text-red-500">Error creating flashcards. Please try again.</div>}
+ <>
+    {isPending || isSuccess ? (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="animate-spin h-10 w-10 text-primary" />
+      </div>
+    ) : (
+      <div className="h-full flex items-center justify-center ">
+      {isError && <div className="flex items-center justify-center text-red-500 ">Error creating flashcards. Please try again.</div>}
      
-      <Card className="w-full md:w-1/2 rounded-none h-full flex flex-col justify-center  max-w-2xl mx-auto relative ">
-       <div className=""><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none" variant='destructive' /></div>
+      <Card className="w-full md:w-1/2 rounded-none h-full flex flex-col justify-center  max-w-2xl mx-auto relative bg-background border-0 shadow-none"> 
+       <div className=""><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none p-5" variant='destructive' /></div>
 
         <CardHeader className="text-center">
           <CardTitle>Create Flashcard</CardTitle>
@@ -123,7 +126,7 @@ export default function CreateFlashcardForm() {
                 ) : (
                   <>
                     {isPending ? (
-                      <Button disabled={isPending}><Loader/></Button>
+                      <Button ><Loader/></Button>
                     ) : (
                       <Button disabled={isPending} type="submit">
                         Submit
@@ -136,15 +139,15 @@ export default function CreateFlashcardForm() {
           </FormProvider>
         </CardContent>
       </Card>
-      <div className="bg-gray-500 hidden  w-1/2 h-full md:flex flec-col items-center justify-center">
+      <div className="bg-gray-500 hidden  w-1/2 h-full md:flex flex-col items-center justify-center gap-10 bg-secondary text-secondary-foreground rounded-none">
      {formFields[step].name === "amount" ? (
       <>
-       <FaSortNumericDown className="w-1/2 h-1/2 text-white" />
-      <p className="text-white text-2xl font-bold">Pick Number Of Flash Cards</p>
+       <NumberSvg className="w-1/2 h-1/2 text-secondary-foreground " />
+      <p className=" text-2xl font-bold">Pick Number Of Flash Cards</p>
       </>): formFields[step].name === "topic" ? (
         <>
-         <BookAIcon className="w-1/2 h-1/2 text-white" />
-      <p className="text-white text-2xl font-bold">Pick Topic Of Flash Cards</p>
+         <BookAIcon className="w-1/2 h-1/2 text-secondary-foreground" />
+      <p className=" text-2xl font-bold">Pick Topic Of Flash Cards</p>
         </>) : (
           <>
           <LightbulbIcon/>
@@ -152,5 +155,7 @@ export default function CreateFlashcardForm() {
         )}
       </div>
     </div>
-  );
+    )
+      }
+ </>)
 }
