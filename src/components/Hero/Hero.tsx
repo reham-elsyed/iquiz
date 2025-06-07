@@ -9,7 +9,7 @@ import {
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
-
+import HeroImage from "../SVGComponents/HeroImage";
 type Props = {};
 
 const Hero = (props: Props) => {
@@ -41,7 +41,7 @@ const Hero = (props: Props) => {
         </CardHeader>
         <div className="rounded-md hidden  w-2/3 md:w-1/3 md:flex justify-center items-center ">
           <div className="rounded-md h-96 w-96 aspect-square relative">
-            <Image
+            {/* <Image
               src="https://gokxczesysklzepbknzb.supabase.co/storage/v1/object/public/new-hero//OBJECTS.svg"
               alt="iquiz"
               className="z-10 rounded-md w-full h-full absolute -top-2 -left-5 right-0 bottom-0 scale-110 "
@@ -49,7 +49,8 @@ const Hero = (props: Props) => {
               width={400}
               height={400}
               loading="lazy"
-            />
+            /> */}
+            <HeroImage />
           </div>
         </div>
       </Card>
