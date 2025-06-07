@@ -130,12 +130,15 @@ body {
     animation: growWidth 1s ease-in-out forwards;
   }
   .hover-effect{
-    transition: transform 0.3s ease-in-out;
+@apply transition-transform duration-300 ease-in-out hover:opacity-90 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:scale-105 hover:shadow-sm hover:shadow-secondary;
   }
-  .hover-effect:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 8px rgba(hsl(var(--accent)), 0.1);
-  }
+  /* .hover-effect:hover {
+     
+opacity: 0.9;
+    transform: translateX(-4px) translateY(-4px) scale(1.05);
+box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
+
+  } */
 }
 @layer components {
   .tab {
