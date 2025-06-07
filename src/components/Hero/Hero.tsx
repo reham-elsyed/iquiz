@@ -16,16 +16,16 @@ const Hero = (props: Props) => {
   return (
     <div className=" h-[332px] ">
       <p>Your progress</p>
-      <Card className="flex flex-col md:flex-row  justify-center items-center   bg-[#25BFAD]">
+      <Card className="flex flex-col md:flex-row  justify-center items-center   bg-secondary rounded-lg h-full w-full md:w-[90%] mx-auto my-8">
         <CardHeader className=" md:w-2/3 h-full w-[100%] ">
           <CardTitle className="text-lg md:text-2xl pb-8">
             {" "}
-            <h1 className="text-lg sm:text-xl md:text-xl font-semibold leading-tight text-primary-foreground">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug text-secondary-foreground">
               your AI quiz generator for any Topic
             </h1>
           </CardTitle>
           <CardDescription className="space-y-6">
-            <p className="text-basic p-y-5  sm:text-md md:text-lg leading-tigh">
+            <p className="text-muted text-base p-y-5  sm:text-lg md:text-xl leading-relaxed">
               Create, share, and grow your knowledge effortlessly.
             </p>
             <div className="self-end  inline-flex pt-5">
@@ -50,7 +50,8 @@ const Hero = (props: Props) => {
               height={400}
               loading="lazy"
             /> */}
-            <HeroImage />
+            <HeroImage className="z-10 rounded-md w-full h-full absolute -top-5 -left-5 right-0 bottom-0 "
+ />
           </div>
         </div>
       </Card>

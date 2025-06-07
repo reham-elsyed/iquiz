@@ -151,19 +151,19 @@ setTimeStarted(new Date());
     {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} gameId={studySession?.id as string}/>:
     <>
     <div className="lg:w-1/3 ">
-      <StudySessionSidebar  startOfStudySession={studySession?.createdAt as Date}/>
+      <StudySessionSidebar  startOfStudySession={studySession?.createdAt as Date} numberOfCards={game.questions.length} progressValue={+storedValue+1}/>
      </div>
-       <div className="card-container lg:w-1/2 flex justify-center items-center"> 
+       <div className="card-container lg:w-1/2 flex flex-col justify-center items-center gap-5"> 
          <div className={`card ${flip ? "flip":''}`} >
         {game && questions && questions.length > 0 ? (
           <>
             <div
-              className={` duration-300 bg-accent card-front  card-face hover:bg-accent/10`}
+              className={` duration-300 bg-card card-front  card-face hover:bg-accent/10 transition-colors text-card-foreground`}
             >
               {questions[storedValue]?.question}
             </div>
             <div
-              className={` card-face card-back hover:bg-destructive/10 `}
+              className={` card-face card-back transition-colors duration-200 bg-card text-card-foreground hover:bg-secondary/10 `}
             >
               {questions[storedValue]?.answer}
             </div>
@@ -173,6 +173,15 @@ setTimeStarted(new Date());
         )}
       </div>
        <div className="lg:w-1/2 flex flex-col gap-6 p-4">
+
+        <div className="flex justify-center gap-8">
+           {/* Navigation Buttons */}
+          <Button className="hover-effect" onClick={flipCard}>Flip</Button>
+         <ControllerButtons
+            handleNext={handleNext}
+            handlePrevious={handlePrevious}
+          />
+        </div>
         {/* Response Buttons */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Button 
@@ -194,14 +203,8 @@ setTimeStarted(new Date());
             Hard
           </Button>
         </div>
-        {/* Navigation Buttons */}
-        <div className="flex justify-center gap-8">
-          <Button className="hover-effect" onClick={flipCard}>Flip</Button>
-         <ControllerButtons
-            handleNext={handleNext}
-            handlePrevious={handlePrevious}
-          />
-        </div>
+       
+       
       </div>
        </div>
     </>}
