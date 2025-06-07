@@ -64,46 +64,48 @@ body {
 
 @layer base {
   :root {
-    /* Light mode colors */
-    --background: 0, 0%, 100%; /* White background */
-    --foreground: 0, 0%, 10%; /* Near-black text */
-    --card: 28, 41%, 93%; /* Light gray cards */
-    --card-foreground: 0, 0%, 10%; /* Text for card background */
-    --primary: 220, 100%, 40%; /* Vibrant blue (#0056CC) */
-    --primary-foreground: 0, 0%, 100%; /* White text for primary */
-    --secondary: 190, 78%, 44%; /* teal green */
-    --secondary-foreground: 0, 0%, 95%; /* near white for secondary */
-    --accent: 50, 100%, 50%; /* Warm yellow (#FFC700) */
-    --accent-foreground: 0, 0%, 10%; /* Dark text for accent */
-    --destructive: 259, 71%, 65%; /* purple */
-    --destructive-foreground: 0, 0%, 100%; /* White text for destructive */
-    --muted: 0, 0%, 95%; /* Very light gray for muted elements */
-    --muted-foreground: 0, 0%, 40%; /* Darker gray for muted text */
-    --border: 0, 0%, 90%; /* Light gray for borders */
-    --input: 0, 0%, 90%; /* Light gray for inputs */
-    --ring: 220, 100%, 40%; /* Vibrant blue for focus rings */
+    /* ─── LIGHT MODE ───────────────────────────────────── */
+    --background: 0 0% 100%;        /* White */
+    --foreground: 0 0% 7%;          /* Very dark gray (almost black) */
+    --card: 33 53% 97%;             /* Off-white / very light gray */
+    --card-foreground: 0 0% 45%;    /* Medium gray for card text */
+    --primary: 259 71% 65%;         /* Soft purple */
+    --primary-foreground: 0 0% 5%;  /* Nearly black for primary text */
+    --secondary: 190 78% 44%;       /* Teal green */
+    --secondary-foreground: 0 0% 5%;/* Nearly black for secondary text */
+    --accent: 28 41% 93%;           /* Very pale yellow */
+    --accent-foreground: 0 0% 7%;   /* Dark gray for accent text */
+    --destructive: 0 88% 87%;       /* Very light red (for warnings) */
+    --destructive-foreground: 0 0% 7%;/* Dark gray on destructive */
+    --muted: 21 100% 96%;           /* Very light peach */
+    --muted-foreground: 0 0% 45%;   /* Medium gray for muted text */
+    --border: 32 100% 87%;          /* Light golden / beige border */
+    --input: 44 100% 90%;           /* Pale lemon input background */
+    --ring: 158 75% 83%;            /* Soft aqua focus ring */
+
+    /* ─── DARK MODE ────────────────────────────────────── */
   }
   .dark {
-    /* Dark mode colors */
-    --background: 0, 0%, 10%; /* Dark gray background */
-    --foreground: 0, 0%, 90%; /* Light gray text */
-    --card: 0, 0%, 15%; /* Slightly lighter dark gray for cards */
-    --card-foreground: 0, 0%, 90%; /* Light gray text for card background */
-    --primary: 220, 100%, 60%; /* Vibrant blue (#0056CC, lighter for dark mode) */
-    --primary-foreground: 0, 0%, 10%; /* Dark gray text for primary */
-   --secondary: 190, 78%, 44%; /* teal green */
-    --secondary-foreground: 0, 0%, 95%; /* near white for secondary */
-    --accent: 50, 100%, 60%; /* Warm yellow (#FFC700, lighter for dark mode) */
-    --accent-foreground: 0, 0%, 10%; /* Dark gray text for accent */
-    --destructive: 259, 71%, 65%; /* purple */
-    --destructive-foreground: 0, 0%, 90%; /* Light text for destructive */
-    --muted: 0, 0%, 20%; /* Darker muted elements */
-    --muted-foreground: 190, 78%, 44%; /* teal green text for muted elements */
-    --border: 0, 0%, 20%; /* Dark gray for borders */
-    --input: 0, 0%, 20%; /* Dark gray for inputs */
-    --ring: 50, 100%, 60%; /* Warm yellow for focus rings */
+    --background: 0 0% 7%;          /* Very dark gray */
+    --foreground: 0 0% 98%;         /* Nearly white */
+    --card: 0 0% 20%;               /* Dark gray card bg */
+    --card-foreground: 0 0% 98%;    /* White for card text */
+    --primary: 251 100% 91%;        /* Very pale lavender */
+    --primary-foreground: 0 0% 5%;  /* Black text on primary */
+    --secondary: 188 100% 96%;      /* Very pale teal */
+    --secondary-foreground: 0 0% 7%;/* Dark text on secondary */
+    --accent: 18 92% 61%;           /* Bright orange */
+    --accent-foreground: 0 0% 7%;   /* Dark text on accent */
+    --destructive: 259 71% 65%;     /* Same soft purple */
+    --destructive-foreground: 0 0% 98%;/* White on destructive */
+    --muted: 0 0% 20%;              /* Very dark gray for muted */
+    --muted-foreground: 190 78% 44%;/* Teal text for muted */
+    --border: 0 0% 52%;             /* Medium gray border */
+    --input: 0 0% 52%;              /* Medium gray input bg */
+    --ring: 45 100% 50%;            /* Bright yellow focus ring */
   }
 }
+
 
 @layer base {
   * {

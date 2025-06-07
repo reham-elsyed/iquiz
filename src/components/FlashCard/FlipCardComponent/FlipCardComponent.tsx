@@ -53,7 +53,7 @@ const FlipCardComponent = ({ game }: Props) => {
     };
  
     createStudySession();
-  }, [studySession, game.id,isOver]);
+  }, [studySession, game.id,]);
 
   //const studySessionData = useMemo(() => findStudySession(studySession?.id as string, game.userId as string), [studySessionId, game.userId])
      const duration = durationOfQuiz(new Date(),studySession?.createdAt as Date);
