@@ -18,13 +18,7 @@ export async function POST(req: Request, res: Response) {
     console.log("______________________body_____________________",body)
     //use same schema for flash card body request
     const {  questionId, feedback, timeSpent, sessionId } = flashcardFeedbackSchema.parse(body);
-    //  const studySession = await prisma.studySession.findFirst({
-    //   where: {
-    //     userId: session.user.id,
-    //     // optionally: isActive: true or by topicId/quizId if needed
-    //   },
-    // });
-    // console.log("______________________studySession_____________________",studySession)
+    
   
     const data= {
        questionId, 

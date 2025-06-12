@@ -9,6 +9,7 @@ type Props = {
   gameId: string;
   duration: string; 
   removeIsOver: () => void;
+ type?:string
 };
 
 function EndOfQuizModal(props: Props) {
@@ -21,7 +22,7 @@ function EndOfQuizModal(props: Props) {
       </div>
       <Link
       onClick={() => props.removeIsOver()}
-        href={`/statistics/${props.gameId}`}
+        href={props.type === 'flash_card' ? `/flash-card-stats/${props.gameId}` : `/statistics/${props.gameId}`}
         className={cn(buttonVariants(), "mt-2")}
       >
         View Statistics

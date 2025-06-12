@@ -2,10 +2,17 @@ interface OutputFormat {
   [key: string]: string | string[] | OutputFormat;
 }
 
-import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
+//import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+//const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 import { GoogleGenAI, Schema } from "@google/genai";
+
+// Define SchemaType enum if not provided by the library
+enum SchemaType {
+  STRING = "string",
+  OBJECT = "object",
+  ARRAY = "array",
+}
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string });
 export async function strict_output(prompt: string, type: string) {
@@ -79,7 +86,7 @@ export async function strict_output(prompt: string, type: string) {
     //   },
     // });
     const result = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-1.5-pro",
       config: {
         responseMimeType: "application/json",
         responseSchema: schema as unknown as Schema,

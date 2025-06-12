@@ -33,7 +33,7 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
               <div className="ml-4 space-y-1">
                 <Link
                   className="text-base font-medium leading-none underline"
-                  href={`/statistics/${game.id}`}
+                  href={game.gameType === "flash_card" ?`/flash-card-stats/${game.id}`:`/statistics/${game.id}`}
                 >
                   {game.topic}
                 </Link>

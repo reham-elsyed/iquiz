@@ -68,7 +68,8 @@ export default function CreateFlashcardForm() {
       const response = await axios.post("/api/game", { amount, topic, type });
       console.log("response from create flashcard", response.data);
       if (response.status !== 200) {
-        throw new Error("Error creating flashcards");
+        console.error("Error creating flashcards:", response);
+        throw new Error(response.data.error || "");
       }
       return response.data;
     },
@@ -96,13 +97,14 @@ export default function CreateFlashcardForm() {
 form.watch();
   return (
  <>
+       {isError && <div className="flex items-center justify-center text-red-500 ">Error creating flashcards. Please try again.</div>}
+
     {isPending || isSuccess ? (
       <div className="flex items-center justify-center h-screen">
         <Loader className="animate-spin h-10 w-10 text-primary" />
       </div>
     ) : (
       <div className="h-full flex items-center justify-center ">
-      {isError && <div className="flex items-center justify-center text-red-500 ">Error creating flashcards. Please try again.</div>}
      
       <Card className="w-full md:w-1/2 rounded-none h-full flex flex-col justify-center  max-w-2xl mx-auto relative bg-background border-0 shadow-none"> 
        <div className=""><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none p-5" variant='destructive' /></div>

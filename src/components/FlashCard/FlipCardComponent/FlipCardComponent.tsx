@@ -10,7 +10,7 @@ import EndOfQuizModal from "@/components/EndOfQuizModal/EndOfQuizModal";
 import { StudySessionSidebar } from "../StudySessionSidebar/StudySessionSidebar";
 import ControllerButtons from "@/components/Buttons/ControllerButtons/ControllerButtons";
 type Props = {
-  game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
+  game: Game & { questions: Pick<Question, "id" | "question" | "answer"| 'questionType'>[] };
 };
 
 const FlipCardComponent = ({ game }: Props) => {
@@ -148,7 +148,7 @@ setTimeStarted(new Date());
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8  h-full">
      
-    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} gameId={studySession?.id as string}/>:
+    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} gameId={game?.id as string} type={game.gameType}/>:
     <>
     <div className="lg:w-1/3 ">
       <StudySessionSidebar  startOfStudySession={studySession?.createdAt as Date} numberOfCards={game.questions.length} progressValue={+storedValue+1}/>

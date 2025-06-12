@@ -83,7 +83,7 @@ model Game {
   timeEnded   DateTime?
   gameType    GameType
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  studySessions StudySession[]      @relation("GameToStudySession")
   @@index([userId])
 }
 
@@ -115,10 +115,11 @@ model StudySession {
   createdAt DateTime @default(now())
   userId    String
   notes     String?
+  gameId    String
+  feedbacks QuestionFeedback[] // relation back 
 
   user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
-  feedbacks QuestionFeedback[] // relation back
-
+  game      Game               @relation("GameToStudySession", fields: [gameId], references: [id])
   @@index([userId])
 }
 

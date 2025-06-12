@@ -155,7 +155,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                                       ? (e) => {
                                           form.setValue(
                                             "amount",
-                                            parseInt(e.target.value),
+                                            parseInt(e.target.value) || 3
                                           );
                                         }
                                       : field.onChange

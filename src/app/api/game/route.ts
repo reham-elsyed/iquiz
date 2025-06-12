@@ -29,13 +29,14 @@ export async function POST(req: Request, res: Response) {
         topic,
         type,
       });
+      console.log("data from ai", data.data);
     } catch (aiError) {
       return NextResponse.json(
         {
           error: aiError,
         },
         {
-          status: 502,
+          status: 502 ,
         },
       );
     }
