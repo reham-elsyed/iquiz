@@ -86,7 +86,7 @@ export async function strict_output(prompt: string, type: string) {
     //   },
     // });
     const result = await ai.models.generateContent({
-      model: "gemini-1.5-pro",
+      model: "gemini-2.0-flash",
       config: {
         responseMimeType: "application/json",
         responseSchema: schema as unknown as Schema,
