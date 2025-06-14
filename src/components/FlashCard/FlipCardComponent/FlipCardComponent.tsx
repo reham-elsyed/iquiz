@@ -53,7 +53,7 @@ const FlipCardComponent = ({ game }: Props) => {
     };
  
     createStudySession();
-  }, [studySession, game.id,]);
+  }, [studySession, game.id]);
 
   //const studySessionData = useMemo(() => findStudySession(studySession?.id as string, game.userId as string), [studySessionId, game.userId])
      const duration = durationOfQuiz(new Date(),studySession?.createdAt as Date);
@@ -156,6 +156,10 @@ setTimeStarted(new Date());
        <div className="card-container lg:w-1/2 flex flex-col justify-center items-center gap-5"> 
          <div className={`card ${flip ? "flip":''}`} >
         {game && questions && questions.length > 0 ? (
+
+
+
+
           <>
             <div
               className={` duration-300 bg-card card-front  card-face hover:bg-accent/10 transition-colors text-card-foreground`}

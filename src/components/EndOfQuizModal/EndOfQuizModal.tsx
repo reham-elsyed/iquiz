@@ -25,6 +25,7 @@ function EndOfQuizModal(props: Props) {
         href={props.type === 'flash_card' ? `/flash-card-stats/${props.gameId}` : `/statistics/${props.gameId}`}
         className={cn(buttonVariants(), "mt-2")}
       >
+        {props.type}
         View Statistics
         <BarChart className="w-4 h-4 ml-2" />
       </Link>

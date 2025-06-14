@@ -94,7 +94,17 @@ export async function strict_output(prompt: string, type: string) {
       contents: prompt,
     });
     //  const result = await model.generateContent(prompt);
-
+if(!result || !result.text) {
+  const newResult = await ai.models.generateContent({
+      model: "gemini-1.5-flash-8B",
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: schema as unknown as Schema,
+      },
+      contents: prompt,
+    });
+  return JSON.parse(newResult.text as string);
+}
     console.log(result.text);
     return JSON.parse(result.text as string);
   } catch (error) {
