@@ -1,3 +1,4 @@
+import { time } from "console";
 import { Session } from "inspector/promises";
 import { z } from "zod";
 
@@ -20,6 +21,20 @@ export const questionReload = z.object({
 export const timeEnded = z.object({
   gameId: z.string(),
 });
+
+export const studySessionSchema = z.object({
+  userId: z.string(),
+  gameId: z.string(),
+ timeStarted: z.coerce.date(),
+   notes: z.string().optional().default(""),
+  feedbacks: z.array(
+    z.object({
+      questionId: z.string(),
+      feedback: z.enum(["EASY", "MEDIUM", "HARD"]),
+      timeSpent: z.number(),
+      sessionId: z.string(),
+    })
+  )})
 
 export const flashcardFeedbackSchema = z.object({
   questionId: z.string(),

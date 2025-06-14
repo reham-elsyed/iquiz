@@ -3,6 +3,7 @@
 
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
+import { get } from "http";
 
 type Feedback = {
   label: string;
@@ -22,7 +23,8 @@ export const PieChart: React.FC<Props> = ({ data, width = 300, height = 300 }) =
     const radius = Math.min(width, height) / 2;
     const color = d3.scaleOrdinal<string>()
       .domain(data.map(d => d.label))
-      .range(["primary", "secondary", "accent"]); // Tailwind green, yellow, red
+.range(["#F8BABA", "#FFE7B3", "#BFF2C4"]);
+
 
     const pie = d3.pie<Feedback>().value(d => d.value);
     const arc = d3.arc<d3.PieArcDatum<Feedback>>()
@@ -40,8 +42,7 @@ export const PieChart: React.FC<Props> = ({ data, width = 300, height = 300 }) =
 
     const arcs: d3.Selection<SVGPathElement, d3.PieArcDatum<Feedback>, SVGGElement, unknown> = g.selectAll<SVGPathElement, d3.PieArcDatum<Feedback>>("path")
         .data(pie(data))
-        .enter()
-        .append("path")
+        .join("path")
         .attr("d", arc)
         .attr("fill", (d) => color(d.data.label))
         .attr("stroke", "#fff")
@@ -50,8 +51,7 @@ export const PieChart: React.FC<Props> = ({ data, width = 300, height = 300 }) =
     // Add labels
     g.selectAll("text")
       .data(pie(data))
-      .enter()
-      .append("text")
+      .join('text')
       .attr("transform", d => `translate(${arc.centroid(d)})`)
       .attr("text-anchor", "middle")
       .attr("font-size", "14px")

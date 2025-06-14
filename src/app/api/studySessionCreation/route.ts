@@ -2,14 +2,17 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
+// Update the import path below to the correct location of quizSchema
+import { studySessionSchema } from "@/app/schemas/formSchema/quizSchema";
 
 export async function POST(req: Request) {
   const session = await getAuthSession(); // should work if it uses cookies
-
+const reqData = studySessionSchema.parse(await req.json());
   try {
     const newSession = await prisma.studySession.create({
       data: {
-        userId: session?.user.id as string,
+        userId:reqData.userId,
+        gameId: reqData.gameId,
       },
     });
 console.log("______________________newSession_____________________", newSession);
