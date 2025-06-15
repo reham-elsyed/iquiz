@@ -60,7 +60,6 @@ export const PieChart: React.FC<Props> = ({ data, width = 300, height = 300 }) =
 
   }, [data, width, height]);
 
-  return (
-    <svg ref={ref}></svg>
+  return ( <svg ref={ref}></svg>
   );
 };

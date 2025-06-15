@@ -47,13 +47,15 @@ const FlipCardComponent = ({ game }: Props) => {
     const createStudySession = async () => {
       const response = await axios.post('/api/studySessionCreation', {
         userId: game.userId, // or get user from server session
+      gameId: game.id,
+      feedbacks:[]
       });
     setStudySession(response.data.response);
       console.log("______________________response_____________________", response.data.response.id)
     };
  
     createStudySession();
-  }, [studySession, game.id]);
+  }, [game.id, studySession?.id as string]);
 
   //const studySessionData = useMemo(() => findStudySession(studySession?.id as string, game.userId as string), [studySessionId, game.userId])
      const duration = durationOfQuiz(new Date(),studySession?.createdAt as Date);

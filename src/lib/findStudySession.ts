@@ -1,7 +1,8 @@
 import prisma from "@/lib/db";;
 
 export function findStudySession(gameId: string, userId: string) {
-if (!gameId || !userId) {
+    try{
+        if (!gameId || !userId) {
     throw new Error("Session ID is required to find a study session.");
   }
 const studySession = prisma.studySession.findFirst({
@@ -14,6 +15,11 @@ const studySession = prisma.studySession.findFirst({
         throw new Error("Study session not found.");
     }
     return studySession;
+    }catch(err){
+        return err
+    }
+
+
 }
 
 export function findStudySessionFeedback(sessionId: string) {
