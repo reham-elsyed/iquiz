@@ -15,18 +15,19 @@ export default function useEventListener({
   target,
 }: useEventListenerProps) {
   const handlerRef = useRef(handler);
-const resolvedTarget = targetRef?.current ?? target ?? window;
   useEffect(() => {
     console.log("ref update");
     handlerRef.current = handler;
   }, [handler]);
 
   useEffect(() => {
+    const resolvedTarget = targetRef?.current ?? target ?? window;
+
     const handler = (event: Event) => handlerRef.current(event);
       if (!target?.addEventListener) return;
     resolvedTarget.addEventListener(action, handler);
     return () => {
       resolvedTarget.removeEventListener(action, handler);
     };
-  }, [resolvedTarget, action,...dependency as []]);
+  }, [target,targetRef?.current, action,...dependency as []]);
 }

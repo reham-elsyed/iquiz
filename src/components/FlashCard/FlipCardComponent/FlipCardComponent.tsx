@@ -30,14 +30,17 @@ const FlipCardComponent = ({ game }: Props) => {
   const [TimeStarted, setTimeStarted,removeTimeStarted] = useLocalStorage({
     key: "timeStarted",
     value: new Date(),});
-    const handleUnloadCall = useCallback(()=>{
-      handleUnload(studySession?.id as string,isOver)
-    },[studySession, isOver])
-  useEventListener({
-  action: "beforeunload",
-  handler: handleUnloadCall,
-  dependency: [studySession, isOver],
-});
+//     const handleUnloadCall = useCallback(()=>{
+//       handleUnload(studySession?.id as string,isOver)
+//       removeIsOver()
+//       removeStudySession()
+//       removeValue()
+//     },[studySession, isOver])
+//   useEventListener({
+//   action: "beforeunload",
+//   handler: handleUnloadCall,
+//   dependency: [studySession, isOver],
+// });
   interface ReducerAction {
     type: "EASY" | "MEDIUM" | "HARD";
     payload?: Pick<Question, "id" | "question" | "answer"> | Pick<Question, "id" | "question" | "answer">[];
@@ -76,9 +79,9 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
      return newState;
    }
       case "MEDIUM":
-          return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
+          return state;
       case "HARD":
-        return [...state, action.payload as Pick<Question, "id" | "question" | "answer">];
+        return state;
       default:
         return state;
     }
@@ -116,6 +119,9 @@ async function handleDispatch(action: ReducerAction) {
   function flipCard() {
     setFlip((prev) => !prev);
   }
+  const finishStudy = async(studySessionid:string, isOver:boolean)=>{
+     await handleUnload(studySessionid as string, isOver)
+  }
   useEffect(() => {
     if (isEasy && questions.length > 0)
       {
@@ -124,6 +130,7 @@ async function handleDispatch(action: ReducerAction) {
         setFlip(false);
     }
     if (isOver) {
+     finishStudy(studySession?.id as string, isOver)
       removeValue();
       removeTimeStarted();
 removeStudySession();

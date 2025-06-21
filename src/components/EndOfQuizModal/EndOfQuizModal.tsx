@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { buttonVariants } from "../ui/button";
 import { cn, durationOfQuiz } from "@/lib/utils";
 import { BarChart } from "lucide-react";
@@ -15,7 +15,9 @@ type Props = {
 
 function EndOfQuizModal(props: Props) {
        const durationNew = durationOfQuiz(new Date, props.timeStarted as Date);
-  
+  useEffect(()=>{
+props.removeIsOver()
+  },[])
   return (
     <div className='relative h-screen'>
     <div className="modal-container flex flex-col">
@@ -24,7 +26,7 @@ function EndOfQuizModal(props: Props) {
         <span>{durationNew}</span>
       </div>
       <Link
-      onClick={() => props.removeIsOver()}
+      
         href={props.type === 'flash_card' ? `/flash-card-stats/${props.gameId}` : `/statistics/${props.gameId}`}
         className={cn(buttonVariants(), "mt-2")}
       >
