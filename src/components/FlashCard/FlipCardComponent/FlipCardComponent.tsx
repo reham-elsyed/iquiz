@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useMemo, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import { Button } from "../../ui/button";
 import { Game, Question } from "@prisma/client";
 import useLocalStorage from "@/hooks/useLocalStorage";
@@ -9,6 +9,8 @@ import { calculateDurationOfFlashCardStudy, durationOfQuiz } from "@/lib/utils";
 import EndOfQuizModal from "@/components/EndOfQuizModal/EndOfQuizModal";
 import { StudySessionSidebar } from "../StudySessionSidebar/StudySessionSidebar";
 import ControllerButtons from "@/components/Buttons/ControllerButtons/ControllerButtons";
+import useEventListener from "@/hooks/useEventListener";
+import handleUnload from "@/lib/handleUnload";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer"| 'questionType'>[] };
 };
@@ -28,14 +30,14 @@ const FlipCardComponent = ({ game }: Props) => {
   const [TimeStarted, setTimeStarted,removeTimeStarted] = useLocalStorage({
     key: "timeStarted",
     value: new Date(),});
-  const [now, setNow] = useState<Date>(new Date());
-    useEffect(() => {
-      if (!isOver) {
-        const interval = setInterval(() => setNow(new Date()), 3000);
-        return () => clearInterval(interval);
-      }
-    }, [isOver]);
-    const testTimer = durationOfQuiz(now, TimeStarted)
+    const handleUnloadCall = useCallback(()=>{
+      handleUnload(studySession?.id as string,isOver)
+    },[studySession, isOver])
+  useEventListener({
+  action: "beforeunload",
+  handler: handleUnloadCall,
+  dependency: [studySession, isOver],
+});
   interface ReducerAction {
     type: "EASY" | "MEDIUM" | "HARD";
     payload?: Pick<Question, "id" | "question" | "answer"> | Pick<Question, "id" | "question" | "answer">[];
@@ -48,7 +50,8 @@ const FlipCardComponent = ({ game }: Props) => {
       const response = await axios.post('/api/studySessionCreation', {
         userId: game.userId, // or get user from server session
       gameId: game.id,
-      feedbacks:[]
+      feedbacks:[],
+      status:"ACTIVE"
       });
     setStudySession(response.data.response);
       console.log("______________________response_____________________", response.data.response.id)
@@ -86,7 +89,6 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
 
 async function handleDispatch(action: ReducerAction) {
   console.log('time started', TimeStarted)
-  console.log('now', now)
   const endTime = new Date();
   console.log(calculateDurationOfFlashCardStudy(endTime, TimeStarted as Date))
   const time = (calculateDurationOfFlashCardStudy(endTime, TimeStarted as Date))
@@ -150,7 +152,7 @@ setTimeStarted(new Date());
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8  h-full">
      
-    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} gameId={game?.id as string} type={game.gameType}/>:
+    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} timeStarted={game.timeStarted} gameId={game?.id as string} type={game.gameType}/>:
     <>
     <div className="lg:w-1/3 ">
       <StudySessionSidebar  startOfStudySession={studySession?.createdAt as Date} numberOfCards={game.questions.length} progressValue={+storedValue+1}/>

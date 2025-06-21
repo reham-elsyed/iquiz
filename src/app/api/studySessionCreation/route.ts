@@ -13,6 +13,7 @@ const reqData = studySessionSchema.parse(await req.json());
       data: {
         userId:reqData.userId,
         gameId: reqData.gameId,
+        status:reqData.status,
       },
     });
 console.log("______________________newSession_____________________", newSession);

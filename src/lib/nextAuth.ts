@@ -55,6 +55,7 @@ export const authOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    
     jwt: async ({ token }) => {
       try {
         const db_user = await pRetry(

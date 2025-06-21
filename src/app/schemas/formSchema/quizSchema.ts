@@ -26,6 +26,7 @@ export const studySessionSchema = z.object({
   userId: z.string(),
   gameId: z.string(),
  timeStarted: z.string().optional(),
+ endTime: z.date().optional(),
    notes: z.string().optional().default(""),
   feedbacks: z.array(
     z.object({
@@ -34,7 +35,10 @@ export const studySessionSchema = z.object({
       timeSpent: z.number(),
       sessionId: z.string(),
     })
-  ).optional().default([]),})
+  ).optional().default([]),
+status: z.enum(["ACTIVE", "FINISHED", "ABANDONED"]),
+
+})
 
 export const flashcardFeedbackSchema = z.object({
   questionId: z.string(),

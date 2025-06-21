@@ -143,7 +143,7 @@ setStoredValue((prev) => prev + 1);
         <>
           {" "}
          
-            <EndOfQuizModal gameId={game.id} duration={duration}  removeIsOver={removeIsOver}/>
+            <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted}  removeIsOver={removeIsOver}/>
           
         </>
       ) : (

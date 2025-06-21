@@ -2,23 +2,26 @@
 import Link from "next/link";
 import React from "react";
 import { buttonVariants } from "../ui/button";
-import { cn } from "@/lib/utils";
+import { cn, durationOfQuiz } from "@/lib/utils";
 import { BarChart } from "lucide-react";
 
 type Props = {
   gameId: string;
   duration: string; 
+  timeStarted?: Date;
   removeIsOver: () => void;
  type?:string
 };
 
 function EndOfQuizModal(props: Props) {
+       const durationNew = durationOfQuiz(new Date, props.timeStarted as Date);
+  
   return (
     <div className='relative h-screen'>
     <div className="modal-container flex flex-col">
       <div>
         You completed the test in
-        <span>{props.duration}</span>
+        <span>{durationNew}</span>
       </div>
       <Link
       onClick={() => props.removeIsOver()}

@@ -113,6 +113,8 @@ enum FeedbackType {
 model StudySession {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
+   endedAt    DateTime?                   // null until session ends
+  status     SessionStatus @default(ACTIVE)
   userId    String
   notes     String?
   gameId    String
@@ -122,7 +124,11 @@ model StudySession {
   game      Game               @relation("GameToStudySession", fields: [gameId], references: [id])
   @@index([userId])
 }
-
+enum SessionStatus {
+  ACTIVE
+  FINISHED
+  ABANDONED
+}
 model QuestionFeedback {
   id         String       @id @default(cuid())
   questionId String

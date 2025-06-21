@@ -2,13 +2,20 @@ import React, { useEffect, useRef } from "react";
 type useEventListenerProps = {
   action: string;
   handler: (event?: Event | KeyboardEvent) => void;
+  dependency?:any[];
+targetRef?: React.RefObject<HTMLElement>;
+  target?: Window | Document | HTMLElement | null;
+
 };
 export default function useEventListener({
   action,
   handler,
+  dependency,
+  targetRef,
+  target,
 }: useEventListenerProps) {
   const handlerRef = useRef(handler);
-
+const resolvedTarget = targetRef?.current ?? target ?? window;
   useEffect(() => {
     console.log("ref update");
     handlerRef.current = handler;
@@ -16,9 +23,10 @@ export default function useEventListener({
 
   useEffect(() => {
     const handler = (event: Event) => handlerRef.current(event);
-    window.addEventListener(action, handler);
+      if (!target?.addEventListener) return;
+    resolvedTarget.addEventListener(action, handler);
     return () => {
-      window.removeEventListener(action, handler);
+      resolvedTarget.removeEventListener(action, handler);
     };
-  }, []);
+  }, [resolvedTarget, action,...dependency as []]);
 }

@@ -41,7 +41,9 @@ export async function POST(req: Request, res: Response) {
       );
     }
     //create game in db and store game id
-    const game = await prisma.game.create({
+    let game;
+    try{
+      game = await prisma.game.create({
       data: {
         gameType: type,
         timeStarted: new Date(),
@@ -49,7 +51,7 @@ export async function POST(req: Request, res: Response) {
         topic,
       },
     });
-    console.log(game);
+    console.log("game in db id :",game.id);
     await prisma.topic_count.upsert({
       where: {
         topic,
@@ -64,6 +66,9 @@ export async function POST(req: Request, res: Response) {
         },
       },
     });
+    }catch(err){
+      console.log("error from create game from database",err)
+    }
     // console.log("data from game route aka api", data)
     if (type === "mcq") {
       await createMCQQuizPrisma(data.data, game.id);
