@@ -9,5 +9,5 @@ export interface studySessionInterface {
   id: string;
   userId: string;
   createdAt: Date;
-  notes: string;
+  notes: string|null;
 }

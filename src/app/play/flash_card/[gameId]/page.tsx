@@ -13,7 +13,7 @@ export default async function FlashCardPage({ params }: Props) {
   // Destructure the awaited params to get gameId
   const { gameId } =  awaitedParams;
 
-  const game = await prisma.game.findUnique({
+  const gameData = await prisma.game.findUnique({
     where: {
       id: gameId,
     },
@@ -29,7 +29,7 @@ export default async function FlashCardPage({ params }: Props) {
   });
   return (
     <div className=" h-[calc(100vh-4rem)]">
-      {game ? <FlipCardComponent game={game} /> : <div>Game not found</div>}
+      {gameData ? <FlipCardComponent game={gameData} /> : <div>Game not found</div>}
     </div>
   );
 }

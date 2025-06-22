@@ -83,7 +83,7 @@ export async function POST(req: Request, res: Response) {
         return {
           question: question.question,
           answer: question.answer,
-          gameId: game.id,
+          gameId: game?.id,
           questionType: type,
         };
       });
@@ -92,9 +92,29 @@ export async function POST(req: Request, res: Response) {
         data: manyData,
       });
     }
+    if (type === 'flash_card'){
+      try{
+    const studySession= await createStudySession({gameId:game?.id, userId:game?.userId, status: 'ACTIVE',feedback:[] })
+    console.log("------------------studySession", studySession)
+ return NextResponse.json(  
+{
+      gameId: game?.id,
+    });
+      }catch(err){
+         return NextResponse.json(
+        {
+          error: err,
+        },
+        {
+          status: 403,
+        },
+      );
+      }
+    
+    }
     //return game id in the db
     return NextResponse.json({
-      gameId: game.id,
+      gameId: game?.id,
     });
   } catch (error) {
     if (error instanceof ZodError) {
@@ -127,6 +147,7 @@ interface MCQQuestion {
 }
 
 import { GameType } from "@prisma/client";
+import createStudySession from "@/lib/createStudySession";
 
 interface MCQQuestionData {
   question: string;

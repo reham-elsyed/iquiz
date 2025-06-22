@@ -11,6 +11,8 @@ import { StudySessionSidebar } from "../StudySessionSidebar/StudySessionSidebar"
 import ControllerButtons from "@/components/Buttons/ControllerButtons/ControllerButtons";
 import useEventListener from "@/hooks/useEventListener";
 import handleUnload from "@/lib/handleUnload";
+import createStudySession from "@/lib/createStudySession";
+import { findStudySession } from "@/lib/findStudySession";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer"| 'questionType'>[] };
 };
@@ -27,45 +29,27 @@ const FlipCardComponent = ({ game }: Props) => {
      const [isOver, setIsOver,removeIsOver] = useLocalStorage({
     key: "isOver",
     value: false,});
-  const [TimeStarted, setTimeStarted,removeTimeStarted] = useLocalStorage({
+  const [timeStarted, setTimeStarted,removeTimeStarted] = useLocalStorage({
     key: "timeStarted",
     value: new Date(),});
-//     const handleUnloadCall = useCallback(()=>{
-//       handleUnload(studySession?.id as string,isOver)
-//       removeIsOver()
-//       removeStudySession()
-//       removeValue()
-//     },[studySession, isOver])
-//   useEventListener({
-//   action: "beforeunload",
-//   handler: handleUnloadCall,
-//   dependency: [studySession, isOver],
-// });
+ useEffect(()=>{
+    const studySessionData=async ()=>{
+    const data=  await findStudySession(game.id, game.userId)
+    setStudySession(data)
+    }
+ studySessionData()
+ 
+  },[])
+
   interface ReducerAction {
     type: "EASY" | "MEDIUM" | "HARD";
     payload?: Pick<Question, "id" | "question" | "answer"> | Pick<Question, "id" | "question" | "answer">[];
   }
 
   type ReducerState = Pick<Question, "id" | "question" | "answer">[];
-  useEffect(() => {
-    if (studySession && typeof studySession === "object" && "id" in studySession || isOver) return; // Prevent multiple calls if already set
-    const createStudySession = async () => {
-      const response = await axios.post('/api/studySessionCreation', {
-        userId: game.userId, // or get user from server session
-      gameId: game.id,
-      feedbacks:[],
-      status:"ACTIVE"
-      });
-    setStudySession(response.data.response);
-      console.log("______________________response_____________________", response.data.response.id)
-    };
- 
-    createStudySession();
-  }, [game.id, studySession?.id as string]);
 
-  //const studySessionData = useMemo(() => findStudySession(studySession?.id as string, game.userId as string), [studySessionId, game.userId])
-     const duration = durationOfQuiz(new Date(),studySession?.createdAt as Date);
 
+const duration = durationOfQuiz(new Date(),studySession?.createdAt as Date);
 
 async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
   return await axios.post('/api/flashCardFeedback', JSON.stringify(payload));
@@ -91,10 +75,9 @@ async function saveFeedbackFlashCardEasy(payload:flashcardFeedbackinterface) {
 
 
 async function handleDispatch(action: ReducerAction) {
-  console.log('time started', TimeStarted)
+  console.log('time started', timeStarted)
   const endTime = new Date();
-  console.log(calculateDurationOfFlashCardStudy(endTime, TimeStarted as Date))
-  const time = (calculateDurationOfFlashCardStudy(endTime, TimeStarted as Date))
+  const time = (calculateDurationOfFlashCardStudy(endTime, timeStarted as Date))
   const index = storedValue;
    const  payload={
     questionId: game.questions[index].id,
@@ -115,8 +98,7 @@ async function handleDispatch(action: ReducerAction) {
  }
 
 }
-
-  function flipCard() {
+function flipCard() {
     setFlip((prev) => !prev);
   }
   const finishStudy = async(studySessionid:string, isOver:boolean)=>{
@@ -159,7 +141,7 @@ setTimeStarted(new Date());
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8  h-full">
      
-    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} timeStarted={game.timeStarted} gameId={game?.id as string} type={game.gameType}/>:
+    {isOver? <EndOfQuizModal removeIsOver={removeIsOver}  duration={duration} timeStarted={studySession?.createdAt} gameId={game?.id as string} type={game.gameType}/>:
     <>
     <div className="lg:w-1/3 ">
       <StudySessionSidebar  startOfStudySession={studySession?.createdAt as Date} numberOfCards={game.questions.length} progressValue={+storedValue+1}/>
@@ -167,10 +149,6 @@ setTimeStarted(new Date());
        <div className="card-container lg:w-1/2 flex flex-col justify-center items-center gap-5"> 
          <div className={`card ${flip ? "flip":''}`} >
         {game && questions && questions.length > 0 ? (
-
-
-
-
           <>
             <div
               className={` duration-300 bg-card card-front  card-face hover:bg-accent/10 transition-colors text-card-foreground`}
@@ -218,8 +196,6 @@ setTimeStarted(new Date());
             Hard
           </Button>
         </div>
-       
-       
       </div>
        </div>
     </>}

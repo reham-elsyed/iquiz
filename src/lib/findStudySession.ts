@@ -1,11 +1,12 @@
-import prisma from "@/lib/db";;
+import prisma from "@/lib/db";import { studySessionInterface } from "@/types/feedbackFlashcardTypes";
+;
 
-export function findStudySession(gameId: string, userId: string) {
-    try{
+export async function findStudySession(gameId: string, userId: string) :Promise<studySessionInterface | null> {
+  
         if (!gameId || !userId) {
     throw new Error("Session ID is required to find a study session.");
   }
-const studySession = prisma.studySession.findFirst({
+const studySession = await prisma.studySession.findFirst({
     where: {
         gameId: gameId,
         userId: userId,
@@ -14,12 +15,9 @@ const studySession = prisma.studySession.findFirst({
     if (!studySession) {
         throw new Error("Study session not found.");
     }
+    console.log(studySession)
     return studySession;
-    }catch(err){
-        return err
-    }
-
-
+   
 }
 
 export function findStudySessionFeedback(sessionId: string) {
