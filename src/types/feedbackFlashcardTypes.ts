@@ -10,4 +10,6 @@ export interface studySessionInterface {
   userId: string;
   createdAt: Date;
   notes: string|null;
+  endedAt?:Date|null;
+  status?:string|null;
 }

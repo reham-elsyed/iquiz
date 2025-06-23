@@ -32,7 +32,7 @@ const Hero = (props: Props) => {
               <Button
                 variant="outline"
                 size="lg"
-                className="bg-accent text-muted  hover:bg-destructive hover:text-destructive-foreground focus:shadow-ring focus:shadow-md"
+                className="bg-accent text-accent-forground  hover:bg-destructive hover:text-destructive-foreground focus:shadow-ring focus:shadow-md"
               >
                 <Link href="/quiz">Create Quiz</Link>
               </Button>

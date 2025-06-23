@@ -23,9 +23,10 @@ export default async function ChartPage({params}:Props) {
   console.log("Game ID:", gameId);
   let studySession;
   if(gameId|| session?.user.id){
-   studySession = await findStudySession(gameId,session?.user.id as string); // Replace "userId" with actual user ID logic
+   studySession = await findStudySession(gameId,session?.user.id as string);
 
   } 
+  
   return (
     <main className="flex items-center justify-center h-screen">
       <div className="p-4 bg-white rounded shadow-lg">

@@ -1,5 +1,9 @@
+import Loading from "@/app/loading";
 import FlipCardComponent from "@/components/FlashCard/FlipCardComponent/FlipCardComponent";
 import prisma from "@/lib/db";
+import { findStudySession } from "@/lib/findStudySession";
+import { studySessionInterface } from "@/types/feedbackFlashcardTypes";
+import { redirect } from "next/navigation";
 type Props = {
   params: Promise<{
     gameId: string;
@@ -8,7 +12,7 @@ type Props = {
 export default async function FlashCardPage({ params }: Props) {
   const awaitedParams = await params;
   if (!awaitedParams) {
-    return <div>Loading...</div>;
+    return <div><Loading/></div>;
   }
   // Destructure the awaited params to get gameId
   const { gameId } =  awaitedParams;
@@ -27,9 +31,13 @@ export default async function FlashCardPage({ params }: Props) {
       },
     },
   });
+  const studySession = await findStudySession(gameData?.id as string, gameData?.userId as string)
+  if (studySession?.status === "FINISHED"){
+    redirect("/home")
+  }
   return (
     <div className=" h-[calc(100vh-4rem)]">
-      {gameData ? <FlipCardComponent game={gameData} /> : <div>Game not found</div>}
+      {gameData ? <FlipCardComponent game={gameData} studySession={studySession as studySessionInterface}/> : <div>Game not found</div>}
     </div>
   );
 }

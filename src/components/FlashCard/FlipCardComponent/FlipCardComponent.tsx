@@ -13,14 +13,16 @@ import useEventListener from "@/hooks/useEventListener";
 import handleUnload from "@/lib/handleUnload";
 import createStudySession from "@/lib/createStudySession";
 import { findStudySession } from "@/lib/findStudySession";
+import { Toast } from "@/components/ui/toast";
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer"| 'questionType'>[] };
+  studySession: studySessionInterface
 };
 
-const FlipCardComponent = ({ game }: Props) => {
+const FlipCardComponent = ({ game, studySession }: Props) => {
   const [isEasy,setIsEasy]  = useState<boolean>(false);
   const [flip, setFlip] = useState(false);
-  const [studySession, setStudySession, removeStudySession] = useLocalStorage<studySessionInterface | null>({key: "studySessionId", value: null});
+ // const [studySession, setStudySession, removeStudySession] = useLocalStorage<studySessionInterface | null>({key: "studySessionId", value: null});
   const [storedValue, setStoredValue, removeValue] = useLocalStorage({
     key: "currentIndex",
     value: 0,
@@ -32,14 +34,14 @@ const FlipCardComponent = ({ game }: Props) => {
   const [timeStarted, setTimeStarted,removeTimeStarted] = useLocalStorage({
     key: "timeStarted",
     value: new Date(),});
- useEffect(()=>{
-    const studySessionData=async ()=>{
-    const data=  await findStudySession(game.id, game.userId)
-    setStudySession(data)
-    }
- studySessionData()
+//  useEffect(()=>{
+//     const studySessionData=async ()=>{
+//     const data=  await findStudySession(game.id, game.userId)
+//     setStudySession(data)
+//     }
+//  studySessionData()
  
-  },[])
+//   },[])
 
   interface ReducerAction {
     type: "EASY" | "MEDIUM" | "HARD";
@@ -102,7 +104,19 @@ function flipCard() {
     setFlip((prev) => !prev);
   }
   const finishStudy = async(studySessionid:string, isOver:boolean)=>{
-     await handleUnload(studySessionid as string, isOver)
+   try{
+    const finished=  await axios.post("/api/finishSession", {body: JSON.stringify({sessionId:studySessionid}),
+    headers:{
+      "Content-Type":"application/json"
+    }
+   
+    })
+    if (finished){
+      return <Toast value="Your study finished has Ended" variant="success"/>
+    }
+   }catch(err){
+   return <Toast value={err as string} variant="destructive"/>
+   }
   }
   useEffect(() => {
     if (isEasy && questions.length > 0)
@@ -115,7 +129,7 @@ function flipCard() {
      finishStudy(studySession?.id as string, isOver)
       removeValue();
       removeTimeStarted();
-removeStudySession();
+//removeStudySession();
     }
   }, [isOver, isEasy]);
 
@@ -127,7 +141,7 @@ removeStudySession();
     setStoredValue((prevValue: number) => {return prevValue + 1;} );
 setTimeStarted(new Date());  
     setFlip(false);
-  }, [questions.length, storedValue, isOver, removeStudySession, removeValue, removeTimeStarted]);
+  }, [questions.length, storedValue, isOver, , removeValue, removeTimeStarted]);
  
   const handlePrevious= useCallback(()=>{
     if( questions.length === 0 || storedValue <= 0) {
@@ -137,7 +151,7 @@ setTimeStarted(new Date());
     setStoredValue((prevValue: number) => {return prevValue - 1;} );
     setTimeStarted(new Date());
     setFlip(false);
-  },[questions.length, storedValue, removeStudySession, removeValue, removeTimeStarted]);
+  },[questions.length, storedValue, removeValue, removeTimeStarted]);
   return (
     <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8  h-full">
      

@@ -2,7 +2,7 @@ import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
 import { NextResponse } from "next/server";
 
-export async function Post(req: Request){
+export async function POST(req: Request){
     try{
         const session = await getAuthSession();
         if(!session?.user){
@@ -28,7 +28,7 @@ data:{
 
     return NextResponse.json({ message: "Study session finalized" });
     }catch(err){
-
+return NextResponse.json({error: "something went wrong"},{status:400 })
     }
 
 }
