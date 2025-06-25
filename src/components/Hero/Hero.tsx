@@ -14,7 +14,7 @@ type Props = {};
 
 const Hero = (props: Props) => {
   return (
-    <div className=" h-[332px] ">
+    <div className=" h-fit ">
       <p>Your progress</p>
       <Card className="flex flex-col md:flex-row  justify-center items-center   bg-secondary rounded-lg h-full w-full md:w-[90%] mx-auto my-8">
         <CardHeader className=" md:w-2/3 h-full w-[100%] ">

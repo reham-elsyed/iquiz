@@ -204,3 +204,14 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   cursor: pointer;
 }
+
+
+/* global.css */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
