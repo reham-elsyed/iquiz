@@ -10,7 +10,7 @@ export default async function HomePage() {
   const session = await getAuthSession();
 
   return (
-    <div className="p-8 mx-auto max-w-screen">
+    <div className="container p-8 mx-auto ">
      <div className="flex flex-col gap-5">
        <Hero />
       <PopularGames/>
