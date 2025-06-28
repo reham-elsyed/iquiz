@@ -20,11 +20,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={cn("font-geist  antialiased flex bg-forground ")}>
+        <body className={cn("font-geist  antialiased bg-forground flex flex-col")}>
           <Navbar />
-          <Sidebar />
-          <main className="flex flex-col w-full mt-16">
+         
+          <main className="flex-grow w-full mt-16">
+         <section className="flex ">
+              <Sidebar />
             {children}
+         </section>
             <Footer />
             <Toaster />
           </main>

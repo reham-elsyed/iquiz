@@ -29,7 +29,8 @@ const Slider = ({popularGames}:Props) => {
     className='w-1/2'>
       <CarouselContent>
      { popularGames.map((game,i)=>(
-      <CarouselItem key={i}>
+      <CarouselItem className="md:basis-1/2 lg:basis-1/3"
+      key={i}>
   <Card
      className=" bg-primary text-primary-foreground">
 <CardTitle>
