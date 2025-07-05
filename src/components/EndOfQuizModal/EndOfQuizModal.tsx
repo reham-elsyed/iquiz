@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { buttonVariants } from "../ui/button";
 import { cn, durationOfQuiz } from "@/lib/utils";
 import { BarChart } from "lucide-react";
+import axios from "axios";
 
 type Props = {
   gameId: string;
@@ -15,8 +16,12 @@ type Props = {
 
 function EndOfQuizModal(props: Props) {
        const durationNew = durationOfQuiz(new Date, props.timeStarted as Date);
+    const endofQuizTime = async()=>{
+    return   await axios.post("/api/endTime", {gameId:props.gameId})
+    }  
   useEffect(()=>{
 props.removeIsOver()
+endofQuizTime()
   },[])
   return (
     <div className='relative h-screen'>

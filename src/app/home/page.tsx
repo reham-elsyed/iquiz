@@ -1,5 +1,5 @@
+import GamesDurationGraph from "@/components/GamesDurationGraph/GamesDurationGraph";
 import Hero from "@/components/Hero/Hero";
-import LoadingQuestions from "@/components/LoadingQuestions/LoadingQuestions";
 import PopularGames from "@/components/PopularGames/PopularGames";
 import QuizTypesComponent from "@/components/QuizTypesComponent/QuizTypesComponent";
 import { getAuthSession } from "@/lib/nextAuth";
@@ -14,6 +14,7 @@ export default async function HomePage() {
      <div className="flex flex-col gap-5">
        <Hero />
       <PopularGames/>
+      <GamesDurationGraph/>
       <QuizTypesComponent />
       </div>
     </div>

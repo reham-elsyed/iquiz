@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Card, CardContent, CardTitle } from '../ui/card'
 import Autoplay from "embla-carousel-autoplay"
-
+import { Badge } from "@/components/ui/badge"
 import {
   Carousel,
   CarouselContent,
@@ -23,7 +23,7 @@ const Slider = ({popularGames}:Props) => {
     <Carousel 
     plugins={[
         Autoplay({
-          delay: 2000,
+          delay: 1000,
         }),
       ]}
     className='w-1/2'>
@@ -32,12 +32,14 @@ const Slider = ({popularGames}:Props) => {
       <CarouselItem className="md:basis-1/2 lg:basis-1/3"
       key={i}>
   <Card
-     className=" bg-primary text-primary-foreground">
-<CardTitle>
+     className="relative bg-primary text-primary-foreground flex flex-col items-center justify-center">
+       {game.value >= 5 &&   <Badge variant="destructive" className='absolute top-0 left-0'>TRENDING</Badge>}
+<CardTitle className='text-xl md:text-2xl'>
+ 
    { game.text}
 </CardTitle>
-<CardContent>
-    {game.value}
+<CardContent className=''>
+    Number of quizez:<span className='text-xl md:2xl'>{game.value}</span> 
 </CardContent>
 
    </Card>
