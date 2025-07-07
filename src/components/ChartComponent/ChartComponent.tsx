@@ -1,6 +1,6 @@
 "use client"
 
-import { Bar, BarChart } from "recharts"
+import { Bar, BarChart, XAxis } from "recharts"
 
 import { ChartConfig, ChartContainer } from "@/components/ui/chart"
 
@@ -37,12 +37,19 @@ export default function ChartComponent({gamesDuration}:Props) {
 } satisfies ChartConfig;
 
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-1/2 bg-slate-500">
       <BarChart accessibilityLayer data={gamesDuration}>
-      {gamesDuration.map((game)=>(
-                <Bar dataKey={game.topic} fill="var(--color-mobile)" radius={4} />
-
-      ))}
+      {gamesDuration.map((game, i)=>(
+        <>
+          <XAxis
+      dataKey="topic"
+      tickLine={false}
+      tickMargin={10}
+      axisLine={false}
+      tickFormatter={(value) => value.slice(0, 3)}
+    />
+                <Bar key={game.gameId} dataKey={game.topic} fill={`var(chart-${i +1})`} radius={4} />
+</>))}
       </BarChart>
     </ChartContainer>
   )

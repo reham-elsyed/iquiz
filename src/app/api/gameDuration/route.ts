@@ -21,7 +21,9 @@ export async function GET(req: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "10");
 
     const games = await singleUserGames(session.user.id, limit);
+   
 if (games){
+   console.log("-------single user games", games)
   const gamesDuration= games.map((game)=>{
     const duration = calculateDurationOfFlashCardStudy(game.timeEnded?? new Date() as Date, game.timeStarted)
     return {topic:game.topic, duration: duration, gameId: game.id}

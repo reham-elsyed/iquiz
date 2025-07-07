@@ -10,6 +10,9 @@ const GamesDurationGraph =() => {
       setGamesDuration(res.data.gamesDuration)
     })
   }, [])
+  useEffect(()=>{
+    console.log(gamesDuration,"-----------games duration-------------")
+  },[gamesDuration])
       if (!gamesDuration){
         return (
             <div className='h-56 bg-slate-400 w-full'></div>
