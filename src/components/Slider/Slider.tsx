@@ -10,51 +10,59 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-type Props={
-popularGames:{text:string;
-value:number}[]
+type Props = {
+  popularGames: {
+    text: string;
+    value: number
+  }[]
 }
-const Slider = ({popularGames}:Props) => {
+const Slider = ({ popularGames }: Props) => {
 
   return (
-   <>
-    <div
-      className='relative flex justify-center items-center'>
-    <Carousel 
-    plugins={[
-        Autoplay({
-          delay: 1000,
-        }),
-      ]}
-    className='w-1/2'>
-      <CarouselContent>
-     { popularGames.map((game,i)=>(
-      <CarouselItem className="md:basis-1/2 lg:basis-1/3"
-      key={i}>
-  <Card
-     className="relative bg-primary text-primary-foreground flex flex-col items-center justify-center">
-       {game.value >= 5 &&   <Badge variant="destructive" className='absolute top-0 left-0'>TRENDING</Badge>}
-<CardTitle className='text-xl md:text-2xl'>
- 
-   { game.text}
-</CardTitle>
-<CardContent className=''>
-    Number of quizez:<span className='text-xl md:2xl'>{game.value}</span> 
-</CardContent>
+    <>
+      <div
+        className=''>
+        <div className='overflow-hidden w-full'>
 
-   </Card>
-   </CarouselItem>
-   )) 
-}
- 
-</CarouselContent>
-<CarouselPrevious />
-  <CarouselNext />
-</Carousel>
-   </div >
- 
+          <Carousel
+            plugins={[
+              Autoplay({
+                delay: 1000,
+              }),
+            ]}
+            className='w-1/2'>
+            <CarouselContent>
+              {popularGames.map((game, i) => (
+                <CarouselItem className="md:basis-1/2 lg:basis-1/3"
+                  key={i}>
+                  <Card
+                    className="relative bg-primary text-primary-foreground flex flex-col items-center justify-center">
+                    {game.value >= 5 && <Badge variant="destructive" className='absolute top-0 left-0'>TRENDING</Badge>}
+                    <CardTitle className='text-xl md:text-2xl'>
 
-   </>
+                      {game.text}
+                    </CardTitle>
+                    <CardContent className=''>
+                      Number of quizez:<span className='text-xl md:2xl'>{game.value}</span>
+                    </CardContent>
+
+                  </Card>
+                </CarouselItem>
+              ))
+              }
+
+              {/* <CarouselPrevious />
+              <CarouselNext /> */}
+            </CarouselContent>
+
+
+          </Carousel>
+        </div>
+
+      </div >
+
+
+    </>
   )
 }
 
