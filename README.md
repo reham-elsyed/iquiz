@@ -1,7 +1,7 @@
 Transform Learning with IQUIZ – AI-powered quiz creation and feedback tailored just for you.
 Create, share, and grow your knowledge effortlessly.
 
-Hero section Image Attributes :Photo by <a href="https://unsplash.com/@brookecagle?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Brooke Cagle</a> on <a href="https://unsplash.com/photos/a-group-of-friends-at-a-coffee-shop--uHVRvDr7pg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
 
 User Authentication And EndPoints in IQuiz app:
 
@@ -153,5 +153,8 @@ Great idea — a flash card study session where users can remove cards they’ve
 ---
 
 **This architecture is scalable, maintainable, and follows modern full-stack React/Next.js best practices.**
+
+
+
 
  

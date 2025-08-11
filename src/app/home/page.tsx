@@ -1,4 +1,5 @@
 import GamesDurationGraph from "@/components/GamesDurationGraph/GamesDurationGraph";
+import GamesPerformanceReview from "@/components/GamesPerformanceReview/GamesPerformanceReview";
 import Hero from "@/components/Hero/Hero";
 import PopularGames from "@/components/PopularGames/PopularGames";
 import QuizTypesComponent from "@/components/QuizTypesComponent/QuizTypesComponent";
@@ -20,7 +21,7 @@ export default async function HomePage() {
           </div>
           <div className="flex-1 h-full">
             {session?.user ? (
-              <h2 className="text-2xl font-bold mb-4">Welcome back, {session.user.name}!</h2>
+              <GamesPerformanceReview />
             ) : (
               <h2 className="text-2xl font-bold mb-4">Welcome to IQuiz!</h2>
             )}

@@ -34,6 +34,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -60,52 +61,88 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-:root {
-  /* ─── LIGHT MODE ───────────────────────────────────── */
-  --background: 0 0% 100%;         /* White */
-  --foreground: 0 0% 5%;           /* Slightly darker for text */
-  --card: 40 100% 99%;             /* hsla(40,100%,99%,1) – near-white but warmer */
-  --card-foreground: 0 0% 7%;      /* Very dark gray for card text */
-  --primary: 259 71% 65%;          /* Purple accent */
-  --primary-foreground: 0 0% 100%; /* White text on primary */
-  --secondary: 190 78% 44%;        /* Teal green */
-  --secondary-foreground: 0 0% 100%; /* White on teal */
-  --accent: 28 41% 93%;            /* Pale yellow */
-  --accent-foreground: 0 0% 7%;    /* Dark text on yellow */
-  --destructive: 0 88% 87%;        /* Light red */
-  --destructive-foreground: 0 0% 7%;/* Dark on red */
-  --muted: 133 90% 96%;            /* hsla(133,90%,96%,1) – very pale mint */
-  --muted-foreground: 0 0% 45%;    /* Mid-gray for muted text */
-  --border: 32 100% 87%;           /* Beige border */
-  --input: 44 100% 90%;            /* Pale lemon */
-  --ring: 45 100% 50%;             /* Vibrant yellow focus */
-}
 
-.dark {
-  /* ─── DARK MODE ────────────────────────────────────── */
-  --background: 0 0% 7%;           /* Very dark gray */
-  --foreground: 0 0% 98%;          /* Near-white for text */
-  --card: 0 0% 20%;                /* Darker card background */
-  --card-foreground: 0 0% 98%;     /* White for card text */
-  --primary: 251 100% 91%;         /* hsla(251,100%,91%,1) very pale lavender */
-  --primary-foreground: 0 0% 7%;   /* Dark text on lavender */
-  --secondary: 188 100% 96%;       /* hsla(188,100%,96%,1) pale teal */
-  --secondary-foreground: 0 0% 7%; /* Dark text on teal */
-  --accent: 18 92% 61%;            /* Bright orange */
-  --accent-foreground: 0 0% 7%;    /* Dark on orange */
-  --destructive: 259 71% 65%;      /* Same purple for consistency */
-  --destructive-foreground: 0 0% 98%;/* White on purple */
-  --muted: 0 0% 20%;               /* Dark gray for muted */
-  --muted-foreground: 190 78% 44%; /* Teal text for muted elements */
-  --border: 0 0% 52%;              /* Mid-gray border */
-  --input: 0 0% 52%;               /* Medium gray input */
-  --ring: 173 68% 45%;             /* hsla(173,68%,45%,1) tealish focus */
+  :root {
+    /* ─── LIGHT MODE ───────────────────────────────────── */
+    --background: 0 0% 100%;
+    /* White */
+    --foreground: 0 0% 5%;
+    /* Slightly darker for text */
+    --card: 40 100% 99%;
+    /* hsla(40,100%,99%,1) – near-white but warmer */
+    --card-foreground: 0 0% 7%;
+    /* Very dark gray for card text */
+    --primary: 259 71% 65%;
+    /* Purple accent */
+    --primary-foreground: 0 0% 100%;
+    /* White text on primary */
+    --secondary: 190 78% 44%;
+    /* Teal green */
+    --secondary-foreground: 0 0% 100%;
+    /* White on teal */
+    --accent: 28 41% 93%;
+    /* Pale yellow */
+    --accent-foreground: 0 0% 7%;
+    /* Dark text on yellow */
+    --destructive: 0 88% 87%;
+    /* Light red */
+    --destructive-foreground: 0 0% 7%;
+    /* Dark on red */
+    --muted: 133 90% 96%;
+    /* hsla(133,90%,96%,1) – very pale mint */
+    --muted-foreground: 0 0% 45%;
+    /* Mid-gray for muted text */
+    --border: 32 100% 87%;
+    /* Beige border */
+    --input: 44 100% 90%;
+    /* Pale lemon */
+    --ring: 45 100% 50%;
+    /* Vibrant yellow focus */
+  }
+
+  .dark {
+    /* ─── DARK MODE ────────────────────────────────────── */
+    --background: 0 0% 7%;
+    /* Very dark gray */
+    --foreground: 0 0% 98%;
+    /* Near-white for text */
+    --card: 0 0% 20%;
+    /* Darker card background */
+    --card-foreground: 0 0% 98%;
+    /* White for card text */
+    --primary: 251 100% 91%;
+    /* hsla(251,100%,91%,1) very pale lavender */
+    --primary-foreground: 0 0% 7%;
+    /* Dark text on lavender */
+    --secondary: 188 100% 96%;
+    /* hsla(188,100%,96%,1) pale teal */
+    --secondary-foreground: 0 0% 7%;
+    /* Dark text on teal */
+    --accent: 18 92% 61%;
+    /* Bright orange */
+    --accent-foreground: 0 0% 7%;
+    /* Dark on orange */
+    --destructive: 259 71% 65%;
+    /* Same purple for consistency */
+    --destructive-foreground: 0 0% 98%;
+    /* White on purple */
+    --muted: 0 0% 20%;
+    /* Dark gray for muted */
+    --muted-foreground: 190 78% 44%;
+    /* Teal text for muted elements */
+    --border: 0 0% 52%;
+    /* Mid-gray border */
+    --input: 0 0% 52%;
+    /* Medium gray input */
+    --ring: 173 68% 45%;
+    /* hsla(173,68%,45%,1) tealish focus */
+  }
 }
 
 @layer base {
   :root {
+    --chart-0: oklch(89.534% 0.22714 125.772);
     --chart-1: oklch(0.646 0.222 41.116);
     --chart-2: oklch(0.6 0.118 184.704);
     --chart-3: oklch(0.398 0.07 227.392);
@@ -114,6 +151,7 @@ body {
   }
 
   .dark {
+    --chart-0: oklch(83.733% 0.17053 98.901);
     --chart-1: oklch(0.488 0.243 264.376);
     --chart-2: oklch(0.696 0.17 162.48);
     --chart-3: oklch(0.769 0.188 70.08);
@@ -121,22 +159,27 @@ body {
     --chart-5: oklch(0.645 0.246 16.439);
   }
 }
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
+
 .modal-container {
-  @apply absolute  top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
+
 @layer utilities {
   @keyframes growWidth {
     0% {
       width: 200px;
     }
+
     100% {
       width: 224px;
     }
@@ -145,9 +188,11 @@ body {
   .animate-growWidth {
     animation: growWidth 1s ease-in-out forwards;
   }
-  .hover-effect{
-@apply transition-transform duration-300 ease-in-out hover:opacity-90 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:scale-105 hover:shadow-sm hover:shadow-secondary;
+
+  .hover-effect {
+    @apply transition-transform duration-300 ease-in-out hover:opacity-90 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:scale-105 hover:shadow-sm hover:shadow-secondary;
   }
+
   /* .hover-effect:hover {
      
 opacity: 0.9;
@@ -156,6 +201,7 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
 
   } */
 }
+
 @layer components {
   .tab {
     padding: 12px 20px 12px 20px;
@@ -171,8 +217,9 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
 
 .flip {
   transform: rotateY(180deg);
- 
+
 }
+
 .flip-back {
   transition: all 0.9s;
   transform: rotateY(0deg);
@@ -191,6 +238,7 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
   padding: 1rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
+
 .card-container {
   perspective: 1000px;
   width: 100%;
@@ -207,8 +255,10 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
 
 .card-front {
   transform: rotateY(0deg);
-  z-index: 2;;
+  z-index: 2;
+  ;
 }
+
 .card-back {
   transform: rotateY(180deg);
   z-index: 1;
@@ -226,8 +276,10 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
-}
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
