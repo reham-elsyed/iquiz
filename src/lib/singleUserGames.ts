@@ -36,7 +36,9 @@ export const singeUserWeekPerformanceQuestions = async (userId: string, limit: n
   console.log("-------single user week performance questions", games)
   const gamesTopicQuestionsWithWeakPerformance = games.map(game => {
     return {
+      topic: game.topic,
       gameId: game.id,
+      gameDate: game.timeStarted,
       questions: game.questions.map(question => ({
         questionId: question.id,
         question: question.question,
