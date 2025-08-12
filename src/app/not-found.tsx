@@ -7,7 +7,7 @@ type Props = {};
 
 const NotFound = (props: Props) => {
   return (
-    <div className="modal-container h-[40vw] min-w-[70vw] lg:min-w-[60vw] flex flex-col items-center justify-center">
+    <div className=" h-[40vw] min-w-[70vw] lg:min-w-[60vw] flex flex-col items-center justify-center">
       <div className="relative w-full h-[30vw]">
         <Image
           fill

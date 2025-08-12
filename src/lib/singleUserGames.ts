@@ -44,6 +44,7 @@ export const singeUserWeekPerformanceQuestions = async (userId: string, limit: n
         question: question.question,
         answer: question.answer,
         questionType: question.questionType,
+        userAnswer: question.userAnswer
       })),
     }
   })

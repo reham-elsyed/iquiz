@@ -33,9 +33,10 @@ const MCQuiz = ({ game }: Props) => {
   const [selectedChoice, setSelectedChoice] = useState(0);
   // const [storedValue, setQuestuionIndex] = useState(0);
   //const [isOver, setIsOver] = useState(false);
-    const [isOver, setIsOver,removeIsOver] = useLocalStorage({
+  const [isOver, setIsOver, removeIsOver] = useLocalStorage({
     key: "isOver",
-    value: false,});
+    value: false,
+  });
 
   const [now, setNow] = useState<Date>(new Date());
   const { toast } = useToast();
@@ -43,7 +44,7 @@ const MCQuiz = ({ game }: Props) => {
     key: "MCQIndex",
     value: 0,
   });
-//calculate the duration of test/ timer
+  //calculate the duration of test/ timer
   const duration = durationOfQuiz(now, game.timeStarted);
   useEffect(() => {
     if (!isOver) {
@@ -51,7 +52,7 @@ const MCQuiz = ({ game }: Props) => {
       return () => clearInterval(interval);
     }
   }, [isOver]);
- useEffect(() => {
+  useEffect(() => {
     if (isOver) {
       removeItem();
       removeCorrectAnswer();
@@ -94,38 +95,39 @@ const MCQuiz = ({ game }: Props) => {
           });
           setWrongAnswers((prev) => prev + 1);
         }
-        if (storedValue === game.questions.length-1) {
+        if (storedValue === game.questions.length - 1) {
           setIsOver(true);
           await setEndOfQuizTime(game.id);
           //remove savedIndex(storedValue) from localstorage
-          if (isOver){
-          removeItem();
-          removeCorrectAnswer();
-          RemoveWrongAnswer();}
+          if (isOver) {
+            removeItem();
+            removeCorrectAnswer();
+            RemoveWrongAnswer();
+          }
           return;
         }
-        else{
-setStoredValue((prev) => prev + 1);
+        else {
+          setStoredValue((prev) => prev + 1);
         }
-        
+
       },
     });
-  }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);
+  }, [checkAnswer, toast, isChecking, game.questions.length, storedValue, isOver]);
 
   const handleKeyDown = useCallback((event?: KeyboardEvent | Event) => {
-      const keyboardEvent = event as KeyboardEvent | undefined;
-      if (keyboardEvent?.key == "1") {
-        setSelectedChoice(0);
-      } else if (keyboardEvent?.key == "2") {
-        setSelectedChoice(1);
-      } else if (keyboardEvent?.key == "3") {
-        setSelectedChoice(2);
-      } else if (keyboardEvent?.key == "4") {
-        setSelectedChoice(3);
-      } else if (keyboardEvent?.key == "Enter") {
-        handleNext();
-      }
-    },
+    const keyboardEvent = event as KeyboardEvent | undefined;
+    if (keyboardEvent?.key == "1") {
+      setSelectedChoice(0);
+    } else if (keyboardEvent?.key == "2") {
+      setSelectedChoice(1);
+    } else if (keyboardEvent?.key == "3") {
+      setSelectedChoice(2);
+    } else if (keyboardEvent?.key == "4") {
+      setSelectedChoice(3);
+    } else if (keyboardEvent?.key == "Enter") {
+      handleNext();
+    }
+  },
     [handleNext],
   );
   useEventListener({ action: "keydown", handler: handleKeyDown });
@@ -136,15 +138,15 @@ setStoredValue((prev) => prev + 1);
     if (!currentQuestion.options) return [];
     return JSON.parse(currentQuestion.options as string) as string[];
   }, [currentQuestion]);
-  
+
   return (
     <>
       {isOver ? (
         <>
           {" "}
-         
-            <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted}  removeIsOver={removeIsOver}/>
-          
+
+          <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted} removeIsOver={removeIsOver} />
+
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">

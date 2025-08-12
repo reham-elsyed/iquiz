@@ -10,13 +10,13 @@ import Link from 'next/link';
 
 
 interface WeakPerformanceCardProps {
-    question: WeakQuestionType;
+    question: Pick<WeakQuestionType, 'question' | 'answer' | 'questionType' | 'questionId'>;
 }
 export function WeakPerformanceCard({ question }: WeakPerformanceCardProps) {
     return (
-        <Card className="border-red-300 bg-red-50 shadow-sm hover:shadow-md transition">
+        <Card className=" bg-card shadow-sm hover:shadow-md transition mb-3">
             <CardHeader>
-                <CardTitle className="text-red-700 font-bold">
+                <CardTitle className="text-card-foreground font-bold">
                     ⚠ Weak Performance Question
                 </CardTitle>
             </CardHeader>
@@ -43,12 +43,13 @@ const GamesPerformanceReview = async () => {
     return (
         <>
             <div className='mb-4 flex justify-between '>
+
+                <h2 className="text-2xl font-bold mb-4">Weak Performance Questions</h2>
                 <Button>
                     <Link href="/games/performance-review" className="text-white">
                         View Full Performance Review
                     </Link>
                 </Button>
-                <h2 className="text-2xl font-bold mb-4">Weak Performance Questions</h2>
             </div>
 
             {weakPerformanceQuestions.map(q => (
