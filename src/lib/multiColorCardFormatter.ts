@@ -1,13 +1,6 @@
+import { TopicStyle } from "@/types/weakQuestionsPerformanceTypes";
 
-const topics = ['math', 'science', 'english', 'geography'];
-interface TopicStyle {
-    background: string;
-    badge: string;
-    text: string;
-    accent: string;
-}
-
-const styles: TopicStyle[] = [{
+export const styles: TopicStyle[] = [{
     background: "bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950/50 dark:to-gray-900/50",
     badge: "bg-gray-500 text-white",
     text: "text-gray-900 dark:text-gray-100",

@@ -34,7 +34,7 @@ const PerformanceReview = async () => {
                 {flattened.map((game, idx) => {
                     const colorClass = topicColors[game.gameTopic] || topicColors.Default;
                     return (
-                        <PerformanceReviewCard key={game.gameId} game={game} colorClass={colorClass} />
+                        <PerformanceReviewCard key={game.questionId} game={game} colorClass={colorClass} />
                     )
                 }
                 )}

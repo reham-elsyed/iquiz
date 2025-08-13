@@ -71,7 +71,7 @@ const MCQuiz = ({ game }: Props) => {
         userAnswer: options[selectedChoice],
         keyWords: "",
       };
-      localStorage.setItem("questionId", JSON.stringify(currentQuestion.id));
+      // localStorage.setItem("questionId", JSON.stringify(currentQuestion.id));
 
       const response = await axios.post("/api/checkAnswer", payload);
 
@@ -99,11 +99,11 @@ const MCQuiz = ({ game }: Props) => {
           setIsOver(true);
           await setEndOfQuizTime(game.id);
           //remove savedIndex(storedValue) from localstorage
-          if (isOver) {
-            removeItem();
-            removeCorrectAnswer();
-            RemoveWrongAnswer();
-          }
+
+          removeItem();
+          removeCorrectAnswer();
+          RemoveWrongAnswer();
+
           return;
         }
         else {
@@ -112,7 +112,7 @@ const MCQuiz = ({ game }: Props) => {
 
       },
     });
-  }, [checkAnswer, toast, isChecking, game.questions.length, storedValue, isOver]);
+  }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);
 
   const handleKeyDown = useCallback((event?: KeyboardEvent | Event) => {
     const keyboardEvent = event as KeyboardEvent | undefined;

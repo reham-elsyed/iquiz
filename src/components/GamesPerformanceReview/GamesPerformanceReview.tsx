@@ -6,9 +6,6 @@ import { WeakQuestionType } from '@/types/weakQuestionsPerformanceTypes';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 
-
-
-
 interface WeakPerformanceCardProps {
     question: Pick<WeakQuestionType, 'question' | 'answer' | 'questionType' | 'questionId'>;
 }
