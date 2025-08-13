@@ -1,31 +1,49 @@
 import prisma from "./db";
 
+type GetUserGamesOptions = {
+    limit?: number;                // limit number of games
+    includeQuestions?: boolean;    // include all questions?
+    weakOnly?: boolean;            // include only weak performance questions?
+    since?: Date;                   // filter games by date
+};
 
-
-export const totalQuizzes = async (userId: string) => {
-    return + await prisma.game.count({
-        where: { userId }
+export const getUserGames = async (userId: string, opts: GetUserGamesOptions = {}) => {
+    return prisma.game.findMany({
+        where: {
+            userId,
+            ...(opts.since ? { timeStarted: { gte: opts.since } } : {}),
+        },
+        take: opts.limit || undefined,
+        orderBy: { timeStarted: "desc" },
+        include: opts.includeQuestions
+            ? {
+                questions: opts.weakOnly
+                    ? {
+                        where: {
+                            OR: [
+                                { isCorrect: false },
+                                { percentageCorrect: { lt: 50 } },
+                            ],
+                        },
+                    }
+                    : true,
+            }
+            : undefined,
     });
-}
-//streak query
-const sessions = await prisma.game.findMany({
-    where: { userId },
-    orderBy: { timeStarted: 'desc' },
-    select: { timeStarted: true }
-});
+};
 
 // Now calculate streak in JS
-function calculateStreak(sessions: { createdAt: Date }[]) {
+function calculateStreak(games: { timeStarted: Date }[]) {
     let streak = 0;
     let currentDate = new Date();
 
-    for (const s of sessions) {
+    for (const s of games) {
         const diff = Math.floor(
-            (currentDate.getTime() - s.createdAt.getTime()) / (1000 * 60 * 60 * 24)
+            (currentDate.getTime() - s.timeStarted.getTime()) / (1000 * 60 * 60 * 24)
         );
         if (diff === 0 || diff === 1) {
             streak++;
-            currentDate = s.createdAt;
+            currentDate = s.timeStarted;
         } else {
             break;
         }
@@ -33,62 +51,31 @@ function calculateStreak(sessions: { createdAt: Date }[]) {
     return streak;
 }
 
-const currentStreak = calculateStreak(sessions);
-//average score 
-const gamesWithScores = await prisma.game.findMany({
-    where: { userId },
-    include: {
-        questions: {
-            select: { isCorrect: true }
-        }
-    }
-});
 
-const avgScore =
-    gamesWithScores.reduce((sum, game) => {
+export const avgScore = (gamesStat) => {
+    const scor = gamesStat.reduce((sum, game) => {
         const total = game.questions.length;
         const correct = game.questions.filter(q => q.isCorrect).length;
         return sum + (total ? correct / total : 0);
-    }, 0) / gamesWithScores.length;
+    }, 0) / gamesStat.length;
 
-console.log(`Average Score: ${(avgScore * 100).toFixed(2)}%`);
+    return scor
+}
+
 
 //study time
 
-const sessionsWithTime = await prisma.game.findMany({
-    where: { userId, timeEnded: { not: null } },
-    select: { timeStarted: true, timeEnded: true }
-});
 
-const totalMinutes = sessionsWithTime.reduce((sum, s) => {
-    return sum + ((s.timeEnded!.getTime() - s.timeStarted.getTime()) / 1000 / 60);
-}, 0);
 
-const hours = Math.floor(totalMinutes / 60);
-const minutes = Math.floor(totalMinutes % 60);
+export const totalMinutes = (games) => {
+    let currentDate = new Date();
+    const total = games.reduce((sum, s) => {
+        return sum + ((s.timeEnded?.getTime() || currentDate.getTime() - s.timeStarted.getTime()) / 1000 / 60);
+    }, 0);
 
-console.log(`${hours}h ${minutes}m`);
-//global rank
-const usersWithScores = await prisma.user.findMany({
-    include: {
-        games: {
-            include: { questions: { select: { isCorrect: true } } }
-        }
-    }
-});
+    const hours = Math.floor(total / 60);
+    const minutes = Math.floor(total % 60);
 
-const userScores = usersWithScores.map(user => {
-    const avg =
-        user.games.reduce((sum, game) => {
-            const total = game.questions.length;
-            const correct = game.questions.filter(q => q.isCorrect).length;
-            return sum + (total ? correct / total : 0);
-        }, 0) / (user.games.length || 1);
-    return { id: user.id, avg };
-});
+    return `${hours}h ${minutes}m`
+}
 
-userScores.sort((a, b) => b.avg - a.avg);
-
-const globalRank = userScores.findIndex(u => u.id === userId) + 1;
-
-console.log(`#${globalRank}`);

@@ -6,48 +6,46 @@ import {
     Clock,
     Trophy,
 } from "lucide-react";
+import { Game, Question } from "@prisma/client";
+import { avgScore, totalMinutes } from "@/lib/generalStatsUtils";
+import { GameWithQuestions } from "@/types/gameTypes";
 
-interface StatsData {
-    totalQuizzes: number;
-    averageScore: number;
-    totalTime: string;
-    bestStreak: number;
-    currentStreak: number;
-    rank: number;
-}
 
 interface StatsSummaryProps {
-    stats: StatsData;
+    gamesWithStats: GameWithQuestions[]
 }
 
 export default function OverviewStatsComponent({
-    stats,
+    gamesWithStats,
 }: StatsSummaryProps) {
+    const totalQuizes = gamesWithStats.length
+    const averageScore = avgScore(gamesWithStats)
+    const totalTime = totalMinutes(gamesWithStats)
     const statItems = [
         {
             label: "Total Quizzes",
-            value: stats.totalQuizzes.toString(),
+            value: totalQuizes.toString(),
             icon: Target,
             color: "text-blue-600 dark:text-blue-400",
             bgColor: "bg-blue-50 dark:bg-blue-950/20",
         },
         {
             label: "Average Score",
-            value: `${stats.averageScore}%`,
+            value: `${averageScore}%`,
             icon: TrendingUp,
             color: "text-emerald-600 dark:text-emerald-400",
             bgColor: "bg-emerald-50 dark:bg-emerald-950/20",
         },
         {
             label: "Study Time",
-            value: stats.totalTime,
+            value: totalTime,
             icon: Clock,
             color: "text-purple-600 dark:text-purple-400",
             bgColor: "bg-purple-50 dark:bg-purple-950/20",
         },
         {
             label: "Global Rank",
-            value: `#${stats.rank}`,
+            value: `#first`,
             icon: Trophy,
             color: "text-orange-600 dark:text-orange-400",
             bgColor: "bg-orange-50 dark:bg-orange-950/20",
@@ -61,7 +59,7 @@ export default function OverviewStatsComponent({
                     <h3 className="text-lg font-semibold">Your Stats</h3>
                     <div className="flex items-center gap-2">
                         <Badge variant="outline" className="text-xs">
-                            Current Streak: {stats.currentStreak} days
+                            Current Streak:"5 days
                         </Badge>
                     </div>
                 </div>
@@ -98,7 +96,7 @@ export default function OverviewStatsComponent({
                             Best Streak
                         </span>
                         <span className="font-semibold">
-                            {stats.bestStreak} days
+                            20 days
                         </span>
                     </div>
                 </div>

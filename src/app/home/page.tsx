@@ -4,13 +4,26 @@ import Hero from "@/components/Hero/Hero";
 import OverviewStatsComponent from "@/components/OverviewStatsComponent/OverviewStatsComponent";
 import PopularGames from "@/components/PopularGames/PopularGames";
 import QuizTypesComponent from "@/components/QuizTypesComponent/QuizTypesComponent";
+import { getUserGames } from "@/lib/generalStatsUtils";
 import { getAuthSession } from "@/lib/nextAuth";
+import { Prisma } from "@prisma/client";
+import { redirect } from "next/navigation";
 export const metadata = {
   title: "Home| IQuiz",
 };
+export type GameWithQuestions = Prisma.GameGetPayload<{ include: { questions: true } }>;
 export default async function HomePage() {
   const session = await getAuthSession();
+  if (!session) {
+    redirect("/login")
+  }
+  //force type on return to always include questions for this return
 
+
+  const gamesForStats = await getUserGames(session?.user.id as string, {
+    includeQuestions: true,
+  }) as GameWithQuestions[];
+  console.log(gamesForStats, "game For Stats")
   return (
     <div className="container p-8 mx-auto ">
       <div className="flex flex-col gap-5">
@@ -24,7 +37,7 @@ export default async function HomePage() {
             <GamesPerformanceReview />
           </div>
         </div>
-        <OverviewStatsComponent stats={{ totalQuizzes: 10, averageScore: 85, totalTime: "45", currentStreak: 7, rank: 6, bestStreak: 12 }} />
+        <OverviewStatsComponent gamesWithStats={gamesForStats} />
         {/* <QuizTypesComponent /> */}
       </div>
     </div>

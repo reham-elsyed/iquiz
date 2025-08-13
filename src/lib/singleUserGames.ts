@@ -1,5 +1,4 @@
 import prisma from "./db";
-import { styles } from "./multiColorCardFormatter";
 const singleUserGames = async (userId: string, limit: number) => {
   const games = await prisma.game.findMany({
     where: {
@@ -49,6 +48,5 @@ export const singeUserWeekPerformanceQuestions = async (userId: string, limit: n
       })),
     }
   })
-  console.log("Games with weak performance:", gamesTopicQuestionsWithWeakPerformance[0]?.questions[0]);
   return gamesTopicQuestionsWithWeakPerformance;
 }
