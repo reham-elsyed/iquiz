@@ -10,6 +10,7 @@ import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import HeroImage from "../SVGComponents/HeroImage";
+import { BookOpen, Play } from "lucide-react";
 type Props = {};
 
 const Hero = (props: Props) => {
@@ -29,13 +30,16 @@ const Hero = (props: Props) => {
               Create, share, and grow your knowledge effortlessly.
             </p>
             <div className="self-end  inline-flex pt-5">
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-accent text-accent-forground  hover:bg-destructive hover:text-destructive-foreground focus:shadow-ring focus:shadow-md"
-              >
-                <Link href="/quiz">Create Quiz</Link>
-              </Button>
+              <div className="flex flex-wrap gap-3">
+                <Button size="lg" className="gap-2">
+                  <Play className="h-5 w-5" />
+                  Start Quick Quiz
+                </Button>
+                <Button variant="outline" size="lg" className="gap-2">
+                  <BookOpen className="h-5 w-5" />
+                  Browse Topics
+                </Button>
+              </div>
             </div>
           </CardDescription>
         </CardHeader>
@@ -51,7 +55,7 @@ const Hero = (props: Props) => {
               loading="lazy"
             /> */}
             <HeroImage className="z-10 rounded-md w-full h-full absolute -top-5 -left-5 right-0 bottom-0 "
- />
+            />
           </div>
         </div>
       </Card>

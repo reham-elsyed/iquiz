@@ -1,6 +1,9 @@
+import EmptyQuizHistory from "@/components/EmptyStatsForNewUsers/emptyStatsForNewUsers";
 import GamesDurationGraph from "@/components/GamesDurationGraph/GamesDurationGraph";
 import GamesPerformanceReview from "@/components/GamesPerformanceReview/GamesPerformanceReview";
 import Hero from "@/components/Hero/Hero";
+import NewUserGraphReplace from "@/components/NewUserGraphReplacer/NewUserGraphReplace";
+import NewUserOnboarding from "@/components/NewUserOnboarding/NewUserOnboarding";
 import OverviewStatsComponent from "@/components/OverviewStatsComponent/OverviewStatsComponent";
 import PopularGames from "@/components/PopularGames/PopularGames";
 import QuizTypesComponent from "@/components/QuizTypesComponent/QuizTypesComponent";
@@ -23,22 +26,27 @@ export default async function HomePage() {
   const gamesForStats = await getUserGames(session?.user.id as string, {
     includeQuestions: true,
   }) as GameWithQuestions[];
-  console.log(gamesForStats, "game For Stats")
   return (
     <div className="container p-8 mx-auto ">
       <div className="flex flex-col gap-5">
         <Hero />
         <div className="w-full"> <PopularGames /></div>
-        <div className="flex flex-col md:flex-row gap-5">
-          <div className="flex-1 h-fit md:h-full">
-            <GamesDurationGraph />
-          </div>
-          <div className="flex-1 h-fit md:h-full">
-            <GamesPerformanceReview />
-          </div>
-        </div>
-        <OverviewStatsComponent gamesWithStats={gamesForStats} />
-        {/* <QuizTypesComponent /> */}
+        {gamesForStats.length === 0 ? <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <NewUserGraphReplace />
+          <NewUserOnboarding />
+
+        </div> :
+          <div className="flex flex-col md:flex-row gap-5">
+            <div className="flex-1 h-fit md:h-full">
+              <GamesDurationGraph />
+            </div>
+            <div className="flex-1 h-fit md:h-full">
+              <GamesPerformanceReview />
+            </div>
+          </div>}
+
+        {gamesForStats.length === 0 ? <EmptyQuizHistory /> : <OverviewStatsComponent gamesWithStats={gamesForStats} />}
+        <QuizTypesComponent />
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import {
     Trophy,
 } from "lucide-react";
 import { Game, Question } from "@prisma/client";
-import { avgScore, totalMinutes } from "@/lib/generalStatsUtils";
+import { avgScore, calculateBestStreak, calculateStreak, totalMinutes } from "@/lib/generalStatsUtils";
 import { GameWithQuestions } from "@/types/gameTypes";
 
 
@@ -21,6 +21,8 @@ export default function OverviewStatsComponent({
     const totalQuizes = gamesWithStats.length
     const averageScore = avgScore(gamesWithStats)
     const totalTime = totalMinutes(gamesWithStats)
+    const currectStreak = calculateStreak(gamesWithStats)
+    const bestStreak = calculateBestStreak(gamesWithStats)
     const statItems = [
         {
             label: "Total Quizzes",
@@ -59,7 +61,7 @@ export default function OverviewStatsComponent({
                     <h3 className="text-lg font-semibold">Your Stats</h3>
                     <div className="flex items-center gap-2">
                         <Badge variant="outline" className="text-xs">
-                            Current Streak:"5 days
+                            Current Streak:{currectStreak} days
                         </Badge>
                     </div>
                 </div>
@@ -96,7 +98,7 @@ export default function OverviewStatsComponent({
                             Best Streak
                         </span>
                         <span className="font-semibold">
-                            20 days
+                            {bestStreak} days
                         </span>
                     </div>
                 </div>
@@ -104,3 +106,4 @@ export default function OverviewStatsComponent({
         </Card>
     );
 }
+
