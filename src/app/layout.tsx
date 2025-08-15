@@ -20,7 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <NextAuthProvider>
-        <body className={cn("font-geist  antialiased bg-forground flex flex-col")}>
+        <body className={cn("bg-gradient-to-br from-[hsl(210,100%,97%)] via-[hsl(225,50%,95%)] to-[hsl(240,25%,92%)] font-geist antialiased flex flex-col")}>
+
           <Navbar />
 
           <main className="flex-grow w-full mt-16">

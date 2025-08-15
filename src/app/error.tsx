@@ -9,7 +9,7 @@ type Props = {
 const Error = ({ error, reset }: Props) => {
   return (
     <div
-      className="flex flex-col items-center justify-center h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]"
+      className="flex flex-col items-center justify-center h-screen"
       role="alert"
       aria-live="assertive"
     >

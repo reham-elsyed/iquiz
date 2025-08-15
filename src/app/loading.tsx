@@ -5,7 +5,7 @@ type Props = {};
 const Loading = (props: Props) => {
   return (
     <div
-      className="flex items-center justify-center h-screen bg-[hsl(var(--background))]"
+      className="flex items-center justify-center h-screen "
       aria-label="Loading"
     >
       <div

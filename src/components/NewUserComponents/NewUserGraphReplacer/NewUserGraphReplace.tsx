@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, CardContent } from '../ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Play, Sparkles, Star, Trophy } from 'lucide-react';
-import { Button } from '../ui/button';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 const NewUserGraphReplace = () => {

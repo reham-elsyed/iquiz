@@ -1,6 +1,6 @@
-import { Card, CardContent } from "../ui/card";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 import {
     BookOpen,
     Trophy,
@@ -11,6 +11,7 @@ import {
     CheckCircle2,
     Play
 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 export default function NewUserOnboarding() {
     const onboardingSteps = [
