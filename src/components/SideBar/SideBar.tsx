@@ -9,7 +9,7 @@ const Sidebar = () => {
     console.log(isToggled);
   }
   return (
-    <header className="bg-card rounded-md  w-fit  top-0 left-0 bottom-0 z-10 shadow-lg">
+    <header className="bg-card  w-fit  top-0 left-0 bottom-0 z-10 shadow-lg rounded-e-3xl rounded-ee-none">
       <h1
         className="cursor-pointer text-2xl   text-center p-2"
         onClick={handleToggle}

@@ -38,7 +38,7 @@ body {}
     /* Mid-gray for muted text */
     --border: 32 100% 87%;
     /* Beige border */
-    --input: 44 100% 90%;
+    --border: 0 0% 7%;
     /* Pale lemon */
     --ring: 45 100% 50%;
     /* Vibrant yellow focus */
@@ -50,20 +50,20 @@ body {}
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.269 0 0);
     --sidebar-ring: oklch(0.439 0 0);
-    --gradient-from: 250 15% 14%;
-    --gradient-via: 280 9% 16%;
-    --gradient-to: 300 7% 17%;
+    --gradient-from: 250 35% 25%;
+    --gradient-via: 270 30% 28%;
+    --gradient-to: 290 25% 32%;
   }
 
   .dark {
     /* ─── DARK MODE ────────────────────────────────────── */
-    --background: 0 0% 7%;
-    /* Very dark gray */
+    --background: 266 61% 11%;
+    /* Very dark purple*/
     --foreground: 0 0% 98%;
     /* Near-white for text */
-    --card: 0 0% 20%;
+    --card: 289 68% 6%;
     /* Darker card background */
-    --card-foreground: 0 0% 98%;
+    --card-foreground: 270 97% 85%;
     /* White for card text */
     --primary: 251 100% 91%;
     /* hsla(251,100%,91%,1) very pale lavender */
@@ -104,7 +104,7 @@ body {}
     --sidebar-ring: oklch(0.439 0 0);
     --gradient-from: oklch(0.16 0.015 260);
     --gradient-via: oklch(0.18 0.01 280);
-    --gradient-to: oklch(0.20 0.008 300);
+    --gradient-to: 266 61% 11%
   }
 }
 
@@ -139,11 +139,11 @@ body {}
     @apply border-border;
   }
 
-  body {
-    @apply text-foreground bg-slate-600;
-    background: linear-gradient(135deg, var(--gradient-from) 0%, var(--gradient-via) 50%, var(--gradient-to) 100%);
 
-  }
+}
+
+body {
+  @apply text-foreground outline-ring/50
 }
 
 .modal-container {

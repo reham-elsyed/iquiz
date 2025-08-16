@@ -42,8 +42,8 @@ const GamesPerformanceReview = async () => {
             <div className='mb-4 flex justify-between '>
 
                 <h2 className="text-2xl font-bold mb-4">Weak Performance Questions</h2>
-                <Button>
-                    <Link href="/games/performance-review" className="text-white">
+                <Button variant={'outline'}>
+                    <Link href="/games/performance-review" className="">
                         View Full Performance Review
                     </Link>
                 </Button>

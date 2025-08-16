@@ -22,7 +22,7 @@ export default function UserNav({ user }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-10 w-10 rounded-sm">
+        <Button variant="ghost" className="relative h-6 w-6 rounded-xl">
           <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>

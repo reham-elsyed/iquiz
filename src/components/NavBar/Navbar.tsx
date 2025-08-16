@@ -13,8 +13,8 @@ export default async function Navbar() {
   const session = await getAuthSession();
 
   return (
-    <nav className="fixed top-0 right-0 left-56 z-20 bg-background/40 text-forground ">
-      <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-5 lg:py-5 lg:px-8 lg:pe-20 justify-between">
+    <nav className="fixed top-2 right-5 left-56 z-20  bg-card/40 backdrop-blur-sm border-white/20 shadow-lg rounded-s-3xl rounded-e-3xl">
+      <div className="w-full max-w-7xl max-auto flex items-center px-5 sm:px-6 py-1  lg:px-8 lg:pe-20 justify-between">
         <div>
           <NavigationMenu>
             <Link
@@ -24,12 +24,12 @@ export default async function Navbar() {
               IQuiz
             </Link>
 
-            <ul className="lg:flex gap-x-4 ml-14 hidden self-start">
+            {/* <ul className="lg:flex gap-x-4 ml-14 hidden self-start">
               <li className="">
-                <input type="text" placeholder="search" />{" "}
+                <input type="text" placeholder="search" />
               </li>
-              {/* <NavBarList/> */}
-            </ul>
+               <NavBarList/> 
+            </ul> */}
           </NavigationMenu>
         </div>
 

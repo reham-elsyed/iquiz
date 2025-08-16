@@ -32,7 +32,7 @@ const formFields: flashcardFormFieldProps = [
     type: "number",
     placeholder: "3",
   },
-  { id: 2, name: "topic", desc: "add your Flash Card topic ", type: "text" , placeholder: "createflash cards about cats" },
+  { id: 2, name: "topic", desc: "add your Flash Card topic ", type: "text", placeholder: "createflash cards about cats" },
 ];
 export type InputValue = z.infer<typeof quizCreationSchema>;
 
@@ -94,70 +94,70 @@ export default function CreateFlashcardForm() {
       console.log(error);
     }
   };
-form.watch();
+  form.watch();
   return (
- <>
-       {isError && <div className="flex items-center justify-center text-red-500 ">Error creating flashcards. Please try again.</div>}
+    <>
+      {isError && <div className="flex items-center justify-center text-red-500 ">Error creating flashcards. Please try again.</div>}
 
-    {isPending || isSuccess ? (
-      <div className="flex items-center justify-center h-screen">
-        <Loader className="animate-spin h-10 w-10 text-primary" />
-      </div>
-    ) : (
-      <div className="h-full flex items-center justify-center ">
-     
-      <Card className="w-full md:w-1/2 rounded-none h-full flex flex-col justify-center  max-w-2xl mx-auto relative bg-background border-0 shadow-none"> 
-       <div className=""><ProgressBar value={step+1} max={formFields.length} size='sm' className="rounded-none p-5" variant='destructive' /></div>
+      {isPending || isSuccess ? (
+        <div className="flex items-center justify-center h-screen">
+          <Loader className="animate-spin h-10 w-10 text-primary" />
+        </div>
+      ) : (
+        <div className="h-full flex items-center justify-center ">
 
-        <CardHeader className="text-center">
-          <CardTitle>Create Flashcard</CardTitle>
-          <CardDescription>Make your own flashcards</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <FormProvider {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FlashCardFormFieldOne
-                key={formFields[step].name}
-                fieldData={formFields[step]}
-                form={form}
-              />
-              <div className="flex justify-between">
-                {step > 0 && <Button onClick={handleBack}>Back</Button>}
-                {step < formFields.length - 1 ? (
-                  <Button onClick={handleNext}>Next</Button>
-                ) : (
-                  <>
-                    {isPending ? (
-                      <Button ><Loader/></Button>
+          <Card className="w-full md:w-1/2  h-full flex flex-col justify-center  max-w-2xl mx-auto relative border-b border-purple-800/30 bg-card/50 backdrop-blur-sm">
+            <div className=""><ProgressBar value={step + 1} max={formFields.length} size='sm' className="rounded-none p-5" variant='destructive' /></div>
+
+            <CardHeader className="text-center">
+              <CardTitle>Create Flashcard</CardTitle>
+              <CardDescription>Make your own flashcards</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <FormProvider {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                  <FlashCardFormFieldOne
+                    key={formFields[step].name}
+                    fieldData={formFields[step]}
+                    form={form}
+                  />
+                  <div className="flex justify-between">
+                    {step > 0 && <Button onClick={handleBack}>Back</Button>}
+                    {step < formFields.length - 1 ? (
+                      <Button onClick={handleNext}>Next</Button>
                     ) : (
-                      <Button disabled={isPending} type="submit">
-                        Submit
-                      </Button>
+                      <>
+                        {isPending ? (
+                          <Button ><Loader /></Button>
+                        ) : (
+                          <Button disabled={isPending} type="submit">
+                            Submit
+                          </Button>
+                        )}
+                      </>
                     )}
-                  </>
-                )}
-              </div>{" "}
-            </form>
-          </FormProvider>
-        </CardContent>
-      </Card>
-      <div className="bg-gray-500 hidden  w-1/2 h-full md:flex flex-col items-center justify-center gap-10 bg-secondary text-secondary-foreground rounded-none">
-     {formFields[step].name === "amount" ? (
-      <>
-       <NumberSvg className="w-1/2 h-1/2 text-secondary-foreground " />
-      <p className=" text-2xl font-bold">Pick Number Of Flash Cards</p>
-      </>): formFields[step].name === "topic" ? (
-        <>
-         <BookAIcon className="w-1/2 h-1/2 text-secondary-foreground" />
-      <p className=" text-2xl font-bold">Pick Topic Of Flash Cards</p>
-        </>) : (
-          <>
-          <LightbulbIcon/>
-          </>
-        )}
-      </div>
-    </div>
-    )
+                  </div>{" "}
+                </form>
+              </FormProvider>
+            </CardContent>
+          </Card>
+          <div className="bg-gray-500 hidden  w-1/2 h-full md:flex flex-col items-center justify-center gap-10 bg-secondary text-secondary-foreground rounded-none">
+            {formFields[step].name === "amount" ? (
+              <>
+                <NumberSvg className="w-1/2 h-1/2 text-secondary-foreground " />
+                <p className=" text-2xl font-bold">Pick Number Of Flash Cards</p>
+              </>) : formFields[step].name === "topic" ? (
+                <>
+                  <BookAIcon className="w-1/2 h-1/2 text-secondary-foreground" />
+                  <p className=" text-2xl font-bold">Pick Topic Of Flash Cards</p>
+                </>) : (
+              <>
+                <LightbulbIcon />
+              </>
+            )}
+          </div>
+        </div>
+      )
       }
- </>)
+    </>)
 }
