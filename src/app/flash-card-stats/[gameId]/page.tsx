@@ -47,12 +47,10 @@ export default async function ChartPage({ params }: Props) {
       }
     }
     console.log("Processed Feedback Data:", feedbackData);
-
     feedback.map((question, i) => {
       const barChaetD = {
         question: `question${i + 1}`,
         time: question.timeSpent
-
       }
       barChartData.push(barChaetD)
     })

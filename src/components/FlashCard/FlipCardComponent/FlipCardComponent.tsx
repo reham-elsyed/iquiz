@@ -155,12 +155,12 @@ const FlipCardComponent = ({ game, studySession }: Props) => {
               {game && questions && questions.length > 0 ? (
                 <>
                   <div
-                    className={` duration-300 bg-card card-front  card-face hover:bg-accent/10 transition-colors text-card-foreground`}
+                    className={` duration-300 bg-card card-front font-bold text-lg md:text-2xl  card-face hover:bg-accent/10 transition-colors text-card-foreground`}
                   >
                     {questions[storedValue]?.question}
                   </div>
                   <div
-                    className={` card-face card-back transition-colors duration-200 bg-card text-card-foreground hover:bg-secondary/10 `}
+                    className={` card-face card-back font-bold text-lg md:text-2xl transition-colors duration-200 bg-card text-card-foreground hover:bg-secondary/10 `}
                   >
                     {questions[storedValue]?.answer}
                   </div>
