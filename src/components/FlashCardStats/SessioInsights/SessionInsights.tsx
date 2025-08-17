@@ -1,10 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { flashcardFeedbackinterface } from '@/types/feedbackFlashcardTypes'
 import { Award } from 'lucide-react'
 import React from 'react'
 
-const SessionInsights = ({ feedbackData }) => {
+type SessioInsightsProps = {
+    feedbackData: flashcardFeedbackinterface[]
+}
+const SessionInsights = ({ feedbackData }: SessioInsightsProps) => {
+
+    const durationMs = feedbackData.reduce((sum, f) => sum + f.timeSpent, 0)
+    const durationMinutes = Math.floor(durationMs / (1000 * 60));
+    const durationSeconds = Math.floor((durationMs % (1000 * 60)) / 1000);
     const totalQuestions = feedbackData.length;
-    const averageTime = feedbackData.reduce((sum, f) => sum + f.timeSpent, 0) / totalQuestions;
+    const averageTime = durationMs / totalQuestions;
     const easyCount = feedbackData.filter(f => f.feedback === 'EASY').length;
     const hardCount = feedbackData.filter(f => f.feedback === 'HARD').length;
 

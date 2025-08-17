@@ -1,8 +1,12 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Badge } from 'lucide-react'
+import { flashcardFeedbackinterface } from '@/types/feedbackFlashcardTypes'
 
-const FlashCardsBreakDown = ({ questionsBreakdown }) => {
+type FlashCardsBreakDownProps = {
+    questionsBreakdown: flashcardFeedbackinterface[]
+}
+const FlashCardsBreakDown = ({ questionsBreakdown }: FlashCardsBreakDownProps) => {
     return (
         <Card className="bg-card border-border/30 shadow-xl">
             <CardHeader>

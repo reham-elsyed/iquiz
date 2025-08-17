@@ -8,7 +8,6 @@ import { PieChartComponent } from "@/components/PieChartComponent/PieChartCompon
 import { findStudySession, findStudySessionFeedback } from "@/lib/findStudySession";
 import { getAuthSession } from "@/lib/nextAuth";
 import { calculateDurationOfFlashCardStudy } from "@/lib/utils";
-import { access } from "fs";
 import React from "react";
 
 type Props = {
@@ -22,15 +21,18 @@ export default async function ChartPage({ params }: Props) {
   const { gameId } = awaitedParams;
   console.log("Game ID:", gameId);
   let studySession;
+
   const feedbackData = []
   const barChartData = []
   const fallbackTime = new Date()
   if (gameId || session?.user.id) {
+    //get study session data
     studySession = await findStudySession(gameId, session?.user.id as string);
   }
   if (!studySession) {
     return (<div>No Data To Display</div>)
   }
+
   const feedback = await findStudySessionFeedback(studySession.id);
   console.log("Feedback Data:", feedback);
   if (feedback && feedback.length > 0) {
@@ -44,8 +46,6 @@ export default async function ChartPage({ params }: Props) {
         i = 0
       }
     }
-
-
     console.log("Processed Feedback Data:", feedbackData);
 
     feedback.map((question, i) => {

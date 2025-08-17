@@ -18,7 +18,7 @@ export async function POST(req: Request, res: Response) {
     console.log("______________________body_____________________", body)
     //use same schema for flash card body request
     const { questionId, feedback, timeSpent, sessionId } = flashcardFeedbackSchema.parse(body);
-    const newFeedback = feedback ?? "EASY"
+    const newFeedback = feedback || "EASY"
 
     const data = {
       questionId,
