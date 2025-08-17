@@ -10,7 +10,7 @@ const useChartDotsColor = ({ gamesDuration, getKey }: useChartLineDotsColorsProp
     useEffect(() => {
         const myChartConfig = gamesDuration.reduce((acc, game, i: number) => {
             // const configKey = game.topic.toLowerCase();
-            const configKey = getKey(game).toLowerCase()
+            const configKey = getKey(game)
             acc[configKey] = {
                 //  label: game.topic,
                 label: getKey(game),

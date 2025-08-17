@@ -36,14 +36,6 @@ const FlipCardComponent = ({ game, studySession }: Props) => {
     key: "timeStarted",
     value: new Date(),
   });
-  //  useEffect(()=>{
-  //     const studySessionData=async ()=>{
-  //     const data=  await findStudySession(game.id, game.userId)
-  //     setStudySession(data)
-  //     }
-  //  studySessionData()
-
-  //   },[])
 
   interface ReducerAction {
     type: "EASY" | "MEDIUM" | "HARD";
@@ -61,11 +53,6 @@ const FlipCardComponent = ({ game, studySession }: Props) => {
   const reducer = (state: ReducerState, action: ReducerAction): ReducerState => {
     switch (action.type) {
       case "EASY":
-        // if (action.payload && !Array.isArray(action.payload)) {
-        //   const newState = state.filter((question, i) => question.id !== (action.payload as Pick<Question, "id" | "question" | "answer">)?.id);
-        //   console.log("done", newState);
-        //   return newState;
-        // }
         return state
       case "MEDIUM":
         return state;

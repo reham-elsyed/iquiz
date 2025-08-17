@@ -10,6 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import useChartDotsColor from "@/hooks/useChartDotsColor";
+import ChartFooter from "../Charts/ChartFooter";
 interface PieChartInterface {
   id: string;
   difficulty: string;
@@ -22,7 +23,7 @@ type PieChartComponentProps = {
 export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) => {
   const getKey = (s:
     PieChartInterface
-  ) => s.difficulty
+  ) => s.difficulty.toLowerCase()
 
   const { chartConfig } = useChartDotsColor({ gamesDuration: studySessionDiff, getKey })
 
@@ -57,14 +58,7 @@ export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) 
         </ChartContainer>
 
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 leading-none font-medium">
-          Your Latest Game { }<TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Showing durations for the last 5 games played
-        </div>
-      </CardFooter>
+      <ChartFooter chartDescription={`Showing difficulty for the last study session`} className='' label={"difficulty analysis"} />
 
     </Card>
   )

@@ -1,6 +1,9 @@
 // app/chart/page.tsx (or wherever you want it)
+import { BarChartComponent } from "@/components/Charts/BarChartComponent/BarChartComponent";
 import FlasCardStatsHeader from "@/components/FlashCardStats/FlasCardStatsHeader";
 import FlashCardGeneralStats from "@/components/FlashCardStats/FlashCardGeneralStats";
+import FlashCardsBreakDown from "@/components/FlashCardStats/FlashCardsBreakDown";
+import SessionInsights from "@/components/FlashCardStats/SessioInsights/SessionInsights";
 import { PieChartComponent } from "@/components/PieChartComponent/PieChartComponent";
 import { findStudySession, findStudySessionFeedback } from "@/lib/findStudySession";
 import { getAuthSession } from "@/lib/nextAuth";
@@ -20,70 +23,16 @@ export default async function ChartPage({ params }: Props) {
   console.log("Game ID:", gameId);
   let studySession;
   const feedbackData = []
+  const barChartData = []
   const fallbackTime = new Date()
   if (gameId || session?.user.id) {
     studySession = await findStudySession(gameId, session?.user.id as string);
-
-    //     {
-    //   id: 'cmeecwu6p0009w2bsq7grt6c4',
-    //   createdAt: 2025-08-16T14:32:56.777Z,
-    //   endedAt: 2025-08-16T14:42:39.588Z,
-    //   status: 'FINISHED',
-    //   userId: 'cmc57vsra0000w974g2inybzv',
-    //   notes: null,
-    //   gameId: 'cmeecwt7w0001w2bsrzgtn9j6'
-    // }
   }
   if (!studySession) {
     return (<div>No Data To Display</div>)
   }
   const feedback = await findStudySessionFeedback(studySession.id);
   console.log("Feedback Data:", feedback);
-  // Feedback Data: [
-  //   {
-  //     id: 'cmeed8w41000jw2bsv1ns0ic3',
-  //     questionId: 'cmeecwtw20007w2bs53smd6h4',
-  //     sessionId: 'cmeecwu6p0009w2bsq7grt6c4',
-  //     feedback: 'HARD',
-  //     timeSpent: 32,
-  //     createdAt: 2025-08-16T14:42:19.153Z
-  //   },
-  //   {
-  //     id: 'cmeed83s7000hw2bsfo6rgjo8',
-  //     questionId: 'cmeecwtw20006w2bsg62xg3ra',
-  //     sessionId: 'cmeecwu6p0009w2bsq7grt6c4',
-  //     feedback: 'EASY',
-  //     timeSpent: 13,
-  //     createdAt: 2025-08-16T14:41:42.385Z
-  //   },
-  //   {
-  //     id: 'cmeed6v8h000fw2bs5i4ud9vu',
-  //     questionId: 'cmeecwtw20005w2bslquglitk',
-  //     sessionId: 'cmeecwu6p0009w2bsq7grt6c4',
-  //     feedback: 'EASY',
-  //     timeSpent: 50,
-  //     createdAt: 2025-08-16T14:40:44.636Z
-  //   },
-  //   {
-  //     id: 'cmeed6v8g000dw2bs1b36od3n',
-  //     questionId: 'cmeecwtw10003w2bsaqefohqh',
-  //     sessionId: 'cmeecwu6p0009w2bsq7grt6c4',
-  //     feedback: 'HARD',
-  //     timeSpent: 2,
-  //     createdAt: 2025-08-16T14:40:44.633Z
-  //   },
-  //   {
-  //     id: 'cmeed6v8g000ew2bswck8lezb',
-  //     questionId: 'cmeecwtw10004w2bstzjvv1g1',
-  //     sessionId: 'cmeecwu6p0009w2bsq7grt6c4',
-  //     feedback: 'MEDIUM',
-  //     timeSpent: 2,
-  //     createdAt: 2025-08-16T14:40:44.624Z
-  //   }
-  // ]
-  //     createdAt: 2025-08-16T14:40:44.624Z
-  //   }
-  // ]
   if (feedback && feedback.length > 0) {
     let labels = ['easy', 'medium', 'hard'];
     let i = 0
@@ -98,11 +47,15 @@ export default async function ChartPage({ params }: Props) {
 
 
     console.log("Processed Feedback Data:", feedbackData);
-    // Processed Feedback Data: [
-    //   { label: 'easy', value: 2 },
-    //   { label: 'medium', value: 1 },
-    //   { label: 'hard', value: 2 }
-    // ]
+
+    feedback.map((question, i) => {
+      const barChaetD = {
+        question: `question${i + 1}`,
+        time: question.timeSpent
+
+      }
+      barChartData.push(barChaetD)
+    })
   }
 
   const generalStats = [
@@ -122,7 +75,7 @@ export default async function ChartPage({ params }: Props) {
   ]
 
   return (
-    <main className="flex flex-col h-screen">
+    <main className="flex flex-col min-h-screen">
       <FlasCardStatsHeader />
       <div className="container mx-auto px-6 py-8 max-w-7xl">
         <div className="space-y-8">
@@ -132,7 +85,10 @@ export default async function ChartPage({ params }: Props) {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <PieChartComponent studySessionDiff={feedbackData} />
+            <BarChartComponent barChartData={barChartData} />
           </div>
+          <FlashCardsBreakDown questionsBreakdown={feedback} />
+          <SessionInsights feedbackData={feedback} />
         </div>
       </div>
     </main>
