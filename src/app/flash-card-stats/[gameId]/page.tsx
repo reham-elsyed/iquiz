@@ -88,8 +88,8 @@ export default async function ChartPage({ params }: Props) {
     let labels = ['easy', 'medium', 'hard'];
     let i = 0
     for (const label of labels) {
-      const count = feedback.filter((item) => item.feedback.toLowerCase() === label).length;
-      feedbackData.push({ id: feedback[i].id, difficulty: label, count: count, fill: `var(--chart-${i})` });
+      const count = feedback?.filter((item) => item.feedback.toLowerCase() === label).length;
+      feedbackData.push({ id: feedback[i]?.id, difficulty: label, count: count, fill: `var(--chart-${i})` });
       i++
       if (i > 5) {
         i = 0

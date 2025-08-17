@@ -1,14 +1,14 @@
 import { ChartConfig } from '@/components/ui/chart';
 import React, { useEffect, useState } from 'react'
-type useChartLineDotsColorsProps<T> = {
+type useChartLineDotsColorsProps<T = any> = {
     gamesDuration: T[];
-    getKey: (item: T) => string;
-    getValue: (item: T) => string | number;
+    getKey: (item: T) => T;
+
 }
-const useChartDotsColor = ({ gamesDuration, getKey, getValue }: useChartLineDotsColorsProps) => {
+const useChartDotsColor = ({ gamesDuration, getKey }: useChartLineDotsColorsProps) => {
     const [chartConfig, setChartConfig] = useState<ChartConfig>({});
     useEffect(() => {
-        const myChartConfig = gamesDuration.reduce((acc, game, i) => {
+        const myChartConfig = gamesDuration.reduce((acc, game, i: number) => {
             // const configKey = game.topic.toLowerCase();
             const configKey = getKey(game).toLowerCase()
             acc[configKey] = {

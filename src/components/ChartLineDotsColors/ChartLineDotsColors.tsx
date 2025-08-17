@@ -17,13 +17,19 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import useChartDotsColor from "@/hooks/useChartDotsColor"
-
+interface GamesDuration {
+    topic: string;
+    duration: number;
+    fill: string;
+    gameId: string;
+}
 
 type ChartLineDotsColorsProps = {
-    gamesDuration: { topic: string; duration: number, fill: string, gameId: string }[];
+    gamesDuration: GamesDuration[];
 }
 export function ChartLineDotsColors({ gamesDuration }: ChartLineDotsColorsProps) {
-    const { chartConfig } = useChartDotsColor({ gamesDuration });
+    const getKey = (s: GamesDuration) => s.topic
+    const { chartConfig } = useChartDotsColor({ gamesDuration, getKey });
     if (!gamesDuration || gamesDuration.length === 0 || !chartConfig)
         return (
             <Card className="h-[500px] bg-primary w-full flex items-center justify-center">

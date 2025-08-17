@@ -1,8 +1,8 @@
 // components/PieChart.tsx
 "use client";
 import { Pie, PieChart } from "recharts"
-import { Brain } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Brain, TrendingUp } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -23,8 +23,8 @@ export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) 
   const getKey = (s:
     PieChartInterface
   ) => s.difficulty
-  const getValue = (s) => s.count
-  const { chartConfig } = useChartDotsColor({ gamesDuration: studySessionDiff, getKey, getValue })
+
+  const { chartConfig } = useChartDotsColor({ gamesDuration: studySessionDiff, getKey })
 
   return (
     <Card className="bg-card border-purple-700/30 shadow-xl">
@@ -43,7 +43,8 @@ export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) 
         >
           <PieChart>
             <ChartTooltip
-              cursor={false}
+
+              cursor={true}
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
@@ -55,6 +56,16 @@ export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) 
           </PieChart>
         </ChartContainer>
 
-      </CardContent></Card>
+      </CardContent>
+      <CardFooter className="flex-col items-start gap-2 text-sm">
+        <div className="flex gap-2 leading-none font-medium">
+          Your Latest Game { }<TrendingUp className="h-4 w-4" />
+        </div>
+        <div className="text-muted-foreground leading-none">
+          Showing durations for the last 5 games played
+        </div>
+      </CardFooter>
+
+    </Card>
   )
 };
