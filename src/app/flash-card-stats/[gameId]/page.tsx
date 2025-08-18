@@ -7,9 +7,9 @@ import SessionInsights from "@/components/FlashCardStats/SessioInsights/SessionI
 import { PieChartComponent } from "@/components/PieChartComponent/PieChartComponent";
 import { findStudySession, findStudySessionFeedback } from "@/lib/findStudySession";
 import { getAuthSession } from "@/lib/nextAuth";
-import { calculateDurationOfFlashCardStudy } from "@/lib/utils";
+import { calculateDurationOfFlashCardStudy, formatTimeDelta } from "@/lib/utils";
 import React from "react";
-
+export const revalidate = 3600;
 type Props = {
   params: Promise<{
     gameId: string;
@@ -55,19 +55,25 @@ export default async function ChartPage({ params }: Props) {
       barChartData.push(barChaetD)
     })
   }
-
+  const durationFormatted = () => {
+    const time = feedback.reduce((sum, f) => sum + f.timeSpent, 0)
+    const formatted = formatTimeDelta(time)
+    return formatted
+  }
+  const averageTime = () => {
+    const average = feedback.reduce((acc, d) => acc + d.timeSpent, 0) / feedback.length
+    const formatted = formatTimeDelta(average)
+    return formatted
+  }
   const generalStats = [
     { label: "Status", value: studySession?.status ?? "Unknown" },
     {
-      label: "Duration", value: calculateDurationOfFlashCardStudy(
-        studySession?.endedAt as Date || fallbackTime,
-        studySession?.createdAt as Date
-      )
+      label: "Duration", value: durationFormatted()
     },
-    { label: "Questions", value: feedbackData.length },
+    { label: "Questions", value: feedback.length },
     {
-      label: "AveTime", value: feedbackData.length
-        ? feedback.reduce((acc, d) => acc + d.timeSpent, 0) / feedbackData.length
+      label: "AveTime", value: feedback.length
+        ? averageTime()
         : 0
     }
   ]

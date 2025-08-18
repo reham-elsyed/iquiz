@@ -11,6 +11,7 @@ import { getUserGames } from "@/lib/generalStatsUtils";
 import { getAuthSession } from "@/lib/nextAuth";
 import { Prisma } from "@prisma/client";
 import { redirect } from "next/navigation";
+
 export const metadata = {
   title: "Home| IQuiz",
 };

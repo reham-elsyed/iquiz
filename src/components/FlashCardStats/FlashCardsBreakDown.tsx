@@ -1,7 +1,8 @@
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
-import { Badge } from 'lucide-react'
+import { Badge } from '../ui/badge'
 import { flashcardFeedbackinterface } from '@/types/feedbackFlashcardTypes'
+import { formatTimeDelta } from '@/lib/utils'
 
 type FlashCardsBreakDownProps = {
     questionsBreakdown: flashcardFeedbackinterface[]
@@ -28,10 +29,11 @@ const FlashCardsBreakDown = ({ questionsBreakdown }: FlashCardsBreakDownProps) =
                                     <div className="flex items-center gap-2 mt-1">
                                         <Badge
 
-                                            className={`text-xs border-0 ${question.feedback.toLowerCase() === 'easy' ? 'bg-emerald-600/20 text-emerald-300' :
-                                                question.feedback.toLowerCase() === 'medium' ? 'bg-amber-600/20 text-amber-300' :
-                                                    'bg-red-600/20 text-red-300'
-                                                }`}
+                                            className={`text-xs border-0${question.feedback.toLowerCase() === "easy"
+                                                ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-600/50 dark:text-emerald-300"
+                                                : question.feedback.toLowerCase() === "medium"
+                                                    ? "bg-amber-100 text-amber-700 dark:bg-amber-600/50 dark:text-amber-300"
+                                                    : "bg-red-100 text-red-700 dark:bg-red-600/50 dark:text-red-300"}`}
                                         >
                                             {question.feedback}
                                         </Badge>
@@ -39,7 +41,7 @@ const FlashCardsBreakDown = ({ questionsBreakdown }: FlashCardsBreakDownProps) =
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="font-medium text-card-foreground">{question.timeSpent}s</p>
+                                <p className="font-medium text-card-foreground">{formatTimeDelta(question.timeSpent)}</p>
                                 <p className="text-xs text-foreground">response time</p>
                             </div>
                         </div>

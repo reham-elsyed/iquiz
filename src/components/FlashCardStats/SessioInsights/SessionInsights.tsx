@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { formatTimeDelta } from '@/lib/utils'
 import { flashcardFeedbackinterface } from '@/types/feedbackFlashcardTypes'
 import { Award } from 'lucide-react'
 import React from 'react'
@@ -9,10 +10,9 @@ type SessioInsightsProps = {
 const SessionInsights = ({ feedbackData }: SessioInsightsProps) => {
 
     const durationMs = feedbackData.reduce((sum, f) => sum + f.timeSpent, 0)
-    const durationMinutes = Math.floor(durationMs / (1000 * 60));
-    const durationSeconds = Math.floor((durationMs % (1000 * 60)) / 1000);
     const totalQuestions = feedbackData.length;
     const averageTime = durationMs / totalQuestions;
+    const averageFormatted = formatTimeDelta(averageTime)
     const easyCount = feedbackData.filter(f => f.feedback === 'EASY').length;
     const hardCount = feedbackData.filter(f => f.feedback === 'HARD').length;
 
@@ -55,7 +55,7 @@ const SessionInsights = ({ feedbackData }: SessioInsightsProps) => {
                         <div className="space-y-3">
                             <div className="flex justify-between items-center p-3 bg-destructive/50 rounded-lg border border-border/20">
                                 <span className="text-foreground">Average response time:</span>
-                                <span className="font-medium text-card-foreground">{averageTime.toFixed(1)}s</span>
+                                <span className="font-medium text-card-foreground">{averageFormatted}</span>
                             </div>
                             <div className="flex justify-between items-center p-3 bg-destructive/50 rounded-lg border border-border/20">
                                 <span className="text-foreground">Questions per minute:</span>
