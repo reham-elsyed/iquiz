@@ -33,10 +33,7 @@ const MCQuiz = ({ game }: Props) => {
   const [selectedChoice, setSelectedChoice] = useState(0);
   // const [storedValue, setQuestuionIndex] = useState(0);
   //const [isOver, setIsOver] = useState(false);
-  const [isOver, setIsOver, removeIsOver] = useLocalStorage({
-    key: "isOver",
-    value: false,
-  });
+  const [isOver, setIsOver] = useState(false)
 
   const [now, setNow] = useState<Date>(new Date());
   const { toast } = useToast();
@@ -145,7 +142,7 @@ const MCQuiz = ({ game }: Props) => {
         <>
           {" "}
 
-          <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted} removeIsOver={removeIsOver} />
+          <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted} />
 
         </>
       ) : (
