@@ -39,7 +39,6 @@ const OpenEndedQuiz = ({ game }: Props) => {
     value: 0,
   });
   //duration of quiz setting current date
-  //console.log(game.questions);
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isOver) {

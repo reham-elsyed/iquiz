@@ -71,7 +71,7 @@ export default function OverviewStatsComponent({
                     {statItems.map((item, index) => {
                         const IconComponent = item.icon;
                         return (
-                            <div key={index} className="space-y-2">
+                            <div key={index} className="space-y-2 bg-background/50 p-5">
                                 <div
                                     className={`inline-flex p-2 rounded-lg ${item.bgColor}`}
                                 >
