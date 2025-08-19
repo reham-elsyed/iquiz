@@ -55,6 +55,7 @@ export const authOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    
     jwt: async ({ token }) => {
       try {
         const db_user = await pRetry(
@@ -90,9 +91,5 @@ export const authOptions = {
 
 //get session to authenticate user is ligged in to render pages
 export const getAuthSession = () => {
- 
-    return getServerSession(authOptions);
-  
-
- 
+  return getServerSession(authOptions);
 };

@@ -8,14 +8,9 @@ import {
 } from "../ui/card";
 import CustomWordCloud from "../CutomWordCloud/CustomWordCloud";
 import prisma from "@/lib/db";
+import trendingTopic from "@/lib/trendingTopics";
 const TrendingTopics = async () => {
-  const topic = await prisma.topic_count.findMany({});
-  const formattedTopics = topic.map((topic) => {
-    return {
-      text: topic.topic,
-      value: topic.count,
-    };
-  });
+  const formattedTopics = await trendingTopic()
   return (
     <Card className="col-span-4">
       <CardHeader>

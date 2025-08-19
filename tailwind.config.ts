@@ -3,7 +3,7 @@ import type { Config } from "tailwindcss";
 export default {
   darkMode: ["class"],
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
@@ -61,5 +61,11 @@ export default {
       },
     },
   },
+  safelist: [
+    {
+      pattern: /(from|to|via)-(gray|orange|emerald|blue|purple|pink)-(200|300|800|900)/,
+      variants: ['dark'],
+    },
+  ],
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

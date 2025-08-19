@@ -1,0 +1,28 @@
+import { ChartConfig } from '@/components/ui/chart';
+import React, { useEffect, useState } from 'react'
+type useChartLineDotsColorsProps<T = any> = {
+    gamesDuration: T[];
+    getKey: (item: T) => T;
+
+}
+const useChartDotsColor = ({ gamesDuration, getKey }: useChartLineDotsColorsProps) => {
+    const [chartConfig, setChartConfig] = useState<ChartConfig>({});
+    useEffect(() => {
+        const myChartConfig = gamesDuration.reduce((acc, game, i: number) => {
+            // const configKey = game.topic.toLowerCase();
+            const configKey = getKey(game)
+            acc[configKey] = {
+                //  label: game.topic,
+                label: getKey(game),
+                color: `var(--chart-${i})`, // Assuming you have CSS variables for colors
+            };
+            return acc;
+        }, {} as ChartConfig);
+        setChartConfig(myChartConfig);
+        console.log("Chart Config:", myChartConfig);
+    }, [gamesDuration]);
+    return { chartConfig }
+
+}
+
+export default useChartDotsColor

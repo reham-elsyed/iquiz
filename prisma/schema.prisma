@@ -13,7 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
   //relationMode = "prisma"
 }
- 
+
 model User {
   id            String          @id @default(cuid())
   name          String?
@@ -25,49 +25,52 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
- 
+  studySessions StudySession[] // inverse of user in StudySession
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
- 
+
 model Account {
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  session_state     String?
- refresh_token_expires_in Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
- 
+  userId                   String
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String?
+  access_token             String?
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String?
+  session_state            String?
+  refresh_token_expires_in Int?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-@@index([userId]) // Index for userId
+
   @@id([provider, providerAccountId])
+  @@index([userId]) // Index for userId
 }
- 
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
   @@index([userId]) // Index for userId
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@id([identifier, token])
 }
 
@@ -80,13 +83,12 @@ model Game {
   timeEnded   DateTime?
   gameType    GameType
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  studySessions StudySession[]      @relation("GameToStudySession")
   @@index([userId])
 }
 
-
 model Question {
-  id                String   @id @default(cuid())
+  id                String             @id @default(cuid())
   question          String
   answer            String
   gameId            String
@@ -95,10 +97,50 @@ model Question {
   isCorrect         Boolean?
   questionType      GameType
   userAnswer        String?
+  feedbacks         QuestionFeedback[] // inverse of question in QuestionFeedback
 
   game Game @relation(fields: [gameId], references: [id])
 
   @@index([gameId])
+}
+
+enum FeedbackType {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model StudySession {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+   endedAt    DateTime?                   // null until session ends
+  status     SessionStatus @default(ACTIVE)
+  userId    String
+  notes     String?
+  gameId    String
+  feedbacks QuestionFeedback[] // relation back 
+
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game      Game               @relation("GameToStudySession", fields: [gameId], references: [id])
+  @@index([userId])
+}
+enum SessionStatus {
+  ACTIVE
+  FINISHED
+  ABANDONED
+}
+model QuestionFeedback {
+  id         String       @id @default(cuid())
+  questionId String
+  sessionId  String
+  feedback   FeedbackType
+  timeSpent  Int
+  createdAt  DateTime     @default(now())
+
+  question Question     @relation(fields: [questionId], references: [id])
+  session  StudySession @relation(fields: [sessionId], references: [id])
+
+  @@unique([sessionId, questionId], name: "sessionId_questionId")
 }
 
 enum GameType {
@@ -112,6 +154,7 @@ model topic_count {
   topic String @unique
   count Int
 }
+
 // Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
@@ -122,8 +165,8 @@ model Authenticator {
   credentialDeviceType String
   credentialBackedUp   Boolean
   transports           String?
- 
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@id([userId, credentialID])
 }

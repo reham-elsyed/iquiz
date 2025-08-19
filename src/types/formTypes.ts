@@ -11,5 +11,6 @@ export type flashcardFormFieldType = {
   name: "amount" | "topic" | "type";
   desc: string;
   type: string;
+  placeholder?: string;
 };
-export type flashcardFormFieldProps = flashcardFormFieldType []
+export type flashcardFormFieldProps = flashcardFormFieldType[];

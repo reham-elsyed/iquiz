@@ -20,22 +20,27 @@ import { z } from "zod";
 import axios from "axios";
 import BlankAnswerComponent from "../BlankAnswersComponent/BlankAnswerComponent";
 import useLocalStorage from "@/hooks/useLocalStorage";
+import TitleCard from "../TitleCard/TitleCard";
+import useEventListener from "@/hooks/useEventListener";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
 };
 
 const OpenEndedQuiz = ({ game }: Props) => {
- // const [storedValue, setQuestuionIndex] = useState(0);
-  const [isOver, setIsOver] = useState(false);
-  const [now, setNow] = useState<Date>(new Date());
+ const [isOver, setIsOver,removeIsOver] = useLocalStorage({
+    key: "isOver",
+    value: false,});  const [now, setNow] = useState<Date>(new Date());
   const [keywords, setKeywords] = useState<string[]>([]);
   const { toast } = useToast();
   const inputRefs = useRef<HTMLInputElement[]>([]);
   // set current question on refresh or reload
- const [storedValue, setStoredValue ] = useLocalStorage({key:"storedValue",value:0});
+  const [storedValue, setStoredValue] = useLocalStorage({
+    key: "storedValue",
+    value: 0,
+  });
   //duration of quiz setting current date
-  console.log(game.questions);
+  //console.log(game.questions);
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isOver) {
@@ -89,86 +94,83 @@ const OpenEndedQuiz = ({ game }: Props) => {
           input.value = "";
           input?.focus();
         });
-        setStoredValue((prev: number) => prev+= 1);        
+        setStoredValue((prev: number) => (prev += 1));
       },
     });
   }, [checkAnswer, toast, isChecking, game.questions.length, storedValue]);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key == "Enter") {
+  const handleKeyDown = useCallback((event?: KeyboardEvent | Event) => {
+      const keyboardEvent = event as KeyboardEvent | undefined;
+      if (keyboardEvent?.key == "Enter") {
         handleNext();
       }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [handleNext]);
+    },
+    [handleNext]);
+  useEventListener({ action: "keydown", handler: handleKeyDown });
+
   const duration = durationOfQuiz(now, game.timeStarted);
   return (
     <>
       {isOver ? (
         <>
           {" "}
-          <EndOfQuizModal gameId={game.id} duration={duration} />
+            <EndOfQuizModal gameId={game.id} duration={duration}  removeIsOver={removeIsOver}/> 
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">
-           <div className=" mt-10 p-x-2 md:w-[80vm] max-w-4xl w-[90vm] ">
-          <div className="flex flex-row justify-between items-center">
-            <div className="flex flex-col">
-              <p>
-                <span className="text-slate-400 mr-2">Topic</span>
-                <span className="px-2 py-1 text-white rounded-lg bg-slate-800">
-                  {game.topic}
-                </span>
-              </p>
-              <div className="flex self-start mt-3 text-slate-400">
-                <Timer className="mr-2" />
-                <span>
-                  {duration}
-                  {/* {formatTimeDelta(differenceInSeconds(now,game.timeStarted))} */}
-                </span>
+          <div className=" mt-10 p-x-2 md:w-[80vm] max-w-4xl w-[90vm] ">
+            <div className="flex flex-row justify-between items-center">
+              <div className="flex flex-col">
+                <TitleCard topic={game.topic} />
+
+                <div className="flex self-start mt-3 text-slate-400">
+                  <Timer className="mr-2" />
+                  <span>
+                    {duration}
+                    {/* {formatTimeDelta(differenceInSeconds(now,game.timeStarted))} */}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          <Card className="w-full mt-4">
-            <CardHeader className="flex flex-row item-center">
-              <CardTitle className="mr-5 text-center divide-y divide-zinc-600/50">
-                <div>{storedValue + 1}</div>
-                <div className="text-base text-slate-400">
-                  {game.questions.length}
-                </div>
-              </CardTitle>
-              <CardDescription className="flex-grow text-lg">
-                {currentQuestion.question}
-              </CardDescription>
-            </CardHeader>
-          </Card>
-          <div className="flex flex-col items-stretch justify-center w-full mt-4">
-            <BlankAnswerComponent
-              answer={currentQuestion.answer}
-              input={inputRefs}
-              pkeyWords={setKeywords}
-            />
-            <Button className="mt-2" onClick={handleNext} disabled={isChecking}>
-              {isChecking ? (
-                <LoaderCircle className="w-4 h-4 me-2 animate-spin" />
-              ) : (
-                <>
-                  {" "}
-                  {storedValue === game.questions.length - 1
-                    ? `finish`
-                    : `next`}{" "}
-                  <ChevronRight className="w-4 h-4 ml-2" />
-                </>
-              )}
-            </Button>
+            <Card className="w-full mt-4">
+              <CardHeader className="flex flex-row item-center">
+                <CardTitle className="mr-5 text-center divide-y divide-zinc-600/50">
+                  <div>{storedValue + 1}</div>
+                  <div className="text-base text-slate-400">
+                    {game.questions.length}
+                  </div>
+                </CardTitle>
+                <CardDescription className="flex-grow text-lg">
+                  {currentQuestion.question}
+                </CardDescription>
+              </CardHeader>
+            </Card>
+            <div className="flex flex-col items-stretch justify-center w-full mt-4">
+              <BlankAnswerComponent
+                answer={currentQuestion.answer}
+                input={inputRefs}
+                pkeyWords={setKeywords}
+              />
+              <Button
+                className="mt-2"
+                onClick={handleNext}
+                disabled={isChecking}
+              >
+                {isChecking ? (
+                  <LoaderCircle className="w-4 h-4 me-2 animate-spin" />
+                ) : (
+                  <>
+                    {" "}
+                    {storedValue === game.questions.length - 1
+                      ? `finish`
+                      : `next`}{" "}
+                    <ChevronRight className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
-        </div>
-       
       )}
     </>
   );

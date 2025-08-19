@@ -1,6 +1,5 @@
 import { toast } from "@/hooks/use-toast";
 import { GameWithQuestions } from "@/types/gameTypes";
-import { Game, GameType } from "@prisma/client";
 import axios from "axios";
 import { clsx, type ClassValue } from "clsx";
 import { differenceInSeconds } from "date-fns";
@@ -31,6 +30,17 @@ export function formatTimeDelta(seconds: number) {
 
 export function durationOfQuiz(now: Date, timeStarted: Date): string {
   return formatTimeDelta(differenceInSeconds(now, timeStarted));
+}
+function parseTimeStringToSeconds(input: string): number {
+  const minutes = parseInt(input.match(/(\d+)m/)?.[1] || "0");
+  const seconds = parseInt(input.match(/(\d+)s/)?.[1] || "0");
+  return minutes * 60 + seconds;
+}
+
+export function calculateDurationOfFlashCardStudy(now: Date, timeStarted: Date): number {
+  const duration = differenceInSeconds(now, timeStarted);
+  console.log("Duration in seconds:", duration); 
+  return duration;
 }
 
 export function calculateAccuracyOfMCQ(game: GameWithQuestions) {

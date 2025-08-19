@@ -1,4 +1,5 @@
 import prisma from "@/lib/db";
+import singleUserGames from "@/lib/singleUserGames";
 import { Clock, CopyCheck, Edit } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -9,16 +10,7 @@ type Props = {
 };
 
 const HistoryComponent = async ({ limit, userId }: Props) => {
-  const games = await prisma.game.findMany({
-    where: {
-      userId,
-    },
-    take: limit,
-    orderBy: {
-      timeStarted: "desc",
-    },
-  });
-
+ const games= await singleUserGames(userId, limit)
   return (
     <div className="space-y-8">
       {games.map((game) => {
@@ -33,7 +25,7 @@ const HistoryComponent = async ({ limit, userId }: Props) => {
               <div className="ml-4 space-y-1">
                 <Link
                   className="text-base font-medium leading-none underline"
-                  href={`/statistics/${game.id}`}
+                  href={game.gameType === "flash_card" ?`/flash-card-stats/${game.id}`:`/statistics/${game.id}`}
                 >
                   {game.topic}
                 </Link>

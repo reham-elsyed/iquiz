@@ -12,9 +12,9 @@ export const cardData: CardType[] = [
     path: "/quiz",
   },
   {
-    Title: "History",
-    content: "Previous quizes",
+    Title: "Flash Cards",
+    content: "Learn with Flash Cards",
     icon: "",
-    path: "/history",
+    path: "/create-flashcard",
   },
 ];

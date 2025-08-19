@@ -1,6 +1,6 @@
-import GitHubButton from "@/components/GitHubButton/GitHubButton";
-import GoogleButton from "@/components/GoogleButton/GoogleButton";
-import LoginButton from "@/components/LoginButton/LoginButton";
+import GitHubButton from "@/components/Buttons/GitHubButton/GitHubButton";
+import GoogleButton from "@/components/Buttons/GoogleButton/GoogleButton";
+import LoginButton from "@/components/Buttons/LoginButton/LoginButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { authOptions } from "@/lib/nextAuth";

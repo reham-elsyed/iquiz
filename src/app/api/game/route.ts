@@ -20,29 +20,30 @@ export async function POST(req: Request, res: Response) {
     }
     const body = await req.json();
     const { amount, type, topic } = quizCreationSchema.parse(body);
-  
+
     //send request to ai to create questions through question endpoint and receive response data with questiond
-   let data;
-   try{
-    data = await axios.post(
-      `${process.env.IQUIZ_URL_API}/api/questions`,
-      {
+    let data;
+    try {
+      data = await axios.post(`${process.env.IQUIZ_URL_API}/api/questions`, {
         amount,
         topic,
         type,
-      },
-    );}
-    catch(aiError) {
+      });
+      console.log("data from ai", data.data);
+    } catch (aiError) {
       return NextResponse.json(
         {
           error: aiError,
         },
         {
-          status: 502,
+          status: 502 ,
         },
-      );}
+      );
+    }
     //create game in db and store game id
-    const game = await prisma.game.create({
+    let game;
+    try{
+      game = await prisma.game.create({
       data: {
         gameType: type,
         timeStarted: new Date(),
@@ -50,7 +51,7 @@ export async function POST(req: Request, res: Response) {
         topic,
       },
     });
-    console.log(game)
+    console.log("game in db id :",game.id);
     await prisma.topic_count.upsert({
       where: {
         topic,
@@ -65,10 +66,12 @@ export async function POST(req: Request, res: Response) {
         },
       },
     });
-   // console.log("data from game route aka api", data)
+    }catch(err){
+      console.log("error from create game from database",err)
+    }
+    // console.log("data from game route aka api", data)
     if (type === "mcq") {
-
-    await createMCQQuizPrisma(data.data, game.id )
+      await createMCQQuizPrisma(data.data, game.id);
     } else if (type === "open_ended" || type === "flash_card") {
       type openQuestion = {
         question: string;
@@ -80,7 +83,7 @@ export async function POST(req: Request, res: Response) {
         return {
           question: question.question,
           answer: question.answer,
-          gameId: game.id,
+          gameId: game?.id,
           questionType: type,
         };
       });
@@ -89,9 +92,29 @@ export async function POST(req: Request, res: Response) {
         data: manyData,
       });
     }
+    if (type === 'flash_card'){
+      try{
+    const studySession= await createStudySession({gameId:game?.id, userId:game?.userId, status: 'ACTIVE',feedback:[] })
+    console.log("------------------studySession", studySession)
+ return NextResponse.json(  
+{
+      gameId: game?.id,
+    });
+      }catch(err){
+         return NextResponse.json(
+        {
+          error: err,
+        },
+        {
+          status: 403,
+        },
+      );
+      }
+    
+    }
     //return game id in the db
     return NextResponse.json({
-      gameId: game.id,
+      gameId: game?.id,
     });
   } catch (error) {
     if (error instanceof ZodError) {
@@ -124,6 +147,7 @@ interface MCQQuestion {
 }
 
 import { GameType } from "@prisma/client";
+import createStudySession from "@/lib/createStudySession";
 
 interface MCQQuestionData {
   question: string;
@@ -133,23 +157,28 @@ interface MCQQuestionData {
   questionType: GameType;
 }
 
-async function createMCQQuizPrisma(qData: { questions: MCQQuestion[] }, gameId: string): Promise<void> {
-  let manyData: MCQQuestionData[] = qData.questions.map((question: MCQQuestion) => {
-    let options = [
-      question.answer,
-      question.option1,
-      question.option2,
-      question.option3,
-    ];
-    options = options.sort(() => Math.random() - 0.5);
-    return {
-      question: question.question,
-      answer: question.answer,
-      options: JSON.stringify(options),
-      gameId: gameId,
-      questionType: "mcq",
-    };
-  });
+async function createMCQQuizPrisma(
+  qData: { questions: MCQQuestion[] },
+  gameId: string,
+): Promise<void> {
+  let manyData: MCQQuestionData[] = qData.questions.map(
+    (question: MCQQuestion) => {
+      let options = [
+        question.answer,
+        question.option1,
+        question.option2,
+        question.option3,
+      ];
+      options = options.sort(() => Math.random() - 0.5);
+      return {
+        question: question.question,
+        answer: question.answer,
+        options: JSON.stringify(options),
+        gameId: gameId,
+        questionType: "mcq",
+      };
+    },
+  );
   //save created question to db mcq
   await prisma.question.createMany({
     data: manyData,

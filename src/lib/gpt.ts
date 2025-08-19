@@ -2,12 +2,19 @@ interface OutputFormat {
   [key: string]: string | string[] | OutputFormat;
 }
 
-import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
+//import { GoogleGenerativeAI, SchemaType } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+//const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 import { GoogleGenAI, Schema } from "@google/genai";
 
-const ai = new GoogleGenAI({apiKey: process.env.GEMINI_API_KEY as string});
+// Define SchemaType enum if not provided by the library
+enum SchemaType {
+  STRING = "string",
+  OBJECT = "object",
+  ARRAY = "array",
+}
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string });
 export async function strict_output(prompt: string, type: string) {
   console.log(prompt, type, "wellcome to gemini config");
   try {
@@ -78,19 +85,29 @@ export async function strict_output(prompt: string, type: string) {
     //     responseSchema: schema,
     //   },
     // });
-const result = await ai.models.generateContent({
-  model: "gemini-2.0-flash",
-  config: {
-    responseMimeType: "application/json",
-    responseSchema: schema as unknown as Schema},
-  contents:prompt})
-  //  const result = await model.generateContent(prompt);
-  
+    const result = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: schema as unknown as Schema,
+      },
+      contents: prompt,
+    });
+    //  const result = await model.generateContent(prompt);
+if(!result || !result.text) {
+  const newResult = await ai.models.generateContent({
+      model: "gemini-1.5-flash-8B",
+      config: {
+        responseMimeType: "application/json",
+        responseSchema: schema as unknown as Schema,
+      },
+      contents: prompt,
+    });
+  return JSON.parse(newResult.text as string);
+}
     console.log(result.text);
     return JSON.parse(result.text as string);
   } catch (error) {
     console.log(error);
   }
 }
-
-

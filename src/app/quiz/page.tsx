@@ -3,7 +3,6 @@ import { getAuthSession } from "@/lib/nextAuth";
 import { redirect } from "next/navigation";
 import React from "react";
 type Props = {
-
   searchParams: {
     topic?: string;
   };
@@ -18,7 +17,7 @@ const Quiz = async ({ searchParams }: Props) => {
   }
   return (
     <div className="relative min-h-screen">
-      <QuizCreation topicParam={searchParams.topic ?? ''} />
+      <QuizCreation topicParam={searchParams.topic ?? ""} />
     </div>
   );
 };
