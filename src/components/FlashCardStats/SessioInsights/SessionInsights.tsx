@@ -68,7 +68,6 @@ const SessionInsights = ({ feedbackData }: SessioInsightsProps) => {
                         </div>
                     </div>
                 </div>
-
             </CardContent>
         </Card>
     )
