@@ -113,7 +113,7 @@ enum FeedbackType {
 model StudySession {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
-   endedAt    DateTime?                   // null until session ends
+  endedAt    DateTime?                   // null until session ends
   status     SessionStatus @default(ACTIVE)
   userId    String
   notes     String?

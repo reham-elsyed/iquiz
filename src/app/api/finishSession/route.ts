@@ -1,34 +1,47 @@
+import { errorResponse, successResponse } from "@/lib/apiResponse";
 import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
-import { NextResponse } from "next/server";
 
-export async function POST(req: Request){
-    try{
-        const session = await getAuthSession();
-        if(!session?.user){
-            return NextResponse.json({error: "Unautherized"},{status: 401})
+export async function POST(req: Request) {
+    const session = await getAuthSession();
+    if (!session?.user) {
+        return errorResponse("Unautherized", 401)
+    }
+    const { sessionId } = await req.json()
+
+    const studySession = await prisma.studySession.findUnique({
+        where: { id: sessionId },
+        include: {
+            feedbacks: true,
+            game: { select: { _count: { select: { questions: true } } } }
         }
+    })
 
-        const { sessionId} = await req.json()
-
+    const allAnswered =
+        studySession?.feedbacks.length === studySession?.game._count.questions
+    if (!allAnswered) {
+        return errorResponse("please provide feedback to all questions", 422)
+    }
+    try {
         const updated = await prisma.studySession.updateMany({
-where:{
-    id: sessionId,
-    userId: session.user.id,
-    status: 'ACTIVE'
-},
-data:{
-    endedAt: new Date(),
-    status: "FINISHED",
-}
+            where: {
+                id: sessionId,
+                userId: session.user.id,
+                status: 'ACTIVE',
+
+            },
+            data: {
+                endedAt: new Date(),
+                status: "FINISHED",
+            }
         })
         if (updated.count === 0) {
-      return NextResponse.json({ error: "No session updated" }, { status: 404 });
-    }
+            return errorResponse("No session updated", 404);
+        }
 
-    return NextResponse.json({ message: "Study session finalized" });
-    }catch(err){
-return NextResponse.json({error: "something went wrong"},{status:400 })
+        return successResponse("Study session finalized", 200);
+    } catch (err) {
+        return errorResponse("something went wrong", 400)
     }
 
 }

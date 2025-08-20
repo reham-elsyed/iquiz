@@ -76,11 +76,7 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
 
     const handleNext = useCallback(() => {
         if (questions.length === 0 || storedValue >= questions.length - 1) {
-            setIsOver(true);
-            return toast({
-                title: "study session finished",
-                variant: "success"
-            })
+            return finishStudy(studySession?.id as string, isOver)
         }
         setStoredValue((prevValue: number) => { return prevValue + 1; });
         setTimeStarted(new Date());
@@ -92,7 +88,7 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
 
             return toast({
                 title: "No previuos card",
-                variant: "success"
+                variant: "destructive"
             })
         }
         setStoredValue((prevValue: number) => { return prevValue - 1; });
@@ -108,26 +104,36 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
             setTimeStarted(new Date());
             setFlip(false);
         }
-        if (isOver) {
-            finishStudy(studySession?.id as string, isOver)
-            removeValue();
-            removeTimeStarted();
-            //removeStudySession();
-        }
     }, [isOver, isEasy]);
     const finishStudy = async (studySessionid: string, isOver: boolean) => {
-        try {
-            const finished = await axios.post("/api/finishSession", {
-                body: JSON.stringify({ sessionId: studySessionid }),
-                headers: {
-                    "Content-Type": "application/json"
-                }
 
-            })
-            if (finished) {
+        try {
+            const finished = await axios.post(
+                "/api/finishSession",
+                { sessionId: studySessionid }, // <-- this is the body
+                {
+                    headers: { "Content-Type": "application/json" }, // <-- config
+                }
+            )
+
+            if (finished.data.success) {
+                console.log(finished.data.success)
+                setIsOver(true)
+                removeValue();
+                removeTimeStarted();
                 return toast({ title: "You can see study session analytics now! ", variant: "success" })
             }
         } catch (err) {
+            if (axios.isAxiosError(err) && err.response) {
+                if (err.response.status === 422) {
+                    const { message } = err.response.data;
+                    setIsOver(false)
+                    return toast({
+                        title: message ?? "Please provide feedback to all questions",
+                        variant: "destructive",
+                    });
+                }
+            }
             return toast({ title: `something went wrong ${err}`, variant: "destructive" })
         }
     }

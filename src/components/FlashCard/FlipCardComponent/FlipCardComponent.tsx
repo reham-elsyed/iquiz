@@ -17,7 +17,15 @@ type Props = {
 
 const FlipCardComponent = ({ game, studySession }: Props) => {
 
-  const { storedValue, isOver, handleNext, handlePrevious, flip, flipCard, timeStarted, questions, handleDispatch } = useFlashCardSession({ game, studySession })
+  const { storedValue,
+    isOver,
+    handleNext,
+    handlePrevious,
+    flip,
+    flipCard,
+    questions,
+    handleDispatch }
+    = useFlashCardSession({ game, studySession })
 
   const duration = durationOfQuiz(new Date(), studySession?.createdAt as Date);
 
