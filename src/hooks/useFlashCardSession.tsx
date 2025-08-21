@@ -12,6 +12,7 @@ type useFlashCardSessionProps = {
 }
 const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) => {
     const [isEasy, setIsEasy] = useState<boolean>(false);
+    const [isDisabled, setIsDisabled] = useState(false)
     const [flip, setFlip] = useState(false);
     const [storedValue, setStoredValue, removeValue] = useLocalStorage({
         key: "currentIndex",
@@ -76,16 +77,16 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
 
     const handleNext = useCallback(() => {
         if (questions.length === 0 || storedValue >= questions.length - 1) {
+
             return finishStudy(studySession?.id as string, isOver)
         }
         setStoredValue((prevValue: number) => { return prevValue + 1; });
         setTimeStarted(new Date());
         setFlip(false);
-    }, [questions.length, storedValue, isOver, , removeValue, removeTimeStarted]);
+    }, [questions.length, storedValue, isOver, , removeValue, removeTimeStarted, isDisabled]);
 
     const handlePrevious = useCallback(() => {
         if (questions.length === 0 || storedValue <= 0) {
-
             return toast({
                 title: "No previuos card",
                 variant: "destructive"
@@ -95,18 +96,17 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
         setTimeStarted(new Date());
         setFlip(false);
     }, [questions.length, storedValue, removeValue, removeTimeStarted]);
+
     function flipCard() {
         setFlip((prev) => !prev);
     }
     useEffect(() => {
         if (isEasy && questions.length > 0) {
-
             setTimeStarted(new Date());
             setFlip(false);
         }
-    }, [isOver, isEasy]);
+    }, [isOver, isEasy, storedValue]);
     const finishStudy = async (studySessionid: string, isOver: boolean) => {
-
         try {
             const finished = await axios.post(
                 "/api/finishSession",
@@ -115,7 +115,6 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
                     headers: { "Content-Type": "application/json" }, // <-- config
                 }
             )
-
             if (finished.data.success) {
                 console.log(finished.data.success)
                 setIsOver(true)
@@ -138,7 +137,7 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
         }
     }
     return (
-        { storedValue, handleDispatch, setIsEasy, isEasy, questions, setStoredValue, removeValue, isOver, setIsOver, timeStarted, setTimeStarted, removeTimeStarted, handleNext, handlePrevious, flip, setFlip, flipCard }
+        { isDisabled, storedValue, handleDispatch, setIsEasy, isEasy, questions, setStoredValue, removeValue, isOver, setIsOver, timeStarted, setTimeStarted, removeTimeStarted, handleNext, handlePrevious, flip, setFlip, flipCard }
     )
 }
 
