@@ -7,6 +7,8 @@ import { RotateCcw } from 'lucide-react';
 import React from 'react'
 
 const FlashCardComponent = ({ isFliped, question, handleFlip }) => {
+    console.log(isFliped, "is flipped")
+    console.log(question, "question")
     return (
         <div className="flex justify-center w-full">
             <div className="w-full max-w-2xl">
@@ -29,7 +31,7 @@ const FlashCardComponent = ({ isFliped, question, handleFlip }) => {
                                 <CardContent className="p-8 h-full flex flex-col">
                                     <div className="flex justify-between items-start mb-4">
                                         <Badge variant="secondary" className="text-xs">
-                                            {isFliped ? 'Back' : 'Front'}
+                                            {isFliped ? 'back' : 'front'}
                                         </Badge>
                                         <Button variant="ghost" size="sm" onClick={(e) => {
                                             e.stopPropagation();
@@ -42,7 +44,7 @@ const FlashCardComponent = ({ isFliped, question, handleFlip }) => {
                                     <div className="flex-1 flex items-center justify-center w-full">
                                         <div className="text-center space-y-4">
                                             <div className="text-lg leading-relaxed max-w-lg">
-                                                {isFliped ? question?.question : question?.answer}
+                                                {isFliped ? question?.answer : question?.question}
                                             </div>
                                             {!isFliped && (
                                                 <p className="text-sm text-muted-foreground">

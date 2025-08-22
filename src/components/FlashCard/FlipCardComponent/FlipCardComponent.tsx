@@ -3,15 +3,15 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Button } from "../../ui/button";
 import { Game, Question } from "@prisma/client";
 import axios from "axios";
-import { flashcardFeedbackinterface, studySessionInterface } from "@/types/feedbackFlashcardTypes";
-import { calculateDurationOfFlashCardStudy, durationOfQuiz } from "@/lib/utils";
+import { studySessionInterface } from "@/types/feedbackFlashcardTypes";
+import { durationOfQuiz } from "@/lib/utils";
 import EndOfQuizModal from "@/components/EndOfQuizModal/EndOfQuizModal";
 import { StudySessionSidebar } from "../StudySessionSidebar/StudySessionSidebar";
 import ControllerButtons from "@/components/Buttons/ControllerButtons/ControllerButtons";
-import { Toast } from "@/components/ui/toast";
 import useFlashCardSession from "@/hooks/useFlashCardSession";
 import { AlertCircle, CheckCircle2, RotateCcw, XCircle } from "lucide-react";
-import FlashCardComponent from "./flashCardComponent";
+import FlashCardComponent from "./FlashCardComponent";
+
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer" | 'questionType'>[] };
   studySession: studySessionInterface
@@ -36,16 +36,15 @@ const FlipCardComponent = ({ game, studySession }: Props) => {
 
 
   return (
-    <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8 min-h-screen">
+    <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8 py-5 min-h-full">
 
       {isOver ? <EndOfQuizModal duration={duration} timeStarted={studySession?.createdAt} gameId={game?.id as string} type={game.gameType} /> :
         <>
           <div className="lg:w-1/3 ">
             <StudySessionSidebar startOfStudySession={studySession?.createdAt as Date} numberOfCards={game.questions.length} progressValue={+storedValue + 1} />
           </div>
-          <div className="container  flex flex-col justify-center items-center gap-5">
+          <div className="container relative  flex flex-col justify-center items-center gap-5">
             {game && questions && questions.length > 0 && <FlashCardComponent question={questions[storedValue]} isFliped={flip} handleFlip={flipCard} />}
-
             <div className="lg:w-1/2 flex flex-col gap-6 p-4">
 
               {/* Response Buttons */}
@@ -87,18 +86,19 @@ const FlipCardComponent = ({ game, studySession }: Props) => {
                     </Button>
                   </div>
                 )}
+                <div className="flex justify-between gap-8">
+                  {/* Navigation Buttons */}
+                  <ControllerButtons
+                    lastQuestionText="rate all questions first"
+                    disableBack={(storedValue === 0)}
+                    disableNext={isDisabled}
+                    handleNext={handleNext}
+                    handlePrevious={handlePrevious}
+                  />
+                </div>
               </div>
 
-              <div className="flex justify-between gap-8">
-                {/* Navigation Buttons */}
-                <ControllerButtons
-                  lastQuestionText="rate all questions first"
-                  disableBack={(storedValue === 0)}
-                  disableNext={(questions.length - 1 === storedValue)}
-                  handleNext={handleNext}
-                  handlePrevious={handlePrevious}
-                />
-              </div>
+
             </div>
           </div>
         </>}

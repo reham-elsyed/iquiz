@@ -77,9 +77,10 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
 
     const handleNext = useCallback(() => {
         if (questions.length === 0 || storedValue >= questions.length - 1) {
-
+            setIsDisabled(true)
             return finishStudy(studySession?.id as string, isOver)
         }
+        setIsDisabled(false)
         setStoredValue((prevValue: number) => { return prevValue + 1; });
         setTimeStarted(new Date());
         setFlip(false);
@@ -92,6 +93,7 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
                 variant: "destructive"
             })
         }
+        setIsDisabled(false)
         setStoredValue((prevValue: number) => { return prevValue - 1; });
         setTimeStarted(new Date());
         setFlip(false);

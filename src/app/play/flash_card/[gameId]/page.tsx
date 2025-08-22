@@ -37,7 +37,7 @@ export default async function FlashCardPage({ params }: Props) {
     redirect("/home")
   }
   return (
-    <div className=" h-[calc(100vh-4rem)]">
+    <div className="">
       {gameData ? <FlipCardComponent game={gameData} studySession={studySession as studySessionInterface} /> : <div>Game not found</div>}
     </div>
   );

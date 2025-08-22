@@ -194,7 +194,7 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
   perspective: 1000px;
 }
 
-
+/* 
 
 .flip {
   transform: rotateY(180deg);
@@ -205,7 +205,7 @@ box-shadow: 0 4px 20px hsl(190, 78%, 44% / 0.15);
   transition: all 0.9s;
   transform: rotateY(0deg);
 
-}
+} */
 
 .card-face {
   position: absolute;
