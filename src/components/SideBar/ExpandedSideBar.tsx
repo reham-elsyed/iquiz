@@ -3,23 +3,10 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Icon from "../SVGComponents/DashboardWhite";
 import BookIcon from "../SVGComponents/Booksvg";
+import { navItems } from "./CollabsedSidebar";
 const ExpandedSidebar = () => {
   const pathname = usePathname();
-  const navItems = [
-    {
-      href: "/home",
-      label: "Overview",
-      icon: <Icon fill="black"  className="h-6 w-6  text-black" />,
-      activeIcon: <Icon fill="white"  className="h-6 w-6  text-white" />,
-      exact: true,
-    },
-    {
-      href: "/userDashboard",
-      label: "Dashboard",
-      icon:<BookIcon fill="black" className="h-6 w-6 text-black" />,
-      activeIcon: <BookIcon fill="white" className="h-6 w-6 text-white" />,
-    },
-  ];
+
   return (
     <>
       <nav className="w-full">
@@ -33,11 +20,14 @@ const ExpandedSidebar = () => {
                 <Link
                   href={href}
                   className={`
-                       ${isActive ? "bg-[#121212] text-white" : "bg-[#F4ECE5] text-black"} 
-                       flex justify-start items-center tab `}
+    flex justify-start items-center tab rounded-xl px-3 py-2 transition-colors
+    ${isActive
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"}
+  `}
                 >
                   <div >
-                    {isActive? activeIcon : icon}
+                    {isActive ? activeIcon : icon}
                   </div>
                   <p className={`ps-3 `}>{label}</p>
                 </Link>

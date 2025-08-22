@@ -8,23 +8,24 @@ import Icon from "../SVGComponents/DashboardWhite";
 import BookIcon from "../SVGComponents/Booksvg";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+export const navItems = [
+  {
+    href: "/home",
+    label: "Overview",
+    icon: <Icon className="h-6 w-6 text-muted-foreground dark:text-muted-foreground" />,
+    activeIcon: <Icon className="h-6 w-6 text-primary dark:text-primary" />,
+    exact: true,
+  },
+  {
+    href: "/userDashboard",
+    label: "Dashboard",
+    icon: <BookIcon className="h-6 w-6 text-muted-foreground dark:text-muted-foreground" />,
+    activeIcon: <BookIcon className="h-6 w-6 text-primary dark:text-primary" />,
+  },
+];
 const Collabsed = () => {
   const pathname = usePathname();
-  const navItems = [
-    {
-      href: "/home",
-      label: "Overview",
-      icon: <Icon fill="black"  className="h-6 w-6  text-black" />,
-      activeIcon: <Icon fill="white"  className="h-6 w-6  text-white" />,
-      exact: true,
-    },
-    {
-      href: "/userDashboard",
-      label: "Dashboard",
-      icon:<BookIcon fill="black" className="h-6 w-6 text-black" />,
-      activeIcon: <BookIcon fill="white" className="h-6 w-6 text-white" />,
-    },
-  ];
+
   return (
     <>
       <nav>
@@ -38,18 +39,15 @@ const Collabsed = () => {
                 <Link
                   href={href}
                   className={`
-                          ${isActive ? "bg-[#121212] text-white" : "bg-[#F4ECE5] text-black"} 
-                          flex justify-center items-center rounded-full h-12 w-12`}
+                    flex justify-start items-center tab rounded-xl px-3 py-2 transition-colors
+                    ${isActive
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"}
+                      `}
                 >
                   <div >
-                    {isActive? activeIcon : icon}
+                    {isActive ? activeIcon : icon}
                   </div>
-                  {/* <img
-                    src={isActive ? activeIcon : icon}
-                    alt="Dashboard Icon"
-                    className="h-6 w-6"
-                  /> */}
-
                 </Link>
               </li>
             );
