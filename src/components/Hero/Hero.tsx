@@ -33,10 +33,12 @@ const Hero = (props: Props) => {
             </p>
             <div className="self-end  inline-flex pt-5">
               <div className="flex flex-wrap gap-3">
-                <Button size="lg" className="gap-2">
-                  <Play className="h-5 w-5" />
-                  Start Quick Quiz
-                </Button>
+                <Link href="/quiz">
+                  <Button size="lg" className="gap-2">
+                    <Play className="h-5 w-5" />
+                    Start Quick Quiz
+                  </Button>
+                </Link>
                 <Button variant="outline" size="lg" className="gap-2">
                   <BookOpen className="h-5 w-5" />
                   Browse Topics

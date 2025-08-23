@@ -42,7 +42,7 @@ export function ChartLineDotsColors({ gamesDuration }: ChartLineDotsColorsProps)
                 <CardTitle>Games Duration</CardTitle>
                 <CardDescription>{new Date().toLocaleString()}</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="py-3">
                 <ChartContainer config={chartConfig}>
                     <LineChart
                         accessibilityLayer

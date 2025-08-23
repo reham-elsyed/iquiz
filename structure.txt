@@ -1,0 +1,108 @@
+iquiz/
+├── components.json
+├── jest.config.ts
+├── next-env.d.ts
+├── next.config.ts
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── prisma/                  # Database schema & migrations
+├── public/                  # Static assets (images, icons, etc.)
+├── README.md
+├── setupTests.js            # Jest setup file
+├── tailwind.config.ts       # TailwindCSS configuration
+├── tsconfig.json            # TypeScript configuration
+└── src/                     # Main application source
+    ├── app/                 # Next.js App Router pages & layouts
+    │   ├── (auth)/          # Authentication routes
+    │   ├── api/             # API routes
+    │   │   ├── auth/ 
+    │   │   ├── checkAnswer/
+    │   │   ├── endTime/
+    │   │   ├── finishSession/
+    │   │   ├── flashCardFeedback/
+    │   │   ├── game/
+    │   │   ├── gameDuration/
+    │   │   ├── questions/
+    │   │   └── studySessionCreation/
+    │   ├── create-flashcard/
+    │   ├── error.tsx
+    │   ├── favicon.ico
+    │   ├── flash-card-stats/
+    │   ├── fonts/
+    │   ├── games/
+    │   ├── globals.css
+    │   ├── history/
+    │   ├── home/
+    │   ├── layout.tsx
+    │   ├── loading.tsx
+    │   ├── not-found.tsx
+    │   ├── page.test.tsx
+    │   ├── page.tsx
+    │   ├── play/
+    │   ├── providers/
+    │   ├── quiz/
+    │   ├── schemas/
+    │   ├── statistics/
+    │   └── userDashboard/
+    │
+    ├── components/          # Reusable UI and feature components
+    │   ├── BlankAnswersComponent/
+    │   ├── Buttons/
+    │   ├── ChartLineDotsColors/
+    │   ├── Charts/
+    │   ├── ChoicesButton/
+    │   ├── Counter/
+    │   ├── CutomWordCloud/
+    │   ├── EmptyStatsForNewUsers/
+    │   ├── EndOfQuizModal/
+    │   ├── FilterEffect/
+    │   ├── FlashCard/
+    │   ├── FlashCardStats/
+    │   ├── Footer/
+    │   ├── GamesDurationGraph/
+    │   ├── GamesPerformanceReview/
+    │   ├── Hero/
+    │   ├── HistoryComponent/
+    │   ├── LoadingQuestions/
+    │   ├── MCQuiz/
+    │   ├── NavBar/
+    │   ├── NavBarList/
+    │   ├── NewUserComponents/
+    │   ├── OpenEndedQuiz/
+    │   ├── OverviewStatsComponent/
+    │   ├── PerformanceReviewCard/
+    │   ├── PieChartComponent/
+    │   ├── PopularGames/
+    │   ├── ProgressBar/
+    │   ├── QuizCreation/
+    │   ├── QuizTypesComponent/
+    │   ├── SectionComponent/
+    │   ├── SideBar/
+    │   ├── Slider/
+    │   ├── Statistics/
+    │   ├── SVGComponents/
+    │   ├── TitleCard/
+    │   ├── ui/              # ShadCN / UI primitives
+    │   ├── UserAvatar/
+    │   ├── userDashboard/
+    │   └── UserNav/
+    │
+    ├── hooks/               # Custom React hooks
+    │   ├── use-toast.tsx
+    │   ├── useChartDotsColor.tsx
+    │   ├── useEventListener.tsx
+    │   ├── useFlashCardSession.tsx
+    │   ├── useLocalStorage.tsx
+    │   └── useReloade.ts
+    │
+    ├── lib/                 # Utility functions (shared logic)
+    │
+    └── types/               # TypeScript types & interfaces
+        ├── cardTypes.ts
+        ├── feedbackFlashcardTypes.ts
+        ├── formTypes.ts
+        ├── gameTypes.ts
+        ├── geminiResponseTypes.ts
+        ├── navbarTypes.ts
+        └── weakQuestionsPerformanceTypes.ts

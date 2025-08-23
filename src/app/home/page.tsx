@@ -26,6 +26,7 @@ export default async function HomePage() {
 
   const gamesForStats = await getUserGames(session?.user.id as string, {
     includeQuestions: true,
+    limit: 10
   }) as GameWithQuestions[];
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -39,10 +40,10 @@ export default async function HomePage() {
 
           </div> :
             <div className="flex flex-col md:flex-row gap-5">
-              <div className="flex-1 h-fit md:h-full">
+              <div className="flex-1  md:h-full">
                 <GamesDurationGraph />
               </div>
-              <div className="flex-1 h-fit md:h-full">
+              <div className="flex-1 md:h-full">
                 <GamesPerformanceReview />
               </div>
             </div>}

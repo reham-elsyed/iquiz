@@ -5,13 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { WeakQuestionType } from '@/types/weakQuestionsPerformanceTypes';
 import { Button } from '../ui/button';
 import Link from 'next/link';
+import EmptySectionWrapper from '../NewUserComponents/EmptySectionWrapper/EmptySectionWrapper';
 
 interface WeakPerformanceCardProps {
     question: Pick<WeakQuestionType, 'question' | 'answer' | 'questionType' | 'questionId'>;
 }
 export function WeakPerformanceCard({ question }: WeakPerformanceCardProps) {
     return (
-        <Card className=" bg-card shadow-sm hover:shadow-md transition mb-3">
+        <Card className=" bg-card shadow-sm hover:shadow-md transition mb-3 h-full">
             <CardHeader>
                 <CardTitle className="text-card-foreground font-bold">
                     ⚠ Weak Performance Question
@@ -38,21 +39,22 @@ const GamesPerformanceReview = async () => {
     const weakPerformanceQuestions = gamesPerformance.map(game => game.questions).flat().slice(0, 2);
 
     return (
-        <>
-            <div className='mb-4 flex justify-between '>
+        <div>
+            <div className='mb-4 flex flex-col lg:flex-row justify-between '>
 
-                <h2 className="text-2xl font-bold mb-4">Weak Performance Questions</h2>
+                <h2 className="text-lg md:text-2xl font-bold mb-4">Weak Performance Questions</h2>
                 <Button variant={'outline'}>
                     <Link href="/games/performance-review" className="">
                         View Full Performance Review
                     </Link>
                 </Button>
             </div>
+            {weakPerformanceQuestions.length === 0 && (<EmptySectionWrapper><p>You're doing great so far</p></EmptySectionWrapper>)}
 
             {weakPerformanceQuestions.map(q => (
                 <WeakPerformanceCard key={q.questionId} question={q} />
             ))}
-        </>
+        </div>
     )
 }
 

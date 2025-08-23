@@ -5,8 +5,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { RotateCcw } from 'lucide-react';
 import React from 'react'
-
-const FlashCardComponent = ({ isFliped, question, handleFlip }) => {
+type FlashCardComponentProps = {
+    isFliped: boolean;
+    question: {
+        question: string;
+        answer: string;
+    } | null;
+    handleFlip: () => void;
+}
+const FlashCardComponent = ({ isFliped, question, handleFlip }: FlashCardComponentProps) => {
     console.log(isFliped, "is flipped")
     console.log(question, "question")
     return (

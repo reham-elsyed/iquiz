@@ -10,7 +10,6 @@ type PerformanceReviewCardProps = {
     game: WeakQuestionType;
     colorClass: TopicStyle
 }
-//<div class="bg-[var(--topic-math-background)] text-[var(--topic-math-text)] border-[var(--topic-math-accent)]"></div>
 export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCardProps) => {
     return (
         <Card
