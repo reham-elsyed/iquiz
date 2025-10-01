@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "../../ui/button";
 import { signIn } from "next-auth/react";
 import { GoogleIcon } from "@/components/SVGComponents/GoogleIcon";
-function GoogleButton() {
+function GoogleButton({ text }: { text?: string }) {
   return (
     <Button
       onClick={() => {
@@ -14,7 +14,7 @@ function GoogleButton() {
     >
 
       <GoogleIcon />
-      Sign in with Google
+      {text ? text : "Sign in with Google"}
     </Button>
   );
 }

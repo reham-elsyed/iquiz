@@ -37,8 +37,8 @@ export default async function Login() {
         <p className="text-grey-500 text-sm mt-2 ">Or You  can log in with:</p>
         <div className="flex flex-col w-full justify-center items-center gap-y-3 mt-6">
 
-          <GitHubButton />
-          <GoogleButton />
+          <GitHubButton text='Sign in with GitHub' />
+          <GoogleButton text='Sign in with Google' />
         </div>
       </div>
       <div className="text-grey-500 text-sm mt-2 flex flex-col justify-center items-start w-full max-w-sm ">

@@ -1,42 +1,47 @@
 import GitHubButton from "@/components/Buttons/GitHubButton/GitHubButton";
 import GoogleButton from "@/components/Buttons/GoogleButton/GoogleButton";
+import LoginButton from "@/components/Buttons/LoginButton/LoginButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 export default function Signup() {
   return (
-    <div className="mt-34 rounded  py-10 px-10 md:mt-0 md:max-w-md md:px-14 dark:bg-background dark:text-foreground bg-secondary">
-      <form method="POST" action={"api/auth/signup"}>
-        <h1 className="text-xl font-semibold text-white">Sign Up</h1>
-        <div className="space-y-4 mt-5">
+    <div className="flex flex-col gap-y-4   items-center p-5 w-full ">
+      <form method="POST" action={"/api/auth/signup"}
+        className="flex flex-col gap-y-4 w-full max-w-sm"
+      >
+        <h1 className="text-xl font-semibold text-forground">Sign up</h1>
+        <div className="mt-5">
           <Input
             type="email"
             name="email"
             placeholder="email"
-            className="bg-muted placeholder:text-grey-400 w-full inline-block text-muted-forground"
+            className=" rounded-2xl border border-gray-300 dark:border-gray-700"
           />
-          <Button className="w-full bg-[#e50914]">Sign Up</Button>
         </div>
+        <div className="">
+          <LoginButton text="Sign up" />
+        </div>
+
       </form>
-      <div className="text-grey-500 text-sm mt-2 ">
-        <p className="text-grey-500 text-sm mt-2 ">Already Have account?</p>
+
+      <div className="flex flex-col justify-center items-start w-full max-w-sm pb-4 border-b border-gray-300 dark:border-gray-700">
+        <p className="text-grey-500 text-sm mt-2 ">Or You  can Sign up with:</p>
+        <div className="flex flex-col w-full justify-center items-center gap-y-3 mt-6">
+
+          <GitHubButton text='Sign up with GitHub' />
+          <GoogleButton text='Sign up with Google' />
+        </div>
+      </div>
+      <div className="text-grey-500 text-sm mt-2 flex flex-col justify-center items-start w-full max-w-sm ">
+        <p className="text-grey-500 text-sm mt-2 ">already have an account?</p>
         <Link
-          className="btn border-l-stone-600 text-white hover:underline"
+          className="btn border-l-stone-600 text-forground hover:underline"
           href="/login"
         >
-          Login Now
+          Sign in
         </Link>
-      </div>
-      <div className="flex w-full justify-center items-center gap-x-3 mt-6">
-        {/* <Button variant="outline" size="icon">
-          <GitFork className="w-4 h-4" />
-        </Button>
-        <Button variant="outline" size="icon">
-          <GitFork className="w-4 h-4" />
-        </Button> */}
-        <GitHubButton />
-        <GoogleButton />
       </div>
     </div>
   );

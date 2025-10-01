@@ -5,7 +5,7 @@ import { signIn } from "next-auth/react";
 
 import { FaGithub } from "react-icons/fa";
 import { GithubIcon } from "@/components/SVGComponents/GitHubIcon";
-function GitHubButton() {
+function GitHubButton({ text }: { text?: string }) {
   return (
     <Button
       onClick={() => {
@@ -16,7 +16,7 @@ function GitHubButton() {
 
     >
       <GithubIcon />
-      Sign in with GitHub
+      {text}
     </Button>
   );
 }

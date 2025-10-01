@@ -2,7 +2,7 @@
 import { signIn } from "next-auth/react";
 import { Button } from "../../ui/button";
 
-export default function LoginButton() {
+export default function LoginButton({ text }: { text?: string }) {
   return (
     <Button
       onClick={() => {
@@ -10,7 +10,7 @@ export default function LoginButton() {
       }}
       className="w-full rounded-2xl  "
     >
-      Login
+      {text ? text : "Login"}
     </Button>
   );
 }
