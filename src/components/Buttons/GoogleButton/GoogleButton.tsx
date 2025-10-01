@@ -2,17 +2,19 @@
 import React from "react";
 import { Button } from "../../ui/button";
 import { signIn } from "next-auth/react";
-import { FcGoogle } from "react-icons/fc";
+import { GoogleIcon } from "@/components/SVGComponents/GoogleIcon";
 function GoogleButton() {
   return (
     <Button
       onClick={() => {
         signIn("google"), { callbackUrl: "/home" };
       }}
-      variant="outline"
-      size="icon"
+      variant={"default"}
+      className="  rounded-2xl "
     >
-      <FcGoogle size={30} />
+
+      <GoogleIcon />
+      Sign in with Google
     </Button>
   );
 }

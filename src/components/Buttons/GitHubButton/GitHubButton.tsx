@@ -4,16 +4,19 @@ import { Button } from "../../ui/button";
 import { signIn } from "next-auth/react";
 
 import { FaGithub } from "react-icons/fa";
+import { GithubIcon } from "@/components/SVGComponents/GitHubIcon";
 function GitHubButton() {
   return (
     <Button
       onClick={() => {
         signIn("github"), { callbackUrl: "/home" };
       }}
-      variant="outline"
-      size="icon"
+
+      className=" rounded-2xl "
+
     >
-      <FaGithub size={30} />
+      <GithubIcon />
+      Sign in with GitHub
     </Button>
   );
 }

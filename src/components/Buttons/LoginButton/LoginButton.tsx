@@ -8,7 +8,7 @@ export default function LoginButton() {
       onClick={() => {
         signIn("email"), { callbackUrl: "/home" };
       }}
-      className="w-full bg-[#e50914]"
+      className="w-full rounded-2xl  "
     >
       Login
     </Button>
