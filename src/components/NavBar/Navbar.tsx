@@ -33,8 +33,8 @@ export default async function Navbar() {
           </NavigationMenu>
         </div>
 
-        <div className=" flex items-center justify-center gap-2">
-          <ThemeToggle />
+        <div className=" flex items-center justify-center gap-3 rounded-full">
+          <div className="rounded-full"><ThemeToggle className="rounded-full" /></div>
           {session?.user ? (
             <UserNav user={session.user} />
           ) : (

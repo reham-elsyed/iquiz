@@ -5,13 +5,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 function UserAvatar({ user }: Props) {
   return (
     <>
-      <Avatar className="h-10 w-10 rounded-sm">
+      <Avatar className="h-10 w-10 rounded-full">
         {user.image ? (
           <AvatarImage src={user?.image as string} alt={user.name as string} />
         ) : (
           <AvatarImage src="https://gokxczesysklzepbknzb.supabase.co/storage/v1/object/public/user-image/user.png" />
         )}
-        <AvatarFallback className="rounded-sm"></AvatarFallback>
+        <AvatarFallback className="rounded-full"></AvatarFallback>
         <span className="src-only">{user.name as string}</span>
       </Avatar>
     </>

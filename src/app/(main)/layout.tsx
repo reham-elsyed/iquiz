@@ -26,8 +26,6 @@ export default async function HomeLayout({
                     {children}
                 </div>
             </section>
-
-            <Toaster />
         </main>
         <Footer />
     </>;

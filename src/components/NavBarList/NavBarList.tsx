@@ -8,6 +8,7 @@ import {
   NavigationMenuLink,
   navigationMenuTriggerStyle,
 } from "../ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 const NavBarList = () => {
   const pathName = usePathname();
@@ -15,15 +16,15 @@ const NavBarList = () => {
     <>
       {linksArray.map((link: LinkProps, i: number) => (
         <NavigationMenuItem
+          className="w-full"
           key={i}
-          className={`${pathName === link.href}?'bg-red-900':'bg-forground'`}
         >
           <Link
-            className={`${pathName === link.href}?'bg-red-900':'bg-forground'`}
+            className="w-full flex-justify-start  rounded-xl"
             href={link.href}
             passHref
           >
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), `w-full rounded-xl justify-start  ${pathName === link.href ? "bg-gray-200 text-gray-900 font-semibold" : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"} `)}>
               {link.name}
             </NavigationMenuLink>
           </Link>

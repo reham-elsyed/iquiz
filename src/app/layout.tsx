@@ -3,6 +3,7 @@ import "./globals.css";
 import NextAuthProvider from "./providers/NextAuthProvider";
 import FilterEffect from "@/components/FilterEffect/FilterEffect";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "IQuiz",
@@ -21,6 +22,7 @@ export default function RootLayout({
           <FilterEffect />
           {children}
         </body>
+        <Toaster />
       </NextAuthProvider>
     </html>
   );

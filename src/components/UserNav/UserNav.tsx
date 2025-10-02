@@ -20,22 +20,26 @@ type Props = {
 };
 export default function UserNav({ user }: Props) {
   return (
-    <DropdownMenu>
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-6 w-6 rounded-xl">
+        <Button className="relative h-6 w-6 rounded-2xl ">
           <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-56 bg-background border-none rounded-md  translate-y-3" align="end" forceMount>
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1 ">
             <p className="text-sm font-medium leading-none">{user.name}</p>
             <p className="text-zinc-700 text-sm w-[200px">{user.email}</p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuItem>
-          <NavigationMenu>
-            <ul>
+        <DropdownMenuItem
+          className="
+    bg-transparent text-gray-700
+    data-[highlighted]:bg-transparent data-[highlighted]:text-gray-700
+  " >
+          <NavigationMenu className="flex-1  " >
+            <ul >
               <NavBarList />
             </ul>
           </NavigationMenu>
