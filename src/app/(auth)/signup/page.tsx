@@ -8,7 +8,7 @@ import Link from "next/link";
 export default function Signup() {
   return (
     <div className="flex flex-col gap-y-4   items-center p-5 w-full ">
-      <form method="POST" action={"/api/auth/signup"}
+      <form method="POST" action={"/api/auth/signin"}
         className="flex flex-col gap-y-4 w-full max-w-sm"
       >
         <h1 className="text-xl font-semibold text-forground">Sign up</h1>
