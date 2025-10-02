@@ -17,19 +17,20 @@ const ChoicesButton = ({
   option,
 }: Props) => {
   return (
-    <Button
+
+    <button
       onClick={() => {
         setSelectedChoice(index);
       }}
-      variant={selectedChoice === index ? "destructive" : "secondary"}
+
       key={index}
-      className="justify-start w-full py-8 mb-4 "
+      className={`${selectedChoice === index ? "bg-accent text-accent-foreground" : "bg-background text-foreground hover:bg-background/30  "} w-full ps-3   py-8 mb-4 rounded-2xl justify-start `}
     >
-      <div className="flex items-center justify-start">
+      <div className="flex items-center justify-start ">
         <div className="p-2 px-3 mr-5 border rounded-md">{index + 1}</div>
         <div className="text-start">{option}</div>
       </div>
-    </Button>
+    </button>
   );
 };
 

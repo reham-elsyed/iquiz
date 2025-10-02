@@ -4,7 +4,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const AnimationRobot = () => {
     return (
-        <div className="w-full "> {/* optional size */}
+        <div className="w-full ">
             <DotLottieReact
                 src="https://lottie.host/aa312ea6-183f-4ea2-a4c9-d5a79ce25e40/nvI2g32D49.lottie"
                 loop
