@@ -3,6 +3,7 @@ import trendingTopic from '@/lib/trendingTopics'
 import Slider from '../Slider/Slider'
 import { Card } from '../ui/card'
 import { Button } from '../ui/button'
+import Link from 'next/link'
 
 const PopularGames = async () => {
   const popularGames = await trendingTopic()
@@ -24,7 +25,7 @@ const PopularGames = async () => {
         <div className='flex flex-col gap-4 p-3'>
           <div className='flex items-center justify-between mb-6'>
             <h2 className='text-2xl font-bold'>Popular Games</h2>
-            <Button variant="outline" size="sm">View All</Button>
+            <Button variant="outline" size="sm"><Link href={"/trending-topics"}>View All</Link></Button>
           </div>
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
             {popularGames.map((game) => (

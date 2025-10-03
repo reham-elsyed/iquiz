@@ -11,7 +11,7 @@ function UserAvatar({ user }: Props) {
         ) : (
           <AvatarImage src="https://gokxczesysklzepbknzb.supabase.co/storage/v1/object/public/user-image/user.png" />
         )}
-        <AvatarFallback className="rounded-full"></AvatarFallback>
+        <AvatarFallback className="rounded-md"></AvatarFallback>
         <span className="src-only">{user.name as string}</span>
       </Avatar>
     </>
