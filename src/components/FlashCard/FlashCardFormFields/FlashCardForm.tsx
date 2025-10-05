@@ -106,7 +106,7 @@ export default function CreateFlashcardForm() {
       ) : (
         <div className="h-full flex items-center justify-center ">
 
-          <Card className="w-full md:w-1/2  h-full flex flex-col justify-center  max-w-2xl mx-auto relative border-b border-purple-800/30 bg-card/50 backdrop-blur-sm">
+          <Card className="w-full md:w-1/2  h-full flex flex-col justify-center  max-w-2xl mx-auto relative border-b border-purple-800/30 bg-card/50 backdrop-blur-xs">
             <div className=""><ProgressBar value={step + 1} max={formFields.length} size='sm' className="rounded-none p-5" variant='destructive' /></div>
 
             <CardHeader className="text-center">

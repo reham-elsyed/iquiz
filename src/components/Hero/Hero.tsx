@@ -15,12 +15,12 @@ type Props = {};
 
 const Hero = (props: Props) => {
   return (
-    <div className=" h-fit relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-card/95 backdrop-blur-sm border border-white/20 shadow-xl">
+    <div className=" h-fit relative overflow-hidden rounded-2xl bg-linear-to-br from-primary/10 via-primary/5 to-card/95 backdrop-blur-xs border border-white/20 shadow-xl">
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
 
       <Card className="flex flex-col md:flex-row  justify-center items-center bg-inherit  h-full w-full ">
-        <CardHeader className=" md:w-2/3 h-full w-[100%] ">
+        <CardHeader className=" md:w-2/3 h-full w-full ">
           <CardTitle className="text-lg md:text-2xl pb-8">
             {" "}
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug text-foreground">
@@ -34,12 +34,12 @@ const Hero = (props: Props) => {
             <div className="self-end  inline-flex pt-5">
               <div className="flex flex-wrap gap-3">
                 <Link href="/quiz">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2 app-button">
                     <Play className="h-5 w-5" />
                     Start Quick Quiz
                   </Button>
                 </Link>
-                <Button variant="outline" size="lg" className="gap-2">
+                <Button variant={"outline"} size="lg" className="gap-2 app-button">
                   <BookOpen className="h-5 w-5" />
                   Browse Topics
                 </Button>

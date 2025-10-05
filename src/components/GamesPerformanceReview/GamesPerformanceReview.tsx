@@ -12,18 +12,18 @@ interface WeakPerformanceCardProps {
 }
 export function WeakPerformanceCard({ question }: WeakPerformanceCardProps) {
     return (
-        <Card className=" bg-card shadow-sm hover:shadow-md transition mb-3 h-full">
+        <Card className="app-card transition mb-3 h-full">
             <CardHeader>
                 <CardTitle className="text-card-foreground font-bold">
                     ⚠ Weak Performance Question
                 </CardTitle>
             </CardHeader>
-            <CardContent>
-                <p className="text-gray-800 font-medium mb-2">{question.question}</p>
-                <div className="text-sm text-gray-600 mb-2">
+            <CardContent className='app-card-content '>
+                <p className="text-foreground font-medium ">{question.question}</p>
+                <div className="text-sm text-muted-foreground ">
                     <span className="font-semibold">Correct Answer:</span> {question.answer}
                 </div>
-                <div className="text-xs text-gray-500 italic">
+                <div className="text-xs text-muted-foreground italic">
                     Type: {question.questionType}
                 </div>
             </CardContent>

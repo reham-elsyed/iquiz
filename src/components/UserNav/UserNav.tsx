@@ -21,8 +21,8 @@ type Props = {
 export default function UserNav({ user }: Props) {
   return (
     <DropdownMenu >
-      <DropdownMenuTrigger asChild>
-        <Button className="relative h-6 w-6 rounded-2xl ">
+      <DropdownMenuTrigger className="relative" asChild>
+        <Button className="relative h-5 w-5 sm:h-7 sm:w-7 md:h-10 md:w-10 rounded-full p-0 hover:opacity-100 focus:opacity-100 opacity-90">
           <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>
@@ -33,17 +33,17 @@ export default function UserNav({ user }: Props) {
             <p className="text-zinc-700 text-sm w-[200px">{user.email}</p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           className="
     bg-transparent text-gray-700
-    data-[highlighted]:bg-transparent data-[highlighted]:text-gray-700
+    data-highlighted:bg-transparent data-highlighted:text-gray-700
   " >
           <NavigationMenu className="flex-1  " >
             <ul >
               <NavBarList />
             </ul>
           </NavigationMenu>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <span

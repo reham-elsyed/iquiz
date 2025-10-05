@@ -51,7 +51,7 @@ const StatisticePage = async ({ params }: Props) => {
   // console.log(game.timeEnded, game.timeStarted)
   return (
     <>
-      <section className="p-8 mx-auto- max-w-7xl">
+      <section className="p-8 mx-auto w-11/12">
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Statistics</h2>
           <div className="flex items-center space-x-2">

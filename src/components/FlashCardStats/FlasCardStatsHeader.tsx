@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react'
 
 export const FlasCardStatsHeader = () => {
     return (
-        <div className="border-border/50  bg-card/50 backdrop-blur-sm">
+        <div className="border-border/50  bg-card/50 backdrop-blur-xs">
             <div className="container mx-auto px-6 py-4">
                 <div className="flex items-center gap-4">
                     <Button

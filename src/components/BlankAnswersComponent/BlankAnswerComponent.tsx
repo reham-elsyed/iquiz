@@ -38,7 +38,7 @@ function BlankAnswerComponent({ answer, input, pkeyWords }: Props) {
                 }
               }}
               id={`${index}user-blank-input`}
-              className="text-blue-950 text-center border-b-1 border-black dark:text-yellow-200 dark:border-white w-28 focus:border-2 focus:border-b-4 focus:outline-none"
+              className="text-blue-950 text-center border-b border-black dark:text-yellow-200 dark:border-white w-28 focus:border-2 focus:border-b-4 focus:outline-hidden"
               key={index}
               type="text"
             />

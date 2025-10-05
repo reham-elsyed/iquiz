@@ -13,11 +13,11 @@ const QuizMeCard = ({ card }: Props) => {
 
   return (
     <Card
-      className="hover:cursor-pointer hover:opacity-75"
+      className="hover:cursor-pointer app-card"
       onClick={() => router.push(card.path)}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-        <CardTitle className="text-2xl font-bold">{card.Title} </CardTitle>
+        <CardTitle className="text-2xl font-bold text-foreground">{card.Title} </CardTitle>
         {card.icon === "BrainCircuit" ? (
           <BrainCircuit size={28} strokeWidth={2.5} />
         ) : (

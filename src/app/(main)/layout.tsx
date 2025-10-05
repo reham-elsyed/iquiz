@@ -18,11 +18,11 @@ export default async function HomeLayout({
     return <>
         <Navbar />
 
-        <main className="flex-grow w-full mt-16 relative">
+        <main className="grow w-full mt-16 relative">
 
-            <section className="flex ">
-                <Sidebar />
-                <div className="flex-grow p-4">
+            <section className="flex justify-center items-center ">
+
+                <div className="grow p-4">
                     {children}
                 </div>
             </section>

@@ -34,7 +34,7 @@ const FlashCardComponent = ({ isFliped, question, handleFlip }: FlashCardCompone
                             transition={{ duration: 0.3 }}
                             className="absolute inset-0"
                         >
-                            <Card className="h-full bg-card/95 backdrop-blur-sm border-white/20 shadow-xl hover:shadow-2xl transition-shadow w-full">
+                            <Card className="h-full bg-card/95 backdrop-blur-xs border-white/20 shadow-xl hover:shadow-2xl transition-shadow w-full">
                                 <CardContent className="p-8 h-full flex flex-col">
                                     <div className="flex justify-between items-start mb-4">
                                         <Badge variant="secondary" className="text-xs">

@@ -91,7 +91,7 @@ export default function NewUserOnboarding() {
                                     </div>
 
                                     <Button
-                                        variant={step.completed ? "outline" : "default"}
+                                        variant={step.completed ? "outline-solid" : "default"}
                                         size="sm"
                                         className="gap-2 shrink-0"
                                     >

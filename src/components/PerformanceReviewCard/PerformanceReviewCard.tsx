@@ -14,7 +14,7 @@ export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCar
     return (
         <Card
             key={game.gameId}
-            className={` transition border-0 rounded-2xl  text-card-foreground dark:text-gray-100 ${colorClass.background} hover:bg-opacity-90 dark:hover:bg-opacity-80`}
+            className={` transition border-0 rounded-2xl  text-card-foreground  ${colorClass.background} app-card`}
         >
             <CardHeader className="md:flex-row justify-between">
                 <span className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -34,7 +34,7 @@ export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCar
                 </Button>
             </CardHeader>
 
-            <CardContent className="flex flex-col items-start backdrop-blur-sm rounded-2xl  dark:bg-black/10">
+            <CardContent className="flex flex-col items-start backdrop-blur-xs rounded-2xl  dark:bg-black/10">
                 <div className="flex flex-col md:flex-row items-center justify-between mt-2 w-full">
                     <Badge variant="outline" className="text-xs px-2 py-1 rounded-lg">
                         {game.questionType}

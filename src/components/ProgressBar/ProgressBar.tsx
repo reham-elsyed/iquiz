@@ -85,7 +85,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
             'h-full rounded-full transition-all duration-500 ease-out',
             colorVariants[variant],
             {
-              'bg-gradient-to-r from-transparent via-white/30 to-transparent bg-[length:2rem_100%] animate-pulse': striped,
+              'bg-linear-to-r from-transparent via-white/30 to-transparent bg-size-[2rem_100%] animate-pulse': striped,
             },
             animated && 'transition-transform'
           )}
@@ -94,7 +94,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           {/* Animated stripes overlay */}
           {striped && (
             <div
-              className="h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:1rem_100%]"
+              className="h-full w-full bg-linear-to-r from-transparent via-white/20 to-transparent bg-size-[1rem_100%]"
               style={{
                 backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 6px, rgba(255,255,255,0.1) 6px, rgba(255,255,255,0.1) 12px)',
                 animation: animated ? 'slide 1s linear infinite' : 'none',

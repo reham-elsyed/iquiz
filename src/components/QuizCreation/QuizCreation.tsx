@@ -36,7 +36,7 @@ const formFields: FormFieldsType = [
   {
     name: "amount",
     desc: "add number of questions min: 3 max: 10",
-    type: "number",
+    type: "text",
   },
   { name: "topic", desc: "add your quiz topic ", type: "text" },
   {
@@ -117,7 +117,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                                 ? "default"
                                 : "secondary"
                             }
-                            className="w-1/2 rounded-none rounded-l-lg"
+                            className="w-1/2 rounded-none rounded-l-lg app-button"
                           >
                             <CopyCheck className="w-4 h-4 mr-2" /> mcq
                           </Button>
@@ -131,7 +131,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                                 ? "default"
                                 : "secondary"
                             }
-                            className="w-1/2 rounded-none rounded-r-lg"
+                            className="w-1/2 rounded-none rounded-r-lg app-button"
                           >
                             <BookOpen className="w-4 h-4 mr-2" /> open ended
                           </Button>
@@ -149,15 +149,15 @@ const QuizCreation = ({ topicParam }: Props) => {
                                   placeholder={info.name}
                                   {...field}
                                   type={info.type}
-                                  min={info.name === "amount" ? 3 : 0}
+                                  value={field.value || ""}
                                   onChange={
                                     info.name === "amount"
                                       ? (e) => {
-                                          form.setValue(
-                                            "amount",
-                                            parseInt(e.target.value) || 3
-                                          );
-                                        }
+                                        form.setValue(
+                                          "amount",
+                                          parseInt(e.target.value)
+                                        );
+                                      }
                                       : field.onChange
                                   }
                                 />
