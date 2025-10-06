@@ -12,7 +12,7 @@ function GitHubButton({ text }: { text?: string }) {
         signIn("github"), { callbackUrl: "/home" };
       }}
 
-      className=" rounded-2xl "
+      className=" rounded-2xl app-button"
 
     >
       <GithubIcon />

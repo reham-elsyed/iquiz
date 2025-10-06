@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <div className="flex items-center justify-center  ">
+      <div className="flex items-center justify-center h-screen ">
         <div className="container  mx-auto p-5 rounded-2xl  ">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2  rounded-2xl shadow-lg relative">
             <div className="absolute inset-0 -z-10 rounded-2xl bg-background/40 backdrop-blur-xs border border-white/25 shadow-lg"></div>

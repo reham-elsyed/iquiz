@@ -46,3 +46,8 @@ export const flashcardFeedbackSchema = z.object({
   timeSpent: z.number(),
   sessionId: z.string(),
 });
+
+export const quizesByTopicsSchema = z.object({
+  topic: z.string(),
+  id: z.string(),
+});

@@ -45,7 +45,7 @@ const Error = ({ error, reset }: Props) => {
       </p>
       <button
         onClick={() => window.location.reload()}
-        className="mt-6 px-4 py-2 text-[hsl(var(--primary-foreground))] bg-[hsl(var(--primary))] rounded-md hover:bg-[hsl(var(--primary), 70%)] focus:ring-3 focus:ring-[hsl(var(--ring))] focus:outline-hidden"
+        className="mt-6 px-4 py-2 app-button"
       >
         Retry
       </button>

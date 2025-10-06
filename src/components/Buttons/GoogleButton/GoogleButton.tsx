@@ -10,7 +10,7 @@ function GoogleButton({ text }: { text?: string }) {
         signIn("google"), { callbackUrl: "/home" };
       }}
       variant={"default"}
-      className="  rounded-2xl "
+      className="  rounded-2xl app-button"
     >
 
       <GoogleIcon />

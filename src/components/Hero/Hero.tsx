@@ -39,7 +39,7 @@ const Hero = (props: Props) => {
                     Start Quick Quiz
                   </Button>
                 </Link>
-                <Button variant={"outline"} size="lg" className="gap-2 app-button">
+                <Button variant={"outline"} size="lg" className="gap-2 shadow-sm -translate-y-[1px]">
                   <BookOpen className="h-5 w-5" />
                   Browse Topics
                 </Button>

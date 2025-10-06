@@ -8,7 +8,7 @@ export default function LoginButton({ text }: { text?: string }) {
       onClick={() => {
         signIn("email"), { callbackUrl: "/home" };
       }}
-      className="w-full rounded-2xl  "
+      className="w-full rounded-2xl app-button "
     >
       {text ? text : "Login"}
     </Button>

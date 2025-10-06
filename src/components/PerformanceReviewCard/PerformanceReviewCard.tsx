@@ -14,7 +14,7 @@ export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCar
     return (
         <Card
             key={game.gameId}
-            className={` transition border-0 rounded-2xl  text-card-foreground  ${colorClass.background} app-card`}
+            className={` transition border-0 rounded-2xl  text-card-foreground app-card`}
         >
             <CardHeader className="md:flex-row justify-between">
                 <span className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -50,7 +50,7 @@ export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCar
                 </div>
 
                 <h3 className={cn(
-                    "text-lg font-semibold leading-relaxed mb-3",
+                    "text-lg font-semibold leading-relaxed mb-3 py-2",
                     colorClass.text
                 )}>{game.question}</h3>
                 <div className="bg-white/70 dark:bg-black/20 w-full h-max rounded-lg p-4 border border-white/50 dark:border-gray-700/50">

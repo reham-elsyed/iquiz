@@ -230,6 +230,7 @@
     --hover-bg: color-mix(in oklch, var(--interactive-bg), black 10%);
     --active-bg: color-mix(in oklch, var(--interactive-bg), black 20%);
     --focus-ring: var(--ring);
+
   }
 
   .dark {

@@ -21,6 +21,5 @@ export async function getEachTopicQuizesId(topic: string) {
         where: { topic: topic },
         select: { id: true, topic: true }
     })
-    console.log("-------games in lib", games)
     return games
 }

@@ -9,9 +9,13 @@ type TopicsCardProps = {
     key: string;
 }
 const TopicsCard = ({ topic, value, key }: TopicsCardProps) => {
+
+
     return (
         <>
-            <Card key={key}>
+            <Card
+                className='app-card--raised'
+                key={key}>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">{topic}</CardTitle>
                     <DollarSignIcon className="h-4 w-4 text-muted-foreground" />

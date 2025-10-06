@@ -1,25 +1,27 @@
-
+'use client'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import { getEachTopicQuizesId } from "@/lib/quizesOfTopic"
 import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
 import React from "react"
+import { Card } from "../ui/card"
+import { Button } from "../ui/button"
 
 export default function CollapsibleSimple({ topic }: { topic: string }) {
 
-  const data = async () => {
-    if (!topic) return []
-    const res = await getEachTopicQuizesId(topic)
-    console.log("-------quizes of topic", res)
-    return res
+  type Quiz = { id: string; topic: string };
+
+  async function GetEachTopicQuizesId(): Promise<Quiz[]> {
+    const response = await axios.get(`/api/gamesByTopic?topic=${topic}`);
+    return response.data.games as Quiz[];
   }
-  // const { data, error, isLoading } = useQuery({
-  //   queryKey: ['quizezByTopic', topic],
-  //   queryFn: HandlegetEachTopicQuizesId
-  // })
+  const { data, error, isLoading } = useQuery<Quiz[]>({
+    queryKey: ['quizezByTopic', topic],
+    queryFn: GetEachTopicQuizesId
+  })
   return (
     <div
 
@@ -44,13 +46,40 @@ export default function CollapsibleSimple({ topic }: { topic: string }) {
           </svg>
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
-          <div className="rounded-md border px-4 py-3 text-sm">
-            {/* {isLoading && <div>Loading...</div>}
+          <div className="rounded-md border px-4 py-3 text-sm w-full">
+            {isLoading && <div>Loading...</div>}
             {error && <div>Error loading quizzes.</div>}
-            {data && data.length === 0 && <div>No quizzes found for this topic.</div>} */}
-            {data && data.length > 0 && (
+            {data && data.length === 0 && <div>No quizzes found for this topic.</div>}
+            {data && data?.length > 0 && (
               <ul className="list-disc list-inside space-y-1">
-                {data.map((quiz, i) => (<li key={quiz.id}>{quiz.topic} quiz No. {i + 1}: {quiz.id.slice(0, 3)} </li>))}
+                {data.map((quiz, i) => (<li
+                  className="card-app w-full"
+                  key={quiz.id}>
+
+                  <div className="app-card-content">
+                    {/* Title */}
+                    <h3 className="text-base font-semibold text-foreground">
+                      {quiz.topic} — Quiz #{i + 1}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Test your knowledge in <span className="font-medium">{quiz.topic}</span>.
+                      This quiz includes curated questions designed to challenge your understanding
+                      and help you strengthen your skills.
+                    </p>
+
+                    {/* CTA */}
+                    <div className="flex justify-end pt-3">
+                      <Button
+                        variant="default"
+                        className="rounded-md text-sm font-medium app-button"
+                        onClick={() => console.log(`Start quiz ${quiz.id}`)}
+                      >
+                        Take Test
+                      </Button>
+                    </div></div>
+                </li>))}
               </ul>
             )}
           </div>
