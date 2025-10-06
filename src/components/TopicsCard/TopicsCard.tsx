@@ -1,0 +1,28 @@
+'use client'
+import React from 'react'
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import CollapsibleSimple from "@/components/CollapsibleComponent/CollapsibleComponent";
+import { DollarSignIcon } from "lucide-react";
+type TopicsCardProps = {
+    topic: string;
+    value: number;
+    key: string;
+}
+const TopicsCard = ({ topic, value, key }: TopicsCardProps) => {
+    return (
+        <>
+            <Card key={key}>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{topic}</CardTitle>
+                    <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                    <div className="text-2xl font-bold">{value}</div>
+                    <CollapsibleSimple topic={topic} />
+                </CardContent>
+            </Card>
+        </>
+    )
+}
+
+export default TopicsCard

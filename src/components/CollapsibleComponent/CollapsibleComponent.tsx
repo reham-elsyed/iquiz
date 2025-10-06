@@ -1,15 +1,33 @@
-"use client"
+
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-export default function CollapsibleSimple() {
+import { getEachTopicQuizesId } from "@/lib/quizesOfTopic"
+import { useQuery } from "@tanstack/react-query"
+import React from "react"
+
+export default function CollapsibleSimple({ topic }: { topic: string }) {
+
+  const data = async () => {
+    if (!topic) return []
+    const res = await getEachTopicQuizesId(topic)
+    console.log("-------quizes of topic", res)
+    return res
+  }
+  // const { data, error, isLoading } = useQuery({
+  //   queryKey: ['quizezByTopic', topic],
+  //   queryFn: HandlegetEachTopicQuizesId
+  // })
   return (
-    <div className="w-full p-6 flex justify-center">
+    <div
+
+      className="w-full p-6 flex justify-start">
       <Collapsible className="w-[350px] space-y-2">
-        <CollapsibleTrigger className="flex w-full items-center justify-between rounded-md bg-muted px-4 py-2 font-medium [&[data-state=open]>svg]:rotate-180">
-          Can I use this in my project?
+        <CollapsibleTrigger
+          className="flex w-full items-center justify-between rounded-md bg-muted px-4 py-2 font-medium [&[data-state=open]>svg]:rotate-180">
+          Explore tests
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -27,8 +45,14 @@ export default function CollapsibleSimple() {
         </CollapsibleTrigger>
         <CollapsibleContent className="space-y-2">
           <div className="rounded-md border px-4 py-3 text-sm">
-            Yes. Free to use for personal and commercial projects. No attribution
-            required.
+            {/* {isLoading && <div>Loading...</div>}
+            {error && <div>Error loading quizzes.</div>}
+            {data && data.length === 0 && <div>No quizzes found for this topic.</div>} */}
+            {data && data.length > 0 && (
+              <ul className="list-disc list-inside space-y-1">
+                {data.map((quiz, i) => (<li key={quiz.id}>{quiz.topic} quiz No. {i + 1}: {quiz.id.slice(0, 3)} </li>))}
+              </ul>
+            )}
           </div>
         </CollapsibleContent>
       </Collapsible>
