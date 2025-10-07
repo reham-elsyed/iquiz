@@ -1,4 +1,5 @@
 
+import { quizesByTopicsArraySchema } from "@/app/schemas/formSchema/quizSchema";
 import prisma from "@/lib/db";
 import { getEachTopicQuizesId } from "@/lib/quizesOfTopic";
 
@@ -9,8 +10,8 @@ export async function GET(req: Request, res: Response) {
     try {
         const { searchParams } = new URL(req.url)
         const topic = searchParams.get("topic")
-
         const games = await getEachTopicQuizesId(topic as string);
+        const validatedGames = quizesByTopicsArraySchema.parse(games);
         if (!games) {
             return NextResponse.json(
                 {
@@ -21,10 +22,9 @@ export async function GET(req: Request, res: Response) {
                 },
             );
         }
-
         return NextResponse.json(
             {
-                games: games,
+                games: validatedGames,
             },
             {
                 status: 200,

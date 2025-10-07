@@ -1,5 +1,4 @@
-import { time } from "console";
-import { Session } from "inspector/promises";
+
 import { z } from "zod";
 
 export const quizCreationSchema = z.object({
@@ -50,4 +49,6 @@ export const flashcardFeedbackSchema = z.object({
 export const quizesByTopicsSchema = z.object({
   topic: z.string(),
   id: z.string(),
+  gameType: z.enum(["mcq", "open_ended"]),
 });
+export const quizesByTopicsArraySchema = z.array(quizesByTopicsSchema);

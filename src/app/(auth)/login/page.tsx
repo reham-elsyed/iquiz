@@ -1,6 +1,7 @@
 import GitHubButton from "@/components/Buttons/GitHubButton/GitHubButton";
 import GoogleButton from "@/components/Buttons/GoogleButton/GoogleButton";
 import LoginButton from "@/components/Buttons/LoginButton/LoginButton";
+import Rocket from "@/components/SVGComponents/Rocket";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { authOptions } from "@/lib/nextAuth";
@@ -14,46 +15,33 @@ export default async function Login() {
     redirect("/home");
   }
   return (
-    <div className="flex flex-col gap-y-4  items-center p-5 w-full ">
-      <div className="flex flex-col justify-center items-start w-full max-w-sm pb-4 border-b border-gray-300 dark:border-gray-700">
-        <div className="">  <h1 className="text-xl font-semibold text-forground ">Login</h1></div>
+    <div className="flex flex-col gap-y-4  items-center p-5  rounded-2xl  app-card--raised">
+      <div className="flex flex-col justify-start items-start w-full  pb-4 app-card-content h-full">
+        <div className="space-y-4 ">
 
-        <div className="flex flex-col w-full justify-center items-start gap-y-3 mt-6">
+          <h1 className="text-3xl font-bold tracking-tight text-foreground">
+            Welcome back <span className="inline-block"><Rocket size={20} /></span>
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Ready to continue your learning journey?
+          </p>
+          <p className="text-sm text-muted-foreground/80 leading-relaxed">
+            Our AI will craft personalized quizzes and flashcards to help you master every topic with confidence.
+          </p>
 
-          <GitHubButton text='Sign in with GitHub' />
-          <GoogleButton text='Sign in with Google' />
+
+          <div className="pt-6">
+            <h2 className="text-2xl font-semibold text-foreground">
+              Login to your account
+            </h2>
+          </div>
         </div>
 
-        <p className="text-grey-500 text-sm mt-2 ">Or You  can log in with:</p>
-      </div>
+        <div className="flex flex-col w-full justify-center items-start gap-y-5 mt-6">
 
-      <form method="POST" action={"/api/auth/signin"}
-        className="flex flex-col gap-y-4 w-full max-w-sm"
-      >
-
-        <div className="mt-5">
-          <Input
-            type="email"
-            name="email"
-            placeholder="email"
-            className=" rounded-2xl border border-gray-300 dark:border-gray-700"
-          />
+          <GitHubButton text='Continue with GitHub' />
+          <GoogleButton text='Continue with Google' />
         </div>
-        <div className="">
-          <LoginButton />
-        </div>
-
-      </form>
-
-
-      <div className="text-grey-500 text-sm mt-2 flex flex-col justify-center items-start w-full max-w-sm ">
-        <p className="text-grey-500 text-sm mt-2 ">New To IQuiz?</p>
-        <Link
-          className="btn border-l-stone-600 text-forground hover:underline"
-          href="/signup"
-        >
-          Sign Up
-        </Link>
       </div>
     </div>
   );

@@ -7,26 +7,27 @@ import {
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import React from "react"
-import { Card } from "../ui/card"
-import { Button } from "../ui/button"
+import { quizesByTopicsArraySchema } from "@/app/schemas/formSchema/quizSchema"
+import { z } from "zod"
+import TakeQuizButton from "../Buttons/TakeQuizButton/TakeQuizButton"
 
 export default function CollapsibleSimple({ topic }: { topic: string }) {
 
-  type Quiz = { id: string; topic: string };
 
-  async function GetEachTopicQuizesId(): Promise<Quiz[]> {
+  async function getEachTopicQuizesId(): Promise<z.infer<typeof quizesByTopicsArraySchema>> {
     const response = await axios.get(`/api/gamesByTopic?topic=${topic}`);
-    return response.data.games as Quiz[];
+    return response.data.games;
   }
-  const { data, error, isLoading } = useQuery<Quiz[]>({
+
+  const { data, error, isLoading } = useQuery({
     queryKey: ['quizezByTopic', topic],
-    queryFn: GetEachTopicQuizesId
+    queryFn: getEachTopicQuizesId
   })
   return (
     <div
 
       className="w-full p-6 flex justify-start">
-      <Collapsible className="w-[350px] space-y-2">
+      <Collapsible className="w-full space-y-2">
         <CollapsibleTrigger
           className="flex w-full items-center justify-between rounded-md bg-muted px-4 py-2 font-medium [&[data-state=open]>svg]:rotate-180">
           Explore tests
@@ -44,16 +45,16 @@ export default function CollapsibleSimple({ topic }: { topic: string }) {
           >
             <path d="m6 9 6 6 6-6" />
           </svg>
-        </CollapsibleTrigger>
-        <CollapsibleContent className="space-y-2">
+        </CollapsibleTrigger >
+        <CollapsibleContent className="space-y-2 w-full grow">
           <div className="rounded-md border px-4 py-3 text-sm w-full">
             {isLoading && <div>Loading...</div>}
             {error && <div>Error loading quizzes.</div>}
             {data && data.length === 0 && <div>No quizzes found for this topic.</div>}
             {data && data?.length > 0 && (
-              <ul className="list-disc list-inside space-y-1">
+              <ul className=" list-inside space-y-1">
                 {data.map((quiz, i) => (<li
-                  className="card-app w-full"
+                  className="card-app w-full list-none"
                   key={quiz.id}>
 
                   <div className="app-card-content">
@@ -71,13 +72,7 @@ export default function CollapsibleSimple({ topic }: { topic: string }) {
 
                     {/* CTA */}
                     <div className="flex justify-end pt-3">
-                      <Button
-                        variant="default"
-                        className="rounded-md text-sm font-medium app-button"
-                        onClick={() => console.log(`Start quiz ${quiz.id}`)}
-                      >
-                        Take Test
-                      </Button>
+                      <TakeQuizButton text="Take quiz" id={quiz.id} gameType={quiz.gameType} />
                     </div></div>
                 </li>))}
               </ul>

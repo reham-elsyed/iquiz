@@ -20,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <NextAuthProvider>
         <body className={cn("font-geist antialiased flex flex-col min-h-screen relative")}>
+          <GradientEffect />
           {children}
         </body>
         <Toaster />
