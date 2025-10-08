@@ -224,8 +224,8 @@
 
   /* Interactive elements button */
   :root {
-    --interactive-bg: var(--primary);
-    --interactive-fg: var(--primary-foreground);
+    --interactive-bg: var(--accent);
+    --interactive-fg: var(--accent-foreground);
 
     --hover-bg: color-mix(in oklch, var(--interactive-bg), black 10%);
     --active-bg: color-mix(in oklch, var(--interactive-bg), black 20%);

@@ -24,7 +24,7 @@ const ChoicesButton = ({
       }}
 
       key={index}
-      className={`${selectedChoice === index ? "bg-accent border-2 border-ring" : ""} w-full ps-3 app-card   py-8 mb-4 rounded-2xl justify-start `}
+      className={`${selectedChoice === index ? "bg-accent border-2 border-ring" : ""} w-full ps-3 app-card   py-4 mb-4 rounded-2xl justify-start `}
     >
       <div className="flex items-center justify-start ">
         <div className="p-2 px-3 mr-5 border rounded-2xl">{index + 1}</div>

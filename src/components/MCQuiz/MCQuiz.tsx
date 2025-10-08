@@ -68,7 +68,6 @@ const MCQuiz = ({ game }: Props) => {
         userAnswer: options[selectedChoice],
         keyWords: "",
       };
-      // localStorage.setItem("questionId", JSON.stringify(currentQuestion.id));
 
       const response = await axios.post("/api/checkAnswer", payload);
 
@@ -147,7 +146,7 @@ const MCQuiz = ({ game }: Props) => {
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">
-          <div className=" mt-10  md:w-[80vm] max-w-4xl w-[90vm] ">
+          <div className="md:w-[80vm] max-w-4xl w-[90vm] ">
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-col">
                 <TitleCard topic={game.topic} />

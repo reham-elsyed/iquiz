@@ -2,7 +2,7 @@ import AccuracyCard from "@/components/Statistics/AccuracyCard";
 import QuestionList from "@/components/Statistics/QuestionList";
 import ResultCard from "@/components/Statistics/ResultCard";
 import TimeTakenCard from "@/components/Statistics/TimeTakenCard";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
 import {
@@ -55,9 +55,11 @@ const StatisticePage = async ({ params }: Props) => {
         <div className="flex items-center justify-between space-y-2">
           <h2 className="text-3xl font-bold tracking-tight">Statistics</h2>
           <div className="flex items-center space-x-2">
-            <Link href="/userDashboard" className={buttonVariants()}>
-              <LucideLayoutDashboard className="mr-2" /> Back To Dashboard
-            </Link>
+            <Button variant={"ghost"} className="app-button">
+              <Link href="/userDashboard" className="flex items-center">
+                <LucideLayoutDashboard className="mr-2" /> Back To Dashboard
+              </Link>
+            </Button>
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-7">
@@ -69,7 +71,7 @@ const StatisticePage = async ({ params }: Props) => {
           />
         </div>
         <QuestionList questions={game.questions} />
-      </section>
+      </section >
     </>
   );
 };

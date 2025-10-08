@@ -52,8 +52,8 @@ export default function GitHubButton({ text = "Sign in with GitHub", callbackUrl
     <Button
       onClick={handleSignIn}
       disabled={isLoading}
-      variant="default"
-      className="w-full h-12 text-xl app-button"
+      variant="ghost"
+      className="w-full h-12 text-xl app-button border border-ring"
       aria-label={text}
       aria-busy={isLoading}
     >
