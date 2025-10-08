@@ -13,7 +13,7 @@ const GradientEffect = () => {
             <div className="absolute inset-0">
                 {/* Primary accent blur - top left */}
                 <div
-                    className="absolute rounded-full blur-[12vw] opacity-70"
+                    className="absolute rounded-full blur-[12vw] opacity-40"
                     style={{
                         background: "var(--primary)",
                         top: "-10vw",

@@ -28,7 +28,7 @@ export default function GoogleButton({ text = "Sign in with Google", callbackUrl
       onClick={handleSignIn}
       disabled={isLoading}
       variant="ghost"
-      className="w-full h-12 text-xl app-button"
+      className="w-full h-12 text-xl app-button  border border-ring"
       aria-label={text}
       aria-busy={isLoading}
     >

@@ -4,7 +4,7 @@ import FlasCardStatsHeader from "@/components/FlashCardStats/FlasCardStatsHeader
 import FlashCardGeneralStats from "@/components/FlashCardStats/FlashCardGeneralStats";
 import FlashCardsBreakDown from "@/components/FlashCardStats/FlashCardsBreakDown";
 import SessionInsights from "@/components/FlashCardStats/SessioInsights/SessionInsights";
-import { PieChartComponent } from "@/components/PieChartComponent/PieChartComponent";
+import { PieChartComponent } from "@/components/Charts/PieChartComponent/PieChartComponent";
 import { findStudySession, findStudySessionFeedback } from "@/lib/findStudySession";
 import { getAuthSession } from "@/lib/nextAuth";
 import { calculateDurationOfFlashCardStudy, formatTimeDelta } from "@/lib/utils";

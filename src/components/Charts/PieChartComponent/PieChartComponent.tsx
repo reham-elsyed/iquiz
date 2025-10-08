@@ -2,7 +2,7 @@
 "use client";
 import { Pie, PieChart } from "recharts"
 import { Brain, TrendingUp } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -10,7 +10,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 import useChartDotsColor from "@/hooks/useChartDotsColor";
-import ChartFooter from "../Charts/ChartFooter";
+import ChartFooter from "../ChartFooter";
 interface PieChartInterface {
   id: string;
   difficulty: string;

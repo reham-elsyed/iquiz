@@ -15,7 +15,7 @@ const ResultCard = ({ accuracy }: Props) => {
   const value = evaluator.filter((item) => accuracy >= item.accuracy);
   console.log(value[0].eval);
   return (
-    <Card className="md:col-span-7 mt-4">
+    <Card className="md:col-span-7 mt-5 app-card ">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
         <CardTitle className="text-2xl font-bold">Results</CardTitle>
         <Award />
