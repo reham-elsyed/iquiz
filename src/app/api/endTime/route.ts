@@ -7,7 +7,7 @@ import prisma from "@/lib/db";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request, res: Response): Promise<NextResponse> {
   try {
     const body = await req.json();
     const { gameId } = timeEnded.parse(body);
@@ -51,5 +51,12 @@ export async function POST(req: Request, res: Response) {
         },
       );
     }
+    console.error("Unhandled error in /api/endTime:", error);
+
+    // ✅ Ensure a response is always returned
+    return NextResponse.json(
+      { error: "Internal Server Error", details: String(error) },
+      { status: 500 }
+    );
   }
 }
