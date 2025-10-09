@@ -13,7 +13,7 @@ const AccuracyCard = ({ accuracy }: Props) => {
     <Card className="md:col-span-3 app-card">
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
         <CardTitle className="text-2xl font-medium leading-tight">Average Accuracy</CardTitle>
-        <Target />
+        <Target className="w-5 h-5 text-muted-foreground " />
       </CardHeader>
       <CardContent className=" space-y-6 ">
         <div className="text-xl font-bold text-center text-foreground pt-5 ">

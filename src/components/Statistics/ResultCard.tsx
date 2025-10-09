@@ -17,14 +17,14 @@ const ResultCard = ({ accuracy }: Props) => {
   return (
     <Card className="md:col-span-7 mt-5 app-card ">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
-        <CardTitle className="text-2xl font-bold">Results</CardTitle>
+        <CardTitle className="text-2xl font-medium leading-tight">Results</CardTitle>
         <Award />
       </CardHeader>
-      <CardContent className="flex flex-col items-center justify-center h-3/5">
-        <Trophy className="mr-4" size={50} stroke="gold" />
-        <div className="flex flex-col text-2xl font-semibold text-yellow-400">
+      <CardContent className=" flex flex-col items-center justify-center h-3/5">
+        <Trophy className="" size={50} stroke="gold" />
+        <div className=" flex flex-col text-2xl font-semibold text-yellow-400">
           <span>{value[0].eval}</span>
-          <span className="text-sm text-center text-black dark:text-secondary capacity-50">
+          <span className="text-sm text-center text-card-foreground capacity-50">
             {value[0].accuracy} accuracy
           </span>
         </div>

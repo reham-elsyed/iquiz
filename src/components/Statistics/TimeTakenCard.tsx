@@ -27,12 +27,16 @@ const TimeTakenCard = ({ timeStarted, timeEnded }: Props) => {
         </div>
 
         <div className="space-y-2 text-sm text-muted-foreground flex justify-between">
-          <Badge variant={"secondary"}>
+          <Badge
+            className="h-8"
+            variant={"secondary"}>
             <p aria-label={`Test started at ${timeStarted.toLocaleTimeString()}`}>
               <span className="font-semibold ">Started:</span> {timeStarted.toLocaleTimeString()}
             </p>
           </Badge>
-          <Badge variant={"secondary"}>
+          <Badge
+            className="h-8"
+            variant={"secondary"}>
             <p aria-label={`Test ended at ${timeEnded.toLocaleTimeString()}`}>
               <span className="font-semibold ">Ended:</span> {timeEnded.toLocaleTimeString()}
             </p>
