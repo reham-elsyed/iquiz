@@ -55,7 +55,7 @@ export const authOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    
+
     jwt: async ({ token }) => {
       try {
         const db_user = await pRetry(
@@ -77,13 +77,27 @@ export const authOptions = {
       return token;
     },
     session: ({ session, token }) => {
-      if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.image = token.picture;
+      try {
+        if (token) {
+          session.user.id = token.id;
+          session.user.name = token.name;
+          session.user.email = token.email;
+          session.user.image = token.picture;
+        }
+        return session;
+      } catch (error) {
+        console.error('SESSION ERROR:', error);
+        // Return safe fallback with required properties
+        return {
+          user: {
+            id: "",
+            name: null,
+            email: null,
+            image: null,
+          },
+          expires: session?.expires ?? new Date(Date.now() + 60 * 60 * 1000).toISOString(),
+        };
       }
-      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
