@@ -18,7 +18,7 @@ const ResultCard = ({ accuracy }: Props) => {
     <Card className="md:col-span-7 mt-5 app-card ">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
         <CardTitle className="text-2xl font-medium leading-tight">Results</CardTitle>
-        <Award />
+        <Award className="w-5 h-5 text-muted-foreground " />
       </CardHeader>
       <CardContent className=" flex flex-col items-center justify-center h-3/5">
         <Trophy className="" size={50} stroke="gold" />
