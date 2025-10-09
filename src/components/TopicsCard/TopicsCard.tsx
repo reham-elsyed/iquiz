@@ -1,8 +1,7 @@
-'use client'
 import React from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import CollapsibleSimple from "@/components/CollapsibleComponent/CollapsibleComponent";
 import { DollarSignIcon } from "lucide-react";
+import CollapsibleComponent from '../CollapsibleComponent/DynamicCollabsible';
 type TopicsCardProps = {
     topic: string;
     value: number;
@@ -22,7 +21,7 @@ const TopicsCard = ({ topic, value, key }: TopicsCardProps) => {
                 </CardHeader>
                 <CardContent>
                     <div className="text-2xl font-bold">{value}</div>
-                    <CollapsibleSimple topic={topic} />
+                    <CollapsibleComponent topic={topic} />
                 </CardContent>
             </Card>
         </>
