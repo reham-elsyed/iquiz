@@ -29,7 +29,7 @@ const Hero = (props: Props) => {
           </CardTitle>
           <CardDescription className="space-y-6">
             <p className=" text-base p-y-5  sm:text-lg md:text-xl leading-relaxed">
-              Create, share, and grow your knowledge effortlessly.
+              Create, learn, and grow your knowledge effortlessly.
             </p>
             <div className="self-end  inline-flex pt-5">
               <div className="flex flex-wrap gap-3">

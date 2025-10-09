@@ -9,6 +9,8 @@ import GradientEffect from "@/components/GradientEffect/GradientEffect";
 export const metadata: Metadata = {
   title: "IQuiz",
   description: "AI quiz generation app",
+  icons: {
+  },
 };
 
 export default function RootLayout({
@@ -18,6 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+
+      </head>
       <NextAuthProvider>
         <body className={cn("font-geist antialiased flex flex-col min-h-screen relative")}>
           <GradientEffect />

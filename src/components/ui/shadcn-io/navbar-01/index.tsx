@@ -200,13 +200,13 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
             {/* Main nav */}
             <div className="flex items-center gap-6">
               <button
-                onClick={(e) => e.preventDefault()}
+
                 className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
               >
                 <div className="text-2xl">
                   {logo}
                 </div>
-                <span className="hidden font-bold text-xl sm:inline-block">Study</span>
+                <span className="hidden font-bold text-xl sm:inline-block">LearnBoost</span>
               </button>
               {/* Navigation menu */}
               {!isMobile && (
@@ -219,10 +219,10 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                           asChild
 
                           className={cn(
-                            "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
+                            "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary hover:text-secondary-foreground cursor-pointer no-underline",
                             pathname === link.href
-                              ? "bg-accent text-accent-foreground"
-                              : "bg-foreground/80 hover:text-foreground"
+                              ? "bg-secondary text-secondary-foreground"
+                              : "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href={link.href}>
