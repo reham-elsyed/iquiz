@@ -1,19 +1,33 @@
+'use client'
 import { cn } from '@/lib/utils';
 import { TopicStyle, WeakQuestionType } from '@/types/weakQuestionsPerformanceTypes';
 import { CalendarDays } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 type PerformanceReviewCardProps = {
     game: WeakQuestionType;
     colorClass: TopicStyle
 }
 export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCardProps) => {
+    const router = useRouter()
+    async function handleResetGameTime() {
+        const data = await axios.post('/api/resetStartTime', { gameId: game.gameId })
+        if (data.status === 200) {
+            router.push(`/play/${game.questionType}/${game.gameId}`)
+        }
+    }
+    // const { data, isError, isLoading } = useQuery({
+    //     queryKey: ["reset start time", game.gameId],
+    //     queryFn: handleResetGameTime
+    // })
+
+
     return (
         <Card
-            key={game.gameId}
             className={` transition border-0 rounded-2xl  text-card-foreground app-card`}
         >
             <CardHeader className="md:flex-row justify-between">
@@ -22,15 +36,14 @@ export const PerformanceReviewCard = ({ game, colorClass }: PerformanceReviewCar
                     Last taken at: {new Date(game.gameDate).toLocaleDateString()}
                 </span>
                 <Button
-                    asChild
+                    onClick={handleResetGameTime}
                     variant="outline"
                     className={cn(
                         "border-2 hover:scale-105 transition-transform ",
                         colorClass.text
                     )}
                 >
-                    {game.questionType === "mcq" ? <Link href={`/play/mcq/${game.gameId}`}>Retake</Link> :
-                        <Link href={`/play/open_ended/${game.gameId}`}>Retake</Link>}
+                    Retake
                 </Button>
             </CardHeader>
 

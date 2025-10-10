@@ -17,7 +17,7 @@ export const checkAnswerSchema = z.object({
 export const questionReload = z.object({
   questionId: z.string(),
 });
-export const timeEnded = z.object({
+export const gameIdSchema = z.object({
   gameId: z.string(),
 });
 

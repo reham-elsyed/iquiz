@@ -1,6 +1,6 @@
 import {
   checkAnswerSchema,
-  timeEnded,
+  gameIdSchema,
 } from "@/app/schemas/formSchema/quizSchema";
 import prisma from "@/lib/db";
 
@@ -10,7 +10,7 @@ import { ZodError } from "zod";
 export async function POST(req: Request, res: Response): Promise<NextResponse> {
   try {
     const body = await req.json();
-    const { gameId } = timeEnded.parse(body);
+    const { gameId } = gameIdSchema.parse(body);
     //get the question data from db
     const game = await prisma.game.findUnique({
       where: { id: gameId },

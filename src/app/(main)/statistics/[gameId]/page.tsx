@@ -10,7 +10,6 @@ import {
   calculateAccuracyOfOpenended,
 } from "@/lib/utils";
 import { GameWithQuestions } from "@/types/gameTypes";
-import { Prisma } from "@prisma/client";
 import { LucideLayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";

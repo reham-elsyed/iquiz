@@ -6,7 +6,8 @@ type Props = {
   accuracy: number;
 };
 const evaluator = [
-  { accuracy: 75, eval: "excellent" },
+  { accuracy: 100, eval: "excellent" },
+  { accuracy: 75, eval: "Very Good" },
   { accuracy: 50, eval: "Good Job!" },
   { accuracy: 25, eval: "Nice Try!" },
   { accuracy: 0, eval: "Keep Trying!" },

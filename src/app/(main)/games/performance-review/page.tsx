@@ -28,8 +28,8 @@ const PerformanceReview = async () => {
         <div className='app-container'>
             <div className="flex flex-col items-center justify-center min-h-screen">
                 <div className='text-start w-full'>
-                    <h1 className="text-3xl font-bold mb-4">Performance Review</h1>
-                    <p className="text-lg text-slate-600 dark:text-slate-400 ">
+                    <h1 className="text-3xl font-bold mb-4 text-foreground">Performance Review</h1>
+                    <p className="text-lg text-foreground ">
                         Review your previous quiz attempts and retake any games to improve your scores.
                     </p>
                 </div>
