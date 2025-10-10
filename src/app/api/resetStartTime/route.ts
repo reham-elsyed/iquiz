@@ -28,6 +28,22 @@ export async function POST(req: Request, res: Response): Promise<NextResponse> {
                 timeEnded: null
             },
         });
+        if (updatedGame.gameType === "flash_card") {
+            const studySession = await prisma.studySession.findFirst({
+                where: { gameId: gameId, userId: session.user.id },
+            });
+            if (studySession) {
+                await prisma.studySession.update({
+                    where: { id: studySession.id },
+                    data: {
+                        // Add any fields you want to update here, e.g. timeStarted: new Date()
+                        status: "ACTIVE",
+                        createdAt: new Date(),
+                        endedAt: null,
+                    },
+                });
+            }
+        }
         return NextResponse.json(
             {
                 success: "you can retake this quiz",

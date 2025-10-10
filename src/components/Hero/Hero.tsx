@@ -33,15 +33,16 @@ const Hero = (props: Props) => {
             </p>
             <div className="self-end  inline-flex pt-5">
               <div className="flex flex-wrap gap-3">
-                <Link href="/quiz">
-                  <Button size="lg" className="gap-2 app-button">
+                <Button asChild size="lg" className="gap-2 app-button">
+                  <Link href="/quiz">
                     <Play className="h-5 w-5" />
                     Start Quick Quiz
-                  </Button>
-                </Link>
-                <Button variant={"outline"} size="lg" className="gap-2 shadow-sm -translate-y-[1px]">
-                  <BookOpen className="h-5 w-5" />
-                  Browse Topics
+                  </Link>
+                </Button>
+
+                <Button asChild variant={"outline"} size="lg" className="gap-2 shadow-sm -translate-y-[1px] app-button">
+
+                  <Link href="/trending-topics">  <BookOpen className="h-5 w-5" /> Browse Topics</Link>
                 </Button>
               </div>
             </div>

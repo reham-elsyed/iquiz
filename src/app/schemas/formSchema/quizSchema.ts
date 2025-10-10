@@ -49,6 +49,6 @@ export const flashcardFeedbackSchema = z.object({
 export const quizesByTopicsSchema = z.object({
   topic: z.string(),
   id: z.string(),
-  gameType: z.enum(["mcq", "open_ended"]),
+  gameType: z.enum(["mcq", "open_ended", "flash_card"]),
 });
 export const quizesByTopicsArraySchema = z.array(quizesByTopicsSchema);

@@ -10,6 +10,7 @@ import React from "react"
 import { quizesByTopicsArraySchema } from "@/app/schemas/formSchema/quizSchema"
 import { z } from "zod"
 import TakeQuizButton from "../Buttons/TakeQuizButton/TakeQuizButton"
+import { Badge } from "../ui/badge"
 
 export default function CollapsibleSimple({ topic }: { topic: string }) {
 
@@ -62,7 +63,7 @@ export default function CollapsibleSimple({ topic }: { topic: string }) {
                     <h3 className="text-base font-semibold text-foreground">
                       {quiz.topic} — Quiz #{i + 1}
                     </h3>
-
+                    <Badge variant={'secondary'} className="inline-block">{quiz.gameType}</Badge>
                     {/* Description */}
                     <p className="text-sm text-muted-foreground leading-relaxed">
                       Test your knowledge in <span className="font-medium">{quiz.topic}</span>.
@@ -80,6 +81,6 @@ export default function CollapsibleSimple({ topic }: { topic: string }) {
           </div>
         </CollapsibleContent>
       </Collapsible>
-    </div>
+    </div >
   )
 }
