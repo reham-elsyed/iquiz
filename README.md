@@ -22,12 +22,6 @@ What Else Should Be Included in the README
 
 Project Setup
 
-////
-Got it ✅ You want a **README Requirements section** for your Next.js app based on your `package.json`.
-Here’s a clean template you can drop straight into your README.md:
-
----
-
 ## 🚀 Getting Started
 
 ### 📋 Prerequisites

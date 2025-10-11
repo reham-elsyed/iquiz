@@ -4,7 +4,8 @@ import { Game, Question } from '@prisma/client';
 import axios from 'axios';
 import { toast, useToast } from './use-toast';
 import { flashcardFeedbackinterface, studySessionInterface } from '@/types/feedbackFlashcardTypes';
-import { calculateDurationOfFlashCardStudy, durationOfQuiz } from '@/lib/utils';
+import { calculateDurationOfFlashCardStudy, durationOfQuiz, setEndOfQuizTime } from '@/lib/utils';
+import { redirect } from 'next/navigation';
 
 type useFlashCardSessionProps = {
     game: Game & { questions: Pick<Question, "id" | "question" | "answer" | 'questionType'>[] };
@@ -112,17 +113,22 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
         try {
             const finished = await axios.post(
                 "/api/finishSession",
-                { sessionId: studySessionid }, // <-- this is the body
+                { sessionId: studySessionid },
                 {
-                    headers: { "Content-Type": "application/json" }, // <-- config
+                    headers: { "Content-Type": "application/json" },
                 }
             )
             if (finished.data.success) {
                 console.log(finished.data.success)
                 setIsOver(true)
-                removeValue();
-                removeTimeStarted();
-                return toast({ title: "You can see study session analytics now! ", variant: "success" })
+                const endTimeUpdate = await setEndOfQuizTime(game.id);
+
+                if ((endTimeUpdate as { status?: number }).status === 200) {
+                    removeValue();
+                    removeTimeStarted();
+                    toast({ title: "You can see study session analytics now! ", variant: "success" })
+                    redirect(`/statistics/flash-card-stats/${game.id}`)
+                }
             }
         } catch (err) {
             if (axios.isAxiosError(err) && err.response) {

@@ -18,12 +18,14 @@ import { durationOfQuiz, formatTimeDelta, setEndOfQuizTime } from "@/lib/utils";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import TitleCard from "../TitleCard/TitleCard";
 import useEventListener from "@/hooks/useEventListener";
+import { redirect } from "next/navigation";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
 };
 
 const MCQuiz = ({ game }: Props) => {
+
   const [correctAnswers, setCorrectAnswers, removeCorrectAnswer] =
     useLocalStorage({ key: "correctAnswers", value: 0 });
   const [wrongAnswers, setWrongAnswers, RemoveWrongAnswer] = useLocalStorage({
@@ -93,14 +95,15 @@ const MCQuiz = ({ game }: Props) => {
         }
         if (storedValue === game.questions.length - 1) {
           setIsOver(true);
-          await setEndOfQuizTime(game.id);
+          const endTimeUpdate = await setEndOfQuizTime(game.id);
           //remove savedIndex(storedValue) from localstorage
+          if ((endTimeUpdate as { status?: number }).status === 200) {
 
-          removeItem();
-          removeCorrectAnswer();
-          RemoveWrongAnswer();
-
-          return;
+            removeItem();
+            removeCorrectAnswer();
+            RemoveWrongAnswer();
+            redirect(`/statistics/${game.id}`)
+          }
         }
         else {
           setStoredValue((prev) => prev + 1);
@@ -141,7 +144,7 @@ const MCQuiz = ({ game }: Props) => {
         <>
           {" "}
 
-          <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted} />
+          {/* <EndOfQuizModal gameId={game.id} duration={duration} timeStarted={game.timeStarted} /> */}
 
         </>
       ) : (

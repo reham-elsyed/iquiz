@@ -39,7 +39,7 @@ function parseTimeStringToSeconds(input: string): number {
 
 export function calculateDurationOfFlashCardStudy(now: Date, timeStarted: Date): number {
   const duration = differenceInSeconds(now, timeStarted);
-  console.log("Duration in seconds:", duration); 
+  console.log("Duration in seconds:", duration);
   return duration;
 }
 
@@ -67,9 +67,9 @@ export async function setEndOfQuizTime(gameId: string) {
   try {
     const res = await axios.post("/api/endTime", { gameId });
     if (res.status === 200) {
-      console.log("success");
+      return res
     }
   } catch (error) {
-    console.log(error);
+    return error
   }
 }

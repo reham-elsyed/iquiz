@@ -22,6 +22,7 @@ import BlankAnswerComponent from "../BlankAnswersComponent/BlankAnswerComponent"
 import useLocalStorage from "@/hooks/useLocalStorage";
 import TitleCard from "../TitleCard/TitleCard";
 import useEventListener from "@/hooks/useEventListener";
+import { redirect } from "next/navigation";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "question" | "answer">[] };
@@ -82,10 +83,14 @@ const OpenEndedQuiz = ({ game }: Props) => {
 
         if (storedValue === game.questions.length - 1) {
           setIsOver(true);
-          await setEndOfQuizTime(game.id);
-          localStorage.removeItem("storedValue");
-          inputRefs.current = [];
-          return;
+          const endTimeUpdate = await setEndOfQuizTime(game.id);
+          //remove savedIndex(storedValue) from localstorage
+          if ((endTimeUpdate as { status?: number }).status === 200) {
+
+            localStorage.removeItem("storedValue");
+            inputRefs.current = [];
+            redirect(`/statistics/${game.id}`)
+          }
         }
 
         inputRefs.current.forEach((input) => {
