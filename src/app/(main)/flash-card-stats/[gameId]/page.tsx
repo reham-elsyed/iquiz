@@ -15,6 +15,17 @@ type Props = {
     gameId: string;
   }>;
 }
+type BarChartDataType = {
+  question: string;
+  time: number;
+}
+
+type StudySessionDiff = {
+  id: string;
+  difficulty: string;
+  count: number;
+  fill: string;
+};
 export default async function ChartPage({ params }: Props) {
   const session = await getAuthSession()
   const awaitedParams = await params;
@@ -22,8 +33,8 @@ export default async function ChartPage({ params }: Props) {
   console.log("Game ID:", gameId);
   let studySession;
 
-  const feedbackData = []
-  const barChartData = []
+  const feedbackData: any[] = []
+  const barChartData: BarChartDataType[] = []
   const fallbackTime = new Date()
   if (gameId || session?.user.id) {
     //get study session data
@@ -40,7 +51,7 @@ export default async function ChartPage({ params }: Props) {
     let i = 0
     for (const label of labels) {
       const count = feedback?.filter((item) => item.feedback.toLowerCase() === label).length;
-      feedbackData.push({ id: feedback[i]?.id, difficulty: label, count: count, fill: `var(--chart-${i})` });
+      feedbackData.push({ id: String(feedback[i]?.id), difficulty: label, count: count, fill: `var(--chart-${i})` });
       i++
       if (i > 5) {
         i = 0
@@ -88,7 +99,7 @@ export default async function ChartPage({ params }: Props) {
             <FlashCardGeneralStats generalStats={generalStats} />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <PieChartComponent studySessionDiff={feedbackData} />
+            <PieChartComponent studySessionDiff={feedbackData as StudySessionDiff[]} />
             <BarChartComponent barChartData={barChartData} />
           </div>
           <FlashCardsBreakDown questionsBreakdown={feedback} />

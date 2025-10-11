@@ -12,7 +12,7 @@ type Props = {
 
 const TimeTakenCard = ({ timeStarted, timeEnded }: Props) => {
   return (
-    <Card className="md:col-span-4 app-card">
+    <Card className=" app-card">
       <CardHeader className="flex flex-row items-center justify-between  pb-4">
         <CardTitle className="text-2xl font-medium leading-tight">
           Test Duration

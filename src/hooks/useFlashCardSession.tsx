@@ -5,13 +5,14 @@ import axios from 'axios';
 import { toast, useToast } from './use-toast';
 import { flashcardFeedbackinterface, studySessionInterface } from '@/types/feedbackFlashcardTypes';
 import { calculateDurationOfFlashCardStudy, durationOfQuiz, setEndOfQuizTime } from '@/lib/utils';
-import { redirect } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 
 type useFlashCardSessionProps = {
     game: Game & { questions: Pick<Question, "id" | "question" | "answer" | 'questionType'>[] };
     studySession: studySessionInterface
 }
 const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) => {
+    const router = useRouter()
     const [isEasy, setIsEasy] = useState<boolean>(false);
     const [isDisabled, setIsDisabled] = useState(false)
     const [flip, setFlip] = useState(false);
@@ -127,7 +128,7 @@ const useFlashCardSession = ({ game, studySession }: useFlashCardSessionProps) =
                     removeValue();
                     removeTimeStarted();
                     toast({ title: "You can see study session analytics now! ", variant: "success" })
-                    redirect(`/statistics/flash-card-stats/${game.id}`)
+                    router.push(`/flash-card-stats/${game.id}`)
                 }
             }
         } catch (err) {

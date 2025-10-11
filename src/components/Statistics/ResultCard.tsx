@@ -6,24 +6,24 @@ type Props = {
   accuracy: number;
 };
 const evaluator = [
-  { accuracy: 100, eval: "excellent" },
-  { accuracy: 75, eval: "Very Good" },
-  { accuracy: 50, eval: "Good Job!" },
-  { accuracy: 25, eval: "Nice Try!" },
-  { accuracy: 0, eval: "Keep Trying!" },
+  { accuracy: 100, eval: "excellent", color: "" },
+  { accuracy: 75, eval: "Very Good", color: "" },
+  { accuracy: 50, eval: "Good Job!", color: "" },
+  { accuracy: 25, eval: "Nice Try!", color: "" },
+  { accuracy: 0, eval: "Keep Trying!", color: "" },
 ];
 const ResultCard = ({ accuracy }: Props) => {
   const value = evaluator.filter((item) => accuracy >= item.accuracy);
   console.log(value[0].eval);
   return (
-    <Card className="md:col-span-7 mt-5 app-card ">
+    <Card className=" mt-5 app-card ">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
         <CardTitle className="text-2xl font-medium leading-tight">Results</CardTitle>
         <Award className="w-5 h-5 text-muted-foreground " />
       </CardHeader>
-      <CardContent className=" flex flex-col items-center justify-center h-3/5">
+      <CardContent className={`flex flex-col items-center justify-center h-3/5 `}>
         <Trophy className="" size={50} stroke="gold" />
-        <div className=" flex flex-col text-2xl font-semibold text-yellow-400">
+        <div className={`flex flex-col text-2xl font-semibold ${value[0].color}`}>
           <span>{value[0].eval}</span>
           <span className="text-sm text-center text-card-foreground capacity-50">
             {value[0].accuracy} accuracy

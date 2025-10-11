@@ -10,7 +10,7 @@ const AccuracyCard = ({ accuracy }: Props) => {
   console.log(accuracy);
   const numAccuracy = Math.round(accuracy * 100) / 100;
   return (
-    <Card className="md:col-span-3 app-card">
+    <Card className="mt-5 app-card">
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
         <CardTitle className="text-2xl font-medium leading-tight">Average Accuracy</CardTitle>
         <Target className="w-5 h-5 text-muted-foreground " />

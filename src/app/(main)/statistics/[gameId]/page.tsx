@@ -1,6 +1,7 @@
 import AccuracyCard from "@/components/Statistics/AccuracyCard";
 import QuestionList from "@/components/Statistics/QuestionList";
 import ResultCard from "@/components/Statistics/ResultCard";
+import StatsGrid from "@/components/Statistics/StatsGrid/StatsGrid";
 import TimeTakenCard from "@/components/Statistics/TimeTakenCard";
 import { Button, buttonVariants } from "@/components/ui/button";
 import prisma from "@/lib/db";
@@ -61,14 +62,15 @@ const StatisticePage = async ({ params }: Props) => {
             </Button>
           </div>
         </div>
-        <div className="grid gap-4 md:grid-cols-7">
+        {/* <div className="grid gap-4 md:grid-cols-7">
           <ResultCard accuracy={accuracy} />
           <AccuracyCard accuracy={accuracy} />
           <TimeTakenCard
             timeEnded={game.timeEnded as Date}
             timeStarted={game.timeStarted}
           />
-        </div>
+        </div> */}
+        <StatsGrid accuracy={accuracy} timeEnded={game.timeEnded as Date} timeStarted={game.timeStarted} />
         <QuestionList questions={game.questions} />
       </section >
     </>
