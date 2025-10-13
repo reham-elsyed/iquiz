@@ -70,7 +70,7 @@ const StatisticePage = async ({ params }: Props) => {
             timeStarted={game.timeStarted}
           />
         </div> */}
-        <StatsGrid accuracy={accuracy} timeEnded={game.timeEnded as Date} timeStarted={game.timeStarted} />
+        <StatsGrid accuracy={accuracy} timeEnded={game.timeEnded as Date} timeStarted={game.timeStarted} questions={game.questions} />
         <QuestionList questions={game.questions} />
       </section >
     </>

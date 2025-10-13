@@ -11,31 +11,32 @@ import {
 } from "@/components/ui/chart"
 import useChartDotsColor from "@/hooks/useChartDotsColor";
 import ChartFooter from "../ChartFooter";
-interface PieChartInterface {
-  id: string;
+import React from "react";
+import { cn } from "@/lib/utils";
+export interface PieChartInterface {
   difficulty: string;
   count: number;
-  fill: string;
 }
 type PieChartComponentProps = {
-  studySessionDiff: PieChartInterface[]
+  studySessionDiff: PieChartInterface[];
+  className: string;
+  title?: boolean;
 }
-export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) => {
-  const getKey = (s:
-    PieChartInterface
-  ) => s.difficulty.toLowerCase()
+export const PieChartComponent = ({ studySessionDiff, className, title = true }: PieChartComponentProps) => {
+
+  const getKey = React.useCallback((s: { difficulty: string }) => s?.difficulty?.toLowerCase(), []);
 
   const { chartConfig } = useChartDotsColor({ gamesDuration: studySessionDiff, getKey })
 
   return (
-    <Card className="bg-card border-purple-700/30 shadow-xl">
+    <div className={cn(className)} >
       <CardHeader className="pb-4">
-        <CardTitle className="flex items-center gap-3 ">
+        {title && (<CardTitle className="flex items-center gap-3 ">
           <div className="w-8 h-8 bg-card-600/20 rounded-lg flex items-center justify-center">
             <Brain className="h-4 w-4 text-card-foreground-400" />
           </div>
           Difficulty Distribution
-        </CardTitle>
+        </CardTitle>)}
       </CardHeader>
       <CardContent>
         <ChartContainer
@@ -44,7 +45,6 @@ export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) 
         >
           <PieChart>
             <ChartTooltip
-
               cursor={true}
               content={<ChartTooltipContent hideLabel />}
             />
@@ -53,13 +53,15 @@ export const PieChartComponent = ({ studySessionDiff }: PieChartComponentProps) 
               dataKey="count"
               nameKey="difficulty"
               stroke="5"
+              fill="#d946ef"
             />
           </PieChart>
         </ChartContainer>
 
       </CardContent>
-      <ChartFooter chartDescription={`Showing difficulty for the last study session`} className='' label={"difficulty analysis"} />
 
-    </Card>
+      {/* <ChartFooter chartDescription={`Showing difficulty for the last study session`} className='' label={"difficulty analysis"} /> */}
+
+    </div>
   )
 };

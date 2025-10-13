@@ -12,7 +12,7 @@ type Props = {
 
 const TimeTakenCard = ({ timeStarted, timeEnded }: Props) => {
   return (
-    <Card className=" app-card">
+    <Card className="h-full app-card flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between  pb-4">
         <CardTitle className="text-2xl font-medium leading-tight">
           Test Duration
@@ -21,8 +21,8 @@ const TimeTakenCard = ({ timeStarted, timeEnded }: Props) => {
 
       </CardHeader>
 
-      <CardContent className=" space-y-6 ">
-        <div className="text-xl font-bold text-center text-foreground " aria-label="Total test duration ">
+      <CardContent className=" space-y-6 grow flex flex-col justify-between">
+        <div className="text-xl font-bold text-center text-foreground grow flex justify-center items-center " aria-label="Total test duration ">
           {formatTimeDelta(differenceInSeconds(timeEnded, timeStarted))}
         </div>
 

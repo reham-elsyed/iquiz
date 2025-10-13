@@ -5,6 +5,12 @@ type useChartLineDotsColorsProps<T = any> = {
     getKey: (item: T) => T;
 
 }
+const chartColors = [
+    "#d946ef", // oklch(66.276% 0.27428 323.296) → vivid pink-purple
+    "#f87171", // oklch(0.59 0.22 11.50) → warm red
+    "#60a5fa", // oklch(0.77 0.13 223.19) → medium blue
+    "#34d399"  // oklch(0.69 0.14 160.23) → green-teal
+];
 const useChartDotsColor = ({ gamesDuration, getKey }: useChartLineDotsColorsProps) => {
     const [chartConfig, setChartConfig] = useState<ChartConfig>({});
     useEffect(() => {
@@ -14,13 +20,13 @@ const useChartDotsColor = ({ gamesDuration, getKey }: useChartLineDotsColorsProp
             acc[configKey] = {
                 //  label: game.topic,
                 label: getKey(game),
-                color: `var(--chart-${i})`, // Assuming you have CSS variables for colors
+                color: chartColors[i],
             };
             return acc;
         }, {} as ChartConfig);
         setChartConfig(myChartConfig);
         console.log("Chart Config:", myChartConfig);
-    }, [gamesDuration]);
+    }, [gamesDuration, getKey]);
     return { chartConfig }
 
 }

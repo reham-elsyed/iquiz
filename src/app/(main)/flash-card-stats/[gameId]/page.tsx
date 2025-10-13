@@ -4,7 +4,7 @@ import FlasCardStatsHeader from "@/components/FlashCardStats/FlasCardStatsHeader
 import FlashCardGeneralStats from "@/components/FlashCardStats/FlashCardGeneralStats";
 import FlashCardsBreakDown from "@/components/FlashCardStats/FlashCardsBreakDown";
 import SessionInsights from "@/components/FlashCardStats/SessioInsights/SessionInsights";
-import { PieChartComponent } from "@/components/Charts/PieChartComponent/PieChartComponent";
+import { PieChartComponent, PieChartInterface } from "@/components/Charts/PieChartComponent/PieChartComponent";
 import { findStudySession, findStudySessionFeedback } from "@/lib/findStudySession";
 import { getAuthSession } from "@/lib/nextAuth";
 import { calculateDurationOfFlashCardStudy, formatTimeDelta } from "@/lib/utils";
@@ -20,12 +20,7 @@ type BarChartDataType = {
   time: number;
 }
 
-type StudySessionDiff = {
-  id: string;
-  difficulty: string;
-  count: number;
-  fill: string;
-};
+
 export default async function ChartPage({ params }: Props) {
   const session = await getAuthSession()
   const awaitedParams = await params;
@@ -59,11 +54,11 @@ export default async function ChartPage({ params }: Props) {
     }
     console.log("Processed Feedback Data:", feedbackData);
     feedback.map((question, i) => {
-      const barChaetD = {
+      const barChartD = {
         question: `question${i + 1}`,
         time: question.timeSpent
       }
-      barChartData.push(barChaetD)
+      barChartData.push(barChartD)
     })
   }
   const durationFormatted = () => {
@@ -99,7 +94,7 @@ export default async function ChartPage({ params }: Props) {
             <FlashCardGeneralStats generalStats={generalStats} />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <PieChartComponent studySessionDiff={feedbackData as StudySessionDiff[]} />
+            <PieChartComponent studySessionDiff={feedbackData as PieChartInterface[]} />
             <BarChartComponent barChartData={barChartData} />
           </div>
           <FlashCardsBreakDown questionsBreakdown={feedback} />
