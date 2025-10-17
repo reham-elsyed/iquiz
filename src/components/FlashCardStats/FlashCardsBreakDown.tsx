@@ -28,12 +28,12 @@ const FlashCardsBreakDown = ({ questionsBreakdown }: FlashCardsBreakDownProps) =
                                     <p className="font-medium card-foreground">Question {index + 1}</p>
                                     <div className="flex items-center gap-2 mt-1">
                                         <Badge
-
+                                            variant={"outline"}
                                             className={`text-xs border-0${question.feedback.toLowerCase() === "easy"
-                                                ? "bg-white text-emerald-700  dark:text-emerald-100"
+                                                ? "bg-white text-emerald-700  dark:text-emerald-50"
                                                 : question.feedback.toLowerCase() === "medium"
-                                                    ? "bg-card text-amber-700  dark:text-amber-100"
-                                                    : "bg-card text-red-700  dark:text-red-100"}`}
+                                                    ? "bg-card text-amber-700  dark:text-amber-50"
+                                                    : "bg-card text-red-700  dark:text-red-50"}`}
                                         >
                                             {question.feedback}
                                         </Badge>

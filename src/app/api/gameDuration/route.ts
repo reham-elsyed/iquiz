@@ -23,7 +23,6 @@ export async function GET(req: NextRequest) {
     const games = await singleUserGames(session.user.id, limit);
 
     if (games) {
-      console.log("-------single user games", games)
       const gamesDuration = games.map((game, i) => {
         const duration = calculateDurationOfFlashCardStudy(game.timeEnded ?? new Date() as Date, game.timeStarted)
         return {

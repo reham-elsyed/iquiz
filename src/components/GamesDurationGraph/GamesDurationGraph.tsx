@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Card } from "../ui/card";
 import { ChartLineDotsColors } from "../ChartLineDotsColors/ChartLineDotsColors";
+import { SkeletonLoader } from "react-loadly";
 
 export interface GameDuration {
   duration: number;
@@ -33,8 +34,8 @@ export default function GamesDurationGraph() {
 
   if (loading) {
     return (
-      <div className="h-56 bg-slate-300 flex items-center justify-center animate-pulse">
-        Loading...
+      <div className=" flex items-center justify-center">
+        <SkeletonLoader variant="card" width={300} height={500} />
       </div>
     );
   }
@@ -47,13 +48,6 @@ export default function GamesDurationGraph() {
     );
   }
 
-  // Transform the data if needed
-  // const durationTopic = gamesDuration.map((game, i) => ({
-  //   duration: game.duration,
-  //   topic: game.topic,
-  //   fill: `var(--chart-${i})`, // Assuming topic names are valid CSS variable names
-  // }));
 
   return <ChartLineDotsColors gamesDuration={gamesDuration} />;
-  // return <ChartComponent gamesDuration={durationTopic} />;
 }

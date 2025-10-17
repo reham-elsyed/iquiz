@@ -293,6 +293,15 @@
     perspective: 1000px;
   }
 
+  .d3-cloud text {
+    transition: all 0.2s ease;
+  }
+
+  .d3-cloud text:hover {
+    fill: red !important;
+    transform: scale(1.2);
+  }
+
   /* 
 
 .flip {

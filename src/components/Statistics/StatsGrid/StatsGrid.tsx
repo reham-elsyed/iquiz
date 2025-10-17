@@ -30,8 +30,8 @@ const StatsGrid = ({ accuracy, timeEnded, timeStarted, questions, gameTopic }: S
 
     // ✅ Chart data
     const data = [
-        { difficulty: "Correct", count: correctCount },
-        { difficulty: "Incorrect", count: incorrectCount },
+        { difficulty: "Correct", count: correctCount, fill: "var(--chart-1)" },
+        { difficulty: "Incorrect", count: incorrectCount, fill: "var(--chart-1)" },
     ];
 
     return (

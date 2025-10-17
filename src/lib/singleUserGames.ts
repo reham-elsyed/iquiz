@@ -33,7 +33,7 @@ export const singeUserWeekPerformanceQuestions = async (userId: string, limit: n
       },
     },
   });
-  console.log("-------single user week performance questions", games)
+  //console.log("-------single user week performance questions", games)
   const gamesTopicQuestionsWithWeakPerformance = games.map(game => {
     return {
       topic: game.topic,

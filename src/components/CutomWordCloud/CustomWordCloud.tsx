@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import seedrandom from "seedrandom";
 //import D3WordCloud from 'react-d3-cloud';
 import dynamic from "next/dynamic";
 type Props = {
@@ -18,22 +19,36 @@ const fontSizeMapp = (word: { value: number }) => {
 // Dynamically import react-d3-cloud, disabling SSR
 const D3WordCloud = dynamic(() => import("react-d3-cloud"), { ssr: false });
 const CustomWordCloud = ({ formattedTopics }: Props) => {
+  const memoizedData = useMemo(() => formattedTopics, [formattedTopics]);
+
   const theme = useTheme();
   const router = useRouter();
-
+  const [activeWord, setActiveWord] = useState<string | null>(null);
+  const random = seedrandom("fixed-seed");
   return (
     <>
       <D3WordCloud
         height={400}
         font="Times"
-        data={formattedTopics}
+        data={memoizedData}
         fontSize={fontSizeMapp}
         rotate={0}
         padding={10}
+        random={random}
+        fill={(word) =>
+          word.text === activeWord ? "#ef4444" : theme.theme === "dark" ? "#fff" : "#000"
+        }
+        onWordMouseOver={(event, word) => {
+          event.preventDefault()
+
+          setActiveWord(word.text);
+
+        }}
         onWordClick={(event, word) => {
+
           router.push(`/quiz?topic=${word.text}`);
         }}
-        fill={theme.theme == "dark" ? "white" : "dark"}
+
       ></D3WordCloud>
     </>
   );

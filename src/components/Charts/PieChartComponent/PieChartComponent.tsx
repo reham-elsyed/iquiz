@@ -2,7 +2,7 @@
 "use client";
 import { Cell, Pie, PieChart } from "recharts"
 import { Brain } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../../ui/card";
+import { CardContent, CardFooter, CardHeader, CardTitle } from "../../ui/card";
 import {
   ChartContainer,
   ChartTooltip,
@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 export interface PieChartInterface {
   difficulty: string;
   count: number;
+  fill: string;
 }
 type PieChartComponentProps = {
   studySessionDiff: PieChartInterface[];
@@ -69,9 +70,6 @@ export const PieChartComponent = ({ studySessionDiff, className, title = true }:
         </ChartContainer>
 
       </CardContent>
-
-      {/* <ChartFooter chartDescription={`Showing difficulty for the last study session`} className='' label={"difficulty analysis"} /> */}
-
     </div>
   )
 };

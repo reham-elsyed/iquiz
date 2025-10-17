@@ -6,9 +6,11 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import HistoryComponent from "../HistoryComponent/HistoryComponent";
 import { getAuthSession } from "@/lib/nextAuth";
 import prisma from "@/lib/db";
+import RecentActivitiesCardWrapper from "./RecentActivitiesCard";
+import RecentHistoryComponent from "./RecentHostory";
+import getRecentActivityGameData from "@/lib/getUserGamesHistory";
 
 type Props = {};
 
@@ -19,18 +21,11 @@ const RecentActivities = async (props: Props) => {
       userId: session?.user.id,
     },
   });
+  const historyData = await getRecentActivityGameData(session?.user.id as string)
   return (
-    <Card className="col-span-3">
-      <CardHeader>
-        <CardTitle> Recent Activities</CardTitle>
-        <CardDescription>
-          you played {gamesCount} {gamesCount > 1 ? "games" : "game"}
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="max-h-[580px] overflow-scroll">
-        <HistoryComponent limit={50} userId={session?.user.id as string} />
-      </CardContent>
-    </Card>
+    <RecentActivitiesCardWrapper gamesCount={gamesCount}>
+      <RecentHistoryComponent historyGamesData={historyData} />
+    </RecentActivitiesCardWrapper>
   );
 };
 

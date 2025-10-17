@@ -1,6 +1,6 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
+import { Clock, TrendingUp } from "lucide-react"
 import { CartesianGrid, Dot, Line, LineChart } from "recharts"
 
 import {
@@ -88,7 +88,7 @@ export function ChartLineDotsColors({ gamesDuration }: ChartLineDotsColorsProps)
             </CardContent>
             <CardFooter className="flex-col items-start gap-2 text-sm">
                 <div className="flex gap-2 leading-none font-medium">
-                    Your Latest Game Durations <TrendingUp className="h-4 w-4" />
+                    Your Latest Game Durations <Clock className="h-4 w-4" />
                 </div>
                 <div className="text-muted-foreground leading-none">
                     Showing durations for the last 5 games played
