@@ -5,7 +5,7 @@ import FilterEffect from "@/components/FilterEffect/FilterEffect";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import GradientEffect from "@/components/GradientEffect/GradientEffect";
-
+import "react-loadly/styles.css";
 export const metadata: Metadata = {
   title: "IQuiz",
   description: "AI quiz generation app",

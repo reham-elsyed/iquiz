@@ -3,8 +3,8 @@ import React from "react";
 import { Button } from "../ui/button";
 
 type Props = {
-  setSelectedChoice: (selectedChoice: number) => void;
-  selectedChoice: number;
+  setSelectedChoice?: (selectedChoice: number) => void;
+  selectedChoice?: number;
 
   option: string;
   index: number;
@@ -12,7 +12,7 @@ type Props = {
 
 const ChoicesButton = ({
   index,
-  setSelectedChoice,
+  setSelectedChoice = (prev) => prev,
   selectedChoice,
   option,
 }: Props) => {

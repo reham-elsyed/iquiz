@@ -1,5 +1,5 @@
 import React from "react";
-
+import { WaveLoader } from 'react-loadly';
 type Props = {};
 
 const Loading = (props: Props) => {
@@ -8,13 +8,12 @@ const Loading = (props: Props) => {
       className="flex items-center justify-center h-screen "
       aria-label="Loading"
     >
-      <div
-        className="w-16 h-16 border-4 border-[hsl(var(--muted))] border-t-[hsl(var(--primary))] rounded-full animate-spin"
-        role="status"
-        aria-busy="true"
-      >
-        <span className="sr-only">Loading...</span>
-      </div>
+      <WaveLoader
+        color="#f50591"
+        size={67}
+        speed={1}
+        loadingText="Loading..."
+      />
     </div>
   );
 };

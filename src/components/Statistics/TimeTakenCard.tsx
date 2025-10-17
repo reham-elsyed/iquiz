@@ -11,36 +11,58 @@ type Props = {
 };
 
 const TimeTakenCard = ({ timeStarted, timeEnded }: Props) => {
+  const duration = differenceInSeconds(timeEnded, timeStarted)
   return (
     <Card className="h-full app-card flex flex-col">
-      <CardHeader className="flex flex-row items-center justify-between  pb-4">
-        <CardTitle className="text-2xl font-medium leading-tight">
-          Test Duration
-        </CardTitle>
-        <Clock aria-hidden="true" className="w-5 h-5 text-muted-foreground " />
-
+      <CardHeader className="pb-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl md:text-2xl font-medium leading-tight text-foreground">
+            Test Duration
+          </h2>
+          <Clock className="w-5 h-5 text-muted-foreground" aria-hidden="true" />
+        </div>
       </CardHeader>
 
-      <CardContent className=" space-y-6 grow flex flex-col justify-between">
-        <div className="text-xl font-bold text-center text-foreground grow flex justify-center items-center " aria-label="Total test duration ">
-          {formatTimeDelta(differenceInSeconds(timeEnded, timeStarted))}
+      <CardContent className="flex-1 flex flex-col justify-between space-y-6">
+        <div
+          className="flex-1 flex items-center justify-center"
+          aria-label={`Total test duration: ${formatTimeDelta(duration)}`}
+        >
+          <div className="text-4xl md:text-5xl font-bold text-foreground tracking-tight">
+            {formatTimeDelta(duration)}
+          </div>
         </div>
 
-        <div className="space-y-2 text-sm text-muted-foreground flex justify-between">
-          <Badge
-            className="h-8"
-            variant={"secondary"}>
-            <p aria-label={`Test started at ${timeStarted.toLocaleTimeString()}`}>
-              <span className="font-semibold ">Started:</span> {timeStarted.toLocaleTimeString()}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2 ">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide  ">
+              Started
             </p>
-          </Badge>
-          <Badge
-            className="h-8"
-            variant={"secondary"}>
-            <p aria-label={`Test ended at ${timeEnded.toLocaleTimeString()}`}>
-              <span className="font-semibold ">Ended:</span> {timeEnded.toLocaleTimeString()}
+            <p
+              className="text-lg font-semibold text-foreground"
+              aria-label={`Test started at ${timeStarted.toLocaleTimeString()}`}
+            >
+              {timeStarted.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
             </p>
-          </Badge>
+          </div>
+
+          <div className="space-y-2">
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide text-end">
+              Ended
+            </p>
+            <p
+              className="text-lg font-semibold text-foreground text-end"
+              aria-label={`Test ended at ${timeEnded.toLocaleTimeString()}`}
+            >
+              {timeEnded.toLocaleTimeString([], {
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>

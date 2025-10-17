@@ -1,3 +1,4 @@
+import { SkeletonComponent } from "@/components/SkeletonComponent/SkeletonComponent";
 import { authOptions } from "@/lib/nextAuth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -9,6 +10,7 @@ export default async function Home() {
   if (!session) {
     return redirect("/login");
   } else {
-    return redirect("/home");
+    // return redirect("/home");
+    <SkeletonComponent />
   }
 }

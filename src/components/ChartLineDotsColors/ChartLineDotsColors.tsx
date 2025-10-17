@@ -17,6 +17,7 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import useChartDotsColor from "@/hooks/useChartDotsColor"
+import { useCallback } from "react"
 interface GamesDuration {
     topic: string;
     duration: number;
@@ -28,7 +29,7 @@ type ChartLineDotsColorsProps = {
     gamesDuration: GamesDuration[];
 }
 export function ChartLineDotsColors({ gamesDuration }: ChartLineDotsColorsProps) {
-    const getKey = (s: GamesDuration) => s.topic
+    const getKey = useCallback((s: GamesDuration) => s.topic, [])
     const { chartConfig } = useChartDotsColor({ gamesDuration, getKey });
     if (!gamesDuration || gamesDuration.length === 0 || !chartConfig)
         return (

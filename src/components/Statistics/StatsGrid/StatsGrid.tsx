@@ -5,17 +5,17 @@ import ResultCard from '../ResultCard'
 import { PieChartComponent } from '@/components/Charts/PieChartComponent/PieChartComponent'
 import { Question } from '@prisma/client'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 
 type StatsGridProps = {
     accuracy: number;
     timeStarted: Date;
     timeEnded: Date;
     questions: Question[];
-}
-const StatsGrid = ({ accuracy, timeEnded, timeStarted, questions }: StatsGridProps) => {
+    gameTopic: string;
 
-    // console.log(questionsChart, "questionsChart")
-    // if (!questions || questions.length === 0) return null;
+}
+const StatsGrid = ({ accuracy, timeEnded, timeStarted, questions, gameTopic }: StatsGridProps) => {
 
     // 🧠 Determine game type
     const gameType = questions[0]?.questionType;
@@ -35,17 +35,17 @@ const StatsGrid = ({ accuracy, timeEnded, timeStarted, questions }: StatsGridPro
     ];
 
     return (
-        <><div className='grid grid-cols-1 md:grid-cols-6 gap-7  p-y-6 mt-5'>
-            <div className='col-span-2 h-96 '> <ResultCard accuracy={accuracy} /></div>
-            <div className='col-span-4  h-96 '>
-                <div className='grid grid-cols-1 md:grid-cols-6 gap-7 h-full  pt-5 app-card'>
+        <><div className='grid grid-cols-1 lg:grid-cols-6 gap-7  p-y-6 mt-5'>
+            <div className='col-span-1  lg:col-span-2 h-96 '> <ResultCard accuracy={accuracy} questionsNum={questions.length} topic={gameTopic} /></div>
+            <div className='col-span-1  lg:col-span-4  lg:h-96 '>
+                <Card className='grid grid-cols-1 lg:grid-cols-6 gap-7 h-full  pt-5 app-card'>
 
-                    <div className="flex flex-col  justify-around  text-sm col-span-3  px-6 py-4">
-                        <div className="  text-center sm:text-left space-y-2">
-                            <h2 className="text-xl sm:text-xl font-semibold text-foreground tracking-tight">
+                    <div className="flex flex-col  justify-around  text-sm col-span-1 md:col-span-3  px-6 lg:py-4">
+                        <div className="  text-center sm:text-left">
+                            <h2 className="text-xl sm:text-md  text-foreground tracking-tight md:text-2xl font-medium leading-tight">
                                 Answer Accuracy Overview
                             </h2>
-                            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-prose mx-auto sm:mx-0">
+                            <p className="text-sm sm:text-sm text-muted-foreground leading-relaxed max-w-prose mx-auto sm:mx-0">
                                 A detailed performance breakdown showing how many of your answers were correct versus incorrect.
                                 Use this insight to identify areas for improvement and track your progress over time.
                             </p>
@@ -63,17 +63,17 @@ const StatsGrid = ({ accuracy, timeEnded, timeStarted, questions }: StatsGridPro
                             <p className="text-xl">{questions.length}</p>
                         </Badge>
                     </div>
-                    <div className='col-span-3 relative overflow-hidden'>
+                    <div className='col-span-1 md:col-span-3 relative overflow-hidden'>
                         <div className='absolute left-[5%] top-[5%] rounded-2xl border-destructive border-2 h-full w-full shadow-xl '></div>
                         <PieChartComponent studySessionDiff={data} className="w-full  h-full translate-y-9 translate-x-5 " title={false} />
                     </div>
-                </div>
+                </Card>
             </div>
-            <div className='col-span-4 h-96'> <TimeTakenCard
+            <div className='col-span-1 lg:col-span-4 h-60'> <TimeTakenCard
                 timeEnded={timeEnded}
                 timeStarted={timeStarted}
             /></div>
-            <div className='col-span-2 h-96'><AccuracyCard accuracy={accuracy} />
+            <div className='col-span-1  lg:col-span-2 h-60'><AccuracyCard accuracy={accuracy} />
             </div>
 
         </div></>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Game, Question } from "@prisma/client";
-import { differenceInSeconds } from "date-fns";
 import { ChevronRight, LoaderCircle, Timer } from "lucide-react";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";

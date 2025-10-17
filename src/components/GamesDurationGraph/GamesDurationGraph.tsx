@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ChartComponent from "../ChartComponent/ChartComponent";
 import axios from "axios";
 import { Card } from "../ui/card";
 import { ChartLineDotsColors } from "../ChartLineDotsColors/ChartLineDotsColors";

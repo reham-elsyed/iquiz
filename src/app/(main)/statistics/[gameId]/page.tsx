@@ -4,6 +4,7 @@ import ResultCard from "@/components/Statistics/ResultCard";
 import StatsGrid from "@/components/Statistics/StatsGrid/StatsGrid";
 import TimeTakenCard from "@/components/Statistics/TimeTakenCard";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { Confetti } from "@/components/ui/confetti";
 import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
 import {
@@ -52,7 +53,7 @@ const StatisticePage = async ({ params }: Props) => {
   return (
     <>
       <section className="p-8 mx-auto w-11/12">
-        <div className="flex items-center justify-between space-y-2">
+        <div className="flex items-center justify-between space-y-2 relative">
           <h2 className="text-3xl font-bold tracking-tight">Statistics</h2>
           <div className="flex items-center space-x-2">
             <Button variant={"ghost"} className="app-button">
@@ -62,15 +63,8 @@ const StatisticePage = async ({ params }: Props) => {
             </Button>
           </div>
         </div>
-        {/* <div className="grid gap-4 md:grid-cols-7">
-          <ResultCard accuracy={accuracy} />
-          <AccuracyCard accuracy={accuracy} />
-          <TimeTakenCard
-            timeEnded={game.timeEnded as Date}
-            timeStarted={game.timeStarted}
-          />
-        </div> */}
-        <StatsGrid accuracy={accuracy} timeEnded={game.timeEnded as Date} timeStarted={game.timeStarted} questions={game.questions} />
+        <div className="absolute inset-0">{accuracy > 50 && <Confetti />}</div>
+        <StatsGrid accuracy={accuracy} timeEnded={game.timeEnded as Date} timeStarted={game.timeStarted} questions={game.questions} gameTopic={game.topic} />
         <QuestionList questions={game.questions} />
       </section >
     </>

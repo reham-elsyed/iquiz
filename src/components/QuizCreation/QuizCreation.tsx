@@ -27,7 +27,10 @@ import { BookOpen, CopyCheck } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import LoadingQuestions from "../LoadingQuestions/LoadingQuestions";
+import { SkeletonComponent } from "../SkeletonComponent/SkeletonComponent";
+import Mockquiz, { mockGame } from "../Mockquiz/Mockquiz";
+import MCQuiz from "../MCQuiz/MCQuiz";
+
 type Props = {
   topicParam: string;
 };
@@ -52,7 +55,7 @@ const QuizCreation = ({ topicParam }: Props) => {
   const {
     mutate: getQuestions,
     isPending,
-    isSuccess,
+    isSuccess
   } = useMutation({
     mutationFn: async ({ amount, topic, type }: Input) => {
       const response = await axios.post("/api/game", { amount, topic, type });
@@ -88,15 +91,17 @@ const QuizCreation = ({ topicParam }: Props) => {
     );
   };
   form.watch();
+
   return (
     <>
       {isPending || isSuccess ? (
-        <LoadingQuestions />
+        // <SkeletonComponent loading={isPending} component={<Mockquiz />} />
+        <><p>loading</p></>
       ) : (
         <div className=" p-8 mx-auto max-w-7xl">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-bold">Quiz</CardTitle>
+              <CardTitle className="text-2xl font-bold">Quiz</CardTitle >
               <CardDescription>choose a topic</CardDescription>
               <CardContent>
                 <Form {...form}>
@@ -176,9 +181,9 @@ const QuizCreation = ({ topicParam }: Props) => {
                   </form>
                 </Form>
               </CardContent>
-            </CardHeader>
-          </Card>
-        </div>
+            </CardHeader >
+          </Card >
+        </div >
       )}
     </>
   );
