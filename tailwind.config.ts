@@ -51,6 +51,10 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        aurora1: "var(--aurora-1)",
+        aurora2: "var(--aurora-2)",
+        aurora3: "var(--aurora-3)",
+        aurora4: "var(--aurora-4)",
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -9,12 +9,46 @@
   --color-gradient-via: var(--gradient-via);
   --color-gradient-to: var(--gradient-to);
   --animate-blink-cursor: blink-cursor 1.2s step-end infinite;
+
   @keyframes blink-cursor {
-  0%, 49% {
-    opacity: 1;
+
+    0%,
+    49% {
+      opacity: 1;
     }
-  50%, 100% {
-    opacity: 0;
+
+    50%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  --animate-aurora: aurora 8s ease-in-out infinite alternate;
+
+  @keyframes aurora {
+    0% {
+      background-position: 0% 50%;
+      transform: rotate(-5deg) scale(0.9);
+    }
+
+    25% {
+      background-position: 50% 100%;
+      transform: rotate(5deg) scale(1.1);
+    }
+
+    50% {
+      background-position: 100% 50%;
+      transform: rotate(-3deg) scale(0.95);
+    }
+
+    75% {
+      background-position: 50% 0%;
+      transform: rotate(3deg) scale(1.05);
+    }
+
+    100% {
+      background-position: 0% 50%;
+      transform: rotate(-5deg) scale(0.9);
     }
   }
 }
@@ -115,6 +149,14 @@
   --shadow-xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 8px 10px -2px hsl(0 0% 0% / 0.10);
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
   --tracking-normal: 0em;
+  --aurora-1: oklch(0.58 0.14 323.23);
+  /* primary but brighter */
+  --aurora-2: oklch(0.77 0.13 223.19);
+  /* chart-4 - cool blue */
+  --aurora-3: oklch(0.69 0.14 160.23);
+  /* chart-5 - green/aqua */
+  --aurora-4: oklch(0.88 0.02 323.34);
+  /* accent - soft pink/purple */
 }
 
 .dark {
@@ -162,6 +204,14 @@
   --shadow-lg: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 4px 6px -2px hsl(0 0% 0% / 0.10);
   --shadow-xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.10), 0px 8px 10px -2px hsl(0 0% 0% / 0.10);
   --shadow-2xl: 0px 4px 8px -1px hsl(0 0% 0% / 0.25);
+  --aurora-1: oklch(0.58 0.14 327.21);
+  /* primary - rich neon magenta */
+  --aurora-2: oklch(0.77 0.13 223.19);
+  /* chart-2 - electric blue */
+  --aurora-3: oklch(0.69 0.14 160.23);
+  /* chart-3 - teal edge */
+  --aurora-4: oklch(0.33 0.03 326.23);
+  /* accent - deeper purple */
 }
 
 @theme inline {
@@ -216,6 +266,10 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+  --aurora-1: var(--aurora-1);
+  --aurora-2: var(--aurora-2);
+  --aurora-3: var(--aurora-3);
+  --aurora-4: var(--aurora-4);
 }
 
 @layer base {
@@ -397,6 +451,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

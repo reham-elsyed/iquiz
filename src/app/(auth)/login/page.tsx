@@ -13,24 +13,29 @@ export default async function Login() {
     redirect("/home");
   }
   return (
-    <div className="flex flex-col gap-y-4  items-center p-5  rounded-2xl  app-card--raised">
+    <div className="flex flex-col gap-y-4  items-center p-5  rounded-2xl  app-card--raised ">
       <div className="flex flex-col justify-start items-start w-full  pb-4 app-card-content h-full">
         <div className="space-y-4 ">
 
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Welcome back <span className="inline-block"><Rocket size={20} /></span>
+          <h1 className="text-3xl font-bold tracking-tight leading-tight text-foreground">
+            Welcome back
+            <span className="inline-block ml-1 align-middle"><Rocket size={22} /></span>
           </h1>
-          <p className="text-lg text-muted-foreground">
+
+          <p className="text-base text-muted-foreground leading-relaxed">
             Ready to continue your learning journey?
           </p>
+
           <p className="text-sm text-muted-foreground/80 leading-relaxed">
-            Our AI will craft personalized quizzes and flashcards to help you master every topic with confidence.
+            Our AI will generate personalized quizzes and flashcards—designed to help you master every topic with confidence.
           </p>
+
           <TypingAnimation
             words={["create a test", "take the test", "evaluate Your performance",]}
             cursorStyle="underscore"
             loop
-            className="text-4xl font-basic"
+            className="text-3xl font-semibold text-primary"
+
           />
 
           <div className="pt-6">

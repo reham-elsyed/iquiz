@@ -35,7 +35,7 @@ export default function GamesDurationGraph() {
   if (loading) {
     return (
       <div className=" flex items-center justify-center">
-        <SkeletonLoader variant="card" width={300} height={500} />
+        <SkeletonLoader variant="card" width={"100%"} height={500} />
       </div>
     );
   }

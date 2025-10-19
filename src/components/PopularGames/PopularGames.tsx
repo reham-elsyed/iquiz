@@ -3,6 +3,7 @@ import trendingTopic from '@/lib/trendingTopics'
 import { Card } from '../ui/card'
 import { Button } from '../ui/button'
 import Link from 'next/link'
+import { TextAurora } from '../ui/Text-Aurora'
 
 const PopularGames = async () => {
   const popularGames = await trendingTopic()
@@ -22,7 +23,8 @@ const PopularGames = async () => {
       <div className=' w-full '>
         <div className='flex flex-col gap-4 p-3'>
           <div className='flex items-center justify-between mb-6'>
-            <h2 className='text-2xl font-bold'>Popular Games</h2>
+            {/* <h2 className='text-2xl font-bold'>Popular Games</h2> */}
+            <TextAurora text="Popular Game" />
             <Button variant="outline" size="sm"
               className=''><Link href={"/trending-topics"}>View All</Link></Button>
           </div>

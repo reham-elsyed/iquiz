@@ -1,5 +1,5 @@
 "use client";
-import { LinkProps, linksArray } from "@/types/navbarTypes";
+import { LinksArray } from "@/types/navbarTypes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -14,7 +14,7 @@ const NavBarList = () => {
   const pathName = usePathname();
   return (
     <>
-      {linksArray.map((link: LinkProps, i: number) => (
+      {LinksArray.map((link, i: number) => (
         <NavigationMenuItem
           className="w-full"
           key={i}
@@ -25,7 +25,7 @@ const NavBarList = () => {
             passHref
           >
             <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), `w-full rounded-xl justify-start  ${pathName === link.href ? "bg-gray-200 text-gray-900 font-semibold" : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"} `)}>
-              {link.name}
+              {link.label}
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
