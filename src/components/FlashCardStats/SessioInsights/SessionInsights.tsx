@@ -10,27 +10,6 @@ type SessioInsightsProps = {
 }
 const SessionInsights = ({ feedbackData }: SessioInsightsProps) => {
 
-    // const durationMs = feedbackData.reduce((sum, f) => sum + f.timeSpent, 0)
-    // const totalQuestions = feedbackData.length;
-    // const averageTime = durationMs / totalQuestions;
-    // const averageFormatted = formatTimeDelta(averageTime)
-    // const easyCount = feedbackData.filter(f => f.feedback === 'EASY').length;
-    // const hardCount = feedbackData.filter(f => f.feedback === 'HARD').length;
-
-    // const getDifficultyInsight = () => {
-    //     if (easyCount === totalQuestions) return "Excellent! All questions felt easy to you.";
-    //     if (hardCount === totalQuestions) return "This was challenging! Consider reviewing the material.";
-    //     if (easyCount > hardCount) return "Great job! Most questions were manageable.";
-    //     return "Good effort on a challenging set of questions.";
-    // };
-
-    // const getTimeInsight = () => {
-    //     if (averageTime < 1.5) return "You answered quickly and confidently!";
-    //     if (averageTime > 2.5) return "You took time to think through each question.";
-    //     return "You maintained a steady pace throughout.";
-    // };
-    // const questionsPerMinute = (totalQuestions / (durationMs / 60000)).toFixed(1);
-    // const sessionEfficiency = easyCount >= hardCount ? 'High' : 'Moderate';
     const { durationMs,
         totalQuestions,
         averageTime,

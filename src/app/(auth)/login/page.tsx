@@ -1,13 +1,11 @@
-import GitHubButton from "@/components/Buttons/GitHubButton/GitHubButton";
-import GoogleButton from "@/components/Buttons/GoogleButton/GoogleButton";
 import LoginButton from "@/components/Buttons/LoginButton/LoginButton";
 import Rocket from "@/components/SVGComponents/Rocket";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { authOptions } from "@/lib/nextAuth";
 import { getServerSession } from "next-auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
+import { GithubIcon } from "@/components/SVGComponents/GitHubIcon"
+import { GoogleIcon } from "@/components/SVGComponents/GoogleIcon";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 
 export default async function Login() {
   const session = await getServerSession(authOptions);
@@ -28,7 +26,12 @@ export default async function Login() {
           <p className="text-sm text-muted-foreground/80 leading-relaxed">
             Our AI will craft personalized quizzes and flashcards to help you master every topic with confidence.
           </p>
-
+          <TypingAnimation
+            words={["create a test", "take the test", "evaluate Your performance",]}
+            cursorStyle="underscore"
+            loop
+            className="text-4xl font-basic"
+          />
 
           <div className="pt-6">
             <h2 className="text-2xl font-semibold text-foreground">
@@ -39,8 +42,8 @@ export default async function Login() {
 
         <div className="flex flex-col w-full justify-center items-start gap-y-5 mt-6">
 
-          <GitHubButton text='Continue with GitHub' />
-          <GoogleButton text='Continue with Google' />
+          <LoginButton text='Continue with GitHub' callbackUrl="/home" icon={<GithubIcon />} />
+          <LoginButton text='Continue with Google' callbackUrl="/home" icon={<GoogleIcon />} />
         </div>
       </div>
     </div>
