@@ -5,6 +5,7 @@ import StatsGrid from "@/components/Statistics/StatsGrid/StatsGrid";
 import TimeTakenCard from "@/components/Statistics/TimeTakenCard";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Confetti } from "@/components/ui/confetti";
+import { TextAurora } from "@/components/ui/Text-Aurora";
 import prisma from "@/lib/db";
 import { getAuthSession } from "@/lib/nextAuth";
 import {
@@ -54,7 +55,8 @@ const StatisticePage = async ({ params }: Props) => {
     <>
       <section className="p-8 mx-auto w-11/12">
         <div className="flex items-center justify-between space-y-2 relative">
-          <h2 className="text-3xl font-bold tracking-tight">Statistics</h2>
+          {/* <h2 className="text-3xl font-bold tracking-tight">Statistics</h2> */}
+          <TextAurora text="Statistics" className="" />
           <div className="flex items-center space-x-2">
             <Button variant={"ghost"} className="app-button">
               <Link href="/userDashboard" className="flex items-center">

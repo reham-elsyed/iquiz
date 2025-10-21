@@ -24,7 +24,7 @@ const PopularGames = async () => {
         <div className='flex flex-col gap-4 p-3'>
           <div className='flex items-center justify-between mb-6'>
             {/* <h2 className='text-2xl font-bold'>Popular Games</h2> */}
-            <TextAurora text="Popular Game" />
+            <TextAurora text="Popular Game" className='text-2xl' />
             <Button variant="outline" size="sm"
               className=''><Link href={"/trending-topics"}>View All</Link></Button>
           </div>
