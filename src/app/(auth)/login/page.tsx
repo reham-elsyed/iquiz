@@ -14,7 +14,7 @@ export default async function Login() {
     redirect("/home");
   }
   return (
-    <div className="flex flex-col gap-y-4  items-center p-5  rounded-2xl  app-card--raised w-full">
+    <div className="flex flex-col gap-y-4  items-center p-5  rounded-2xl   w-full">
       <div className="flex flex-col justify-start items-start w-full  pb-4 app-card-content h-full">
         <div className="space-y-4 ">
 
