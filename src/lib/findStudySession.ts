@@ -15,9 +15,7 @@ export async function findStudySession(gameId: string, userId: string): Promise<
     if (!studySession) {
         throw new Error("Study session not found.");
     }
-    console.log(studySession)
     return studySession;
-
 }
 
 export async function findStudySessionFeedback(sessionId: string) {

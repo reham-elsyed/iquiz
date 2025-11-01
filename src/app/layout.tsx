@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import GradientEffect from "@/components/GradientEffect/GradientEffect";
 import "react-loadly/styles.css";
+import AnimatedGrid from "@/components/AnimatedGrid/AnimatedGrid";
 export const metadata: Metadata = {
   title: "IQuiz",
   description: "AI quiz generation app",
@@ -23,6 +24,7 @@ export default function RootLayout({
       <head>
       </head>
       <NextAuthProvider>
+        <GradientEffect />
         <body className={cn("font-geist antialiased flex flex-col min-h-screen relative")}>
           {children}
         </body>

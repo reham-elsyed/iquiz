@@ -1,5 +1,6 @@
+import { SquareM } from "lucide-react";
 import React from "react";
-import { ElementLoader, WaveLoader } from 'react-loadly';
+import { ElementLoader, SkeletonLoader, SpinDotsLoader, WaveLoader } from 'react-loadly';
 type Props = {};
 
 const Loading = (props: Props) => {
@@ -8,14 +9,16 @@ const Loading = (props: Props) => {
       className="flex items-center justify-center h-screen "
       aria-label="Loading"
     >
-      <ElementLoader
+      <SpinDotsLoader
         color="#ff8080"
-        size={50}
-        speed={1}
+        size={58}
+        speed={1.9}
         loadingText="Loading..."
-        animationType="spin"
-        glowIntensity={0.5}
+        dots={8}
+        gap={4}
+        showText={true}
       />
+
 
     </div>
   );

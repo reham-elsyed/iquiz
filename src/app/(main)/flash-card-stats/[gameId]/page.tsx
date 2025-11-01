@@ -94,7 +94,7 @@ export default async function ChartPage({ params }: Props) {
             <FlashCardGeneralStats generalStats={generalStats} />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <PieChartComponent studySessionDiff={feedbackData as PieChartInterface[]} />
+            <PieChartComponent studySessionDiff={feedbackData as PieChartInterface[]} className="" />
             <BarChartComponent barChartData={barChartData} />
           </div>
           <FlashCardsBreakDown questionsBreakdown={feedback} />

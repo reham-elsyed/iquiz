@@ -9,5 +9,10 @@ export const LinksArray: Navbar01NavLink[] = [
     href: "/userDashboard",
     label: "Dashboard",
     active: false
+  },
+  {
+    href: "/create-flashcard",
+    label: "Create flashcards",
+    active: false
   }
 ]

@@ -1,0 +1,17 @@
+{
+    "typescript.tsserver.maxTsServerMemory": 2048,
+    "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/dist/**": true,
+        "**/build/**": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/dist": true,
+        "**/build": true
+    },
+    "workbench.editor.enablePreview": true,
+    "workbench.editor.limit.perEditorGroup": 5,
+    "telemetry.telemetryLevel": "off"
+}

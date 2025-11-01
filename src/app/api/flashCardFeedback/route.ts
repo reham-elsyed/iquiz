@@ -14,7 +14,6 @@ export async function POST(req: Request, res: Response) {
       );
     }
     const body = await req.json();
-    console.log("______________________body_____________________", body)
     //use same schema for flash card body request
     const { questionId, feedback, timeSpent, sessionId } = flashcardFeedbackSchema.parse(body);
     const newFeedback = feedback

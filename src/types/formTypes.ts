@@ -4,7 +4,7 @@ export interface FormField {
   type: string;
 }
 
-export type FormFieldsType = FormField[];
+export type FormFieldsDataType = flashcardFormFieldType[];
 
 export type flashcardFormFieldType = {
   id: number;
@@ -12,5 +12,6 @@ export type flashcardFormFieldType = {
   desc: string;
   type: string;
   placeholder?: string;
+  label: string;
 };
 export type flashcardFormFieldProps = flashcardFormFieldType[];

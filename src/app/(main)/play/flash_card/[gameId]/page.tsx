@@ -32,13 +32,34 @@ export default async function FlashCardPage({ params }: Props) {
       },
     },
   });
+  const feedBack = []
   const studySession = await findStudySession(gameData?.id as string, gameData?.userId as string)
+  console.log("Study Session Data from page:", studySession);
   if (studySession?.status === "FINISHED") {
     redirect("/home")
   }
+  const studySessionFeedback = await prisma.studySession.findUnique({
+    where: { id: gameData?.id as string },
+    include: {
+      feedbacks: true, // ✅ now we get QuestionFeedback[]
+    },
+  });
+
+
+  const questionsWithFeedback = gameData?.questions.map(q => {
+    const feedback = studySessionFeedback?.feedbacks.find(fb => fb.questionId === q.id);
+
+    return {
+      ...q,
+      feedback: feedback?.feedback ?? null,
+      timeSpent: feedback?.timeSpent ?? null,
+    };
+  });
+  console.log("Questions with Feedback:", questionsWithFeedback);
   return (
-    <div className="">
+    <div className="flex flex-col lg:flex-row justify-center  items-center  gap-8 py-5 min-h-full">
       {gameData ? <FlipCardComponent game={gameData} studySession={studySession as studySessionInterface} /> : <div>Game not found</div>}
+
     </div>
   );
 }

@@ -10,9 +10,9 @@ const AnimatedGrid = () => {
                 className={cn(
                     "[mask-image:radial-gradient(900px_circle_at_center,white,transparent)]  perspective-distant",
                 )}
-                width={30}
-                height={30}
-                squares={[80, 80]}
+                width={40}
+                height={40}
+                squares={[40, 40]}
                 squaresClassName="hover:fill-blue-500"
             />
         </div>

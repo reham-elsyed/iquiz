@@ -1,5 +1,5 @@
 import { flashcardFormFieldProps } from "@/types/formTypes";
-import CreateFlashcardForm from "@/components/FlashCard/FlashCardFormFields/FlashCardForm";
+import CreateFlashcardForm from "@/components/FlashCard/FlashCardFormLogic";
 
 
 export default async function CreateFlashcard() {
@@ -10,6 +10,7 @@ export default async function CreateFlashcard() {
       <div className="">
         <div className="h-[calc(100vh-4rem)] ">
           <CreateFlashcardForm />
+
         </div>
         <div className=""></div>
       </div>

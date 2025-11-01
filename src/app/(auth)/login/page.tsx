@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { GithubIcon } from "@/components/SVGComponents/GitHubIcon"
 import { GoogleIcon } from "@/components/SVGComponents/GoogleIcon";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { Suspense } from "react";
 
 export default async function Login() {
   const session = await getServerSession(authOptions);
@@ -17,18 +18,17 @@ export default async function Login() {
       <div className="flex flex-col justify-start items-start w-full  pb-4 app-card-content h-full">
         <div className="space-y-4 ">
 
-          <h1 className="text-3xl font-bold tracking-tight leading-tight text-foreground">
-            Welcome back
-            <span className="inline-block ml-1 align-middle"><Rocket size={22} /></span>
-          </h1>
+          <div className="flex items-center gap-x-2">
+            <h1 className="text-3xl font-bold tracking-tight leading-tight text-foreground">
+              Welcome back </h1>
+            <Suspense fallback={<span>🚀</span>}>
+              <Rocket size={22} />
+            </Suspense></div>
 
-          <p className="text-base text-muted-foreground leading-relaxed">
+          <p className="text-base text-muted-foreground leading-relaxed ">
             Ready to continue your learning journey?
           </p>
 
-          <p className="text-sm text-muted-foreground/80 leading-relaxed">
-            Our AI will generate personalized quizzes and flashcards—designed to help you master every topic with confidence.
-          </p>
 
           <TypingAnimation
             words={["create a test", "take the test", "evaluate Your performance",]}

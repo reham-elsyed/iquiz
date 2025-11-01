@@ -97,67 +97,120 @@ export default function CreateFlashcardForm() {
   form.watch();
   return (
     <>
-      {isError && <div className="flex items-center justify-center text-red-500 ">Error creating flashcards. Please try again.</div>}
+      {/* 1. Error Message - High contrast and immediately visible */}
+      {isError && (
+        <div className="absolute top-0 left-0 right-0 p-3 bg-red-600/10 text-red-500 font-medium z-50 text-center border-b border-red-500/30">
+          <p>⚠️ Error creating flashcards. Please try again.</p>
+        </div>
+      )}
 
+      {/* 2. Loading State - Full screen, accessible, and clear */}
       {isPending || isSuccess ? (
-        <div className="flex items-center justify-center h-screen">
-          <Loader className="animate-spin h-10 w-10 text-primary" />
+        <div className="flex items-center justify-center min-h-screen bg-background/80">
+          <div className="flex flex-col items-center gap-4">
+            <Loader className="animate-spin h-10 w-10 text-primary" aria-label="Loading" />
+            <p className="text-lg text-muted-foreground">Generating your flashcards...</p>
+          </div>
         </div>
       ) : (
-        <div className="h-full flex items-center justify-center ">
+        /* 3. Main Content Wrapper - Centered and accessible */
+        <div className="min-h-screen flex items-center justify-center p-8 bg-background/95">
 
-          <Card className="w-full md:w-1/2  h-full flex flex-col justify-center  max-w-2xl mx-auto relative border-b border-purple-800/30 bg-card/50 backdrop-blur-xs">
-            <div className=""><ProgressBar value={step + 1} max={formFields.length} size='sm' className="rounded-none p-5" variant='destructive' /></div>
+          {/* Card: Uses a moderate width (max-w-xl) and soft background */}
+          <Card className="
+          w-full 
+          max-w-xl 
+          mx-auto 
+          shadow-2xl 
+          border-border/50 
+          bg-card 
+          backdrop-blur-sm 
+          overflow-hidden 
+          rounded-2xl
+        ">
 
-            <CardHeader className="text-center">
-              <CardTitle>Create Flashcard</CardTitle>
-              <CardDescription>Make your own flashcards</CardDescription>
+            {/* Progress Bar: Spacing = 34px (p-8) - Clear visual hierarchy */}
+            <div className="pt-8 px-8 pb-3">
+              <ProgressBar
+                value={step + 1}
+                max={formFields.length}
+                size='md' // Increased size for better visual presence
+                className="rounded-full"
+                variant='destructive'
+                aria-label={`Step ${step + 1} of ${formFields.length}`}
+              />
+            </div>
+
+            {/* Card Header: Spacing = 21px (p-5) - Title and subtitle alignment */}
+            <CardHeader className="text-center pb-5 pt-0 px-8">
+              <CardTitle className="text-3xl font-extrabold text-foreground">Create Flashcard Deck</CardTitle>
+              <CardDescription className="text-base text-muted-foreground mt-2">
+                Fill in the details to generate your custom study set.
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
+
+            {/* Card Content: Spacing = 34px (p-8) for content and 21px (space-y-5) inside form */}
+            <CardContent className="px-8 pb-8">
               <FormProvider {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                  <FlashCardFormFieldOne
-                    key={formFields[step].name}
-                    fieldData={formFields[step]}
-                    form={form}
-                  />
-                  <div className="flex justify-between">
-                    {step > 0 && <Button onClick={handleBack}>Back</Button>}
-                    {step < formFields.length - 1 ? (
-                      <Button onClick={handleNext}>Next</Button>
-                    ) : (
-                      <>
-                        {isPending ? (
-                          <Button ><Loader /></Button>
-                        ) : (
-                          <Button disabled={isPending} type="submit">
-                            Submit
-                          </Button>
-                        )}
-                      </>
+                {/* Form: Spacing between elements is 21px (space-y-5) */}
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+
+                  {/* 4. Current Field Display */}
+                  <div className="py-5 border-y border-border/70">
+                    <FlashCardFormFieldOne
+                      key={formFields[step].name}
+                      fieldData={formFields[step]}
+                      form={form}
+                    />
+                  </div>
+
+                  {/* 5. Navigation/CTA Area: Spacing = 13px (gap-3) */}
+                  <div className="flex justify-between items-center pt-3 gap-3">
+
+                    {/* Back Button: Always left-aligned */}
+                    {step > 0 && (
+                      <Button
+                        onClick={handleBack}
+                        type="button"
+                        variant="outline"
+                        className="min-w-[100px] border-border/80"
+                      >
+                        ← Back
+                      </Button>
                     )}
-                  </div>{" "}
+                    {/* Spacer for alignment */}
+                    {step === 0 && <div className="min-w-[100px] invisible">Back</div>}
+
+                    {/* Next/Submit Buttons: Always right-aligned */}
+                    {step < formFields.length - 1 ? (
+                      <Button
+                        onClick={handleNext}
+                        type="button"
+                        className="min-w-[150px] bg-primary hover:bg-primary/90 transition-colors"
+                      >
+                        Next Step →
+                      </Button>
+                    ) : (
+                      /* Final Step: Submit Button */
+                      <Button
+                        disabled={isPending}
+                        type="submit"
+                        className="min-w-[150px] bg-green-600 hover:bg-green-700 transition-colors"
+                      >
+                        {isPending ? (
+                          <Loader className="animate-spin h-5 w-5 mr-2" />
+                        ) : (
+                          "Generate Flashcards"
+                        )}
+                      </Button>
+                    )}
+                  </div>
                 </form>
               </FormProvider>
             </CardContent>
           </Card>
-          <div className="bg-gray-500 hidden  w-1/2 h-full md:flex flex-col items-center justify-center gap-10 bg-secondary text-secondary-foreground rounded-none">
-            {formFields[step].name === "amount" ? (
-              <>
-                <NumberSvg className="w-1/2 h-1/2 text-secondary-foreground " />
-                <p className=" text-2xl font-bold">Pick Number Of Flash Cards</p>
-              </>) : formFields[step].name === "topic" ? (
-                <>
-                  <BookAIcon className="w-1/2 h-1/2 text-secondary-foreground" />
-                  <p className=" text-2xl font-bold">Pick Topic Of Flash Cards</p>
-                </>) : (
-              <>
-                <LightbulbIcon />
-              </>
-            )}
-          </div>
         </div>
-      )
-      }
-    </>)
+      )}
+    </>
+  );
 }

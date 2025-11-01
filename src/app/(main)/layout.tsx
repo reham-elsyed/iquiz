@@ -2,9 +2,7 @@ import React, { ReactNode } from "react";
 import { getAuthSession } from "@/lib/nextAuth";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/NavBar/Navbar";
-import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/Footer/Footer";
-import Sidebar from "@/components/SideBar/SideBar";
 
 export default async function HomeLayout({
     children,
