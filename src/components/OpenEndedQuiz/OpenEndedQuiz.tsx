@@ -11,7 +11,6 @@ import React, {
 } from "react";
 import { Button } from "../ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import EndOfQuizModal from "../EndOfQuizModal/EndOfQuizModal";
 import { durationOfQuiz, setEndOfQuizTime } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -117,7 +116,6 @@ const OpenEndedQuiz = ({ game }: Props) => {
       {isOver ? (
         <>
           {" "}
-          <EndOfQuizModal gameId={game.id} duration={duration} />
         </>
       ) : (
         <div className="flex justify-center items-center min-h-screen py-10">
