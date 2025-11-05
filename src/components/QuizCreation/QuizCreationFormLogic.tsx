@@ -55,13 +55,26 @@ export default function QuizCreation({ topicParam }: Props) {
         defaultValues: {
             amount: 5,
             topic: topicParam, // Initialized from prop
-            type: "mcq", // Default to MCQ
+
         },
     });
 
     // Navigation Handlers
-    const handleNext = () => {
-        if (step < formFields.length - 1) setStep((prev) => prev + 1);
+    const handleNext = async () => {
+        const isLastStep = step === formFields.length - 1;
+
+        // Validate current field only
+        const isValid = await form.trigger(formFields[step].name);
+
+        if (!isValid) return; // stop if this field is invalid
+
+        if (isLastStep) {
+            // On last step, actually submit the form
+            form.handleSubmit(onSubmit)();
+        } else {
+            // Otherwise, go to the next step
+            setStep((prev) => prev + 1);
+        }
     };
     const handleBack = () => {
         if (step > 0) setStep((prev) => prev - 1);

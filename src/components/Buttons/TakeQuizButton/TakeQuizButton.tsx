@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button'
 import axios from 'axios'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React from 'react'
 type TakeQuizButtonProps = {
     text: string;
@@ -20,7 +20,6 @@ const TakeQuizButton = ({ text, id, gameType }: TakeQuizButtonProps) => {
     return (
         <>
             <Button
-                asChild
                 className="app-button"
                 onClick={handleResetGameTime}
             >

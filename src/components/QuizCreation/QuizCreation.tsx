@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { FormFieldsType } from "@/types/formTypes";
+import { FormFieldsDataType } from "@/types/formTypes";
 import { Button } from "../ui/button";
 import { BookOpen, CopyCheck } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
@@ -35,15 +35,19 @@ type Props = {
   topicParam: string;
 };
 type Input = z.infer<typeof quizCreationSchema>;
-const formFields: FormFieldsType = [
+const formFields: FormFieldsDataType = [
   {
+    id: 1,
+    label: "Number of Questions",
     name: "amount",
     desc: "add number of questions min: 3 max: 10",
     type: "text",
   },
-  { name: "topic", desc: "add your quiz topic ", type: "text" },
+  { name: "topic", desc: "add your quiz topic ", type: "text", id: 2, label: "Topic" },
   {
     name: "type",
+    id: 3,
+    label: "Type of Questions",
     desc: "add type of questions(currently 2 types available) ",
     type: "text",
   },

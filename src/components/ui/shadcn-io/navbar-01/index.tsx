@@ -206,7 +206,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                 <div className="text-2xl">
                   {logo}
                 </div>
-                <span className="hidden font-bold text-xl sm:inline-block">LearnBoost</span>
+                <span className="hidden font-bold text-xl sm:inline-block">MENTORA</span>
               </button>
               {/* Navigation menu */}
               {!isMobile && (

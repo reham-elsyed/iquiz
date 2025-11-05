@@ -1,4 +1,4 @@
-import QuizCreation from "@/components/QuizCreation/QuizCreation";
+import QuizCreation from "@/components/QuizCreation/QuizCreationFormLogic";
 import { getAuthSession } from "@/lib/nextAuth";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -8,7 +8,7 @@ type Props = {
   };
 };
 export const metadata = {
-  title: "quiz | IQuiz",
+  title: "quiz | MENTORA",
 };
 const Quiz = async ({ searchParams }: Props) => {
   const session = await getAuthSession();

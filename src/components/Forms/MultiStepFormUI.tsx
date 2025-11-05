@@ -91,7 +91,7 @@ export default function UnifiedMultiStepFormUI({
                                 max={formFields.length}
                                 size='md'
                                 className="rounded-full"
-                                variant='destructive'
+                                variant='default'
                                 aria-label={`Step ${step + 1} of ${formFields.length}`}
                             />
                         </div>

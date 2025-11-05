@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 type Props = {
   setSelectedChoice?: (selectedChoice: number) => void;
   selectedChoice?: number;
-
+  isChecking: boolean;
   option: string;
   index: number;
 };
@@ -15,10 +15,12 @@ const ChoicesButton = ({
   setSelectedChoice = (prev) => prev,
   selectedChoice,
   option,
+  isChecking
 }: Props) => {
   return (
 
     <button
+      disabled={isChecking}
       onClick={() => {
         setSelectedChoice(index);
       }}

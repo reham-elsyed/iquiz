@@ -12,12 +12,12 @@ const FooterComponent = () => {
       <div className='mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 max-md:flex-col sm:px-6 sm:py-6 md:gap-6 md:py-8'>
         <a href='/home'>
           <div className='flex items-center gap-3'>
-            <Rocket size={30} /><span className='text-2xl font-bold'>Learn Boost</span>
+            <Rocket size={30} /><span className='text-2xl font-bold'>MENTORA</span>
           </div>
         </a>
 
         <div className='flex items-center gap-5 whitespace-nowrap'>
-          <a href='#'>About</a>
+          <a href='/about'>About</a>
           <a href='#'>Features</a>
           <a href='#'>Works</a>
           <a href='#'>Career</a>

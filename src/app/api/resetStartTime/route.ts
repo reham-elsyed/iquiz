@@ -29,21 +29,50 @@ export async function POST(req: Request, res: Response): Promise<NextResponse> {
             },
         });
         if (updatedGame.gameType === "flash_card") {
-            const studySession = await prisma.studySession.findFirst({
-                where: { gameId: gameId, userId: session.user.id },
+            const game = await prisma.game.findFirst({
+                where: { id: gameId, userId: session.user.id },
             });
-            if (studySession) {
-                await prisma.studySession.update({
-                    where: { id: studySession.id },
-                    data: {
-                        // Add any fields you want to update here, e.g. timeStarted: new Date()
-                        status: "ACTIVE",
-                        createdAt: new Date(),
-                        endedAt: null,
-                    },
+            if (game) {
+                // find the existing study session first (non-unique lookup)
+                const sessionRecord = await prisma.studySession.findFirst({
+                    where: { gameId: game.id, userId: session.user.id },
                 });
+
+                if (sessionRecord) {
+                    // update by unique id
+                    await prisma.studySession.update({
+                        where: { id: sessionRecord.id },
+                        data: {
+                            // Add any fields you want to update here, e.g. timeStarted: new Date()
+                            status: "ACTIVE",
+                            createdAt: new Date(),
+                            endedAt: null,
+                        },
+                    });
+                } else {
+                    // fallback: create a session if none exists
+                    await prisma.studySession.create({
+                        data: {
+                            gameId: game.id,
+                            userId: session.user.id,
+                            status: "ACTIVE",
+                            createdAt: new Date(),
+                        },
+                    });
+                }
             }
         }
+        // else {
+        //     // ✅ Create a new one if it doesn't exist
+        //     const studySession = await prisma.studySession.create({
+        //         data: {
+        //             gameId,
+        //             userId: session.user.id,
+        //             status: "ACTIVE",
+        //             createdAt: new Date(),
+        //         },
+        //     });
+        // }
         return NextResponse.json(
             {
                 success: "you can retake this quiz",

@@ -12,19 +12,18 @@ import axios from "axios";
 import { checkAnswerSchema } from "@/app/schemas/formSchema/quizSchema";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
-import EndOfQuizModal from "../EndOfQuizModal/EndOfQuizModal";
 import { durationOfQuiz, formatTimeDelta, setEndOfQuizTime } from "@/lib/utils";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import TitleCard from "../TitleCard/TitleCard";
 import useEventListener from "@/hooks/useEventListener";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
 };
 
 const MCQuiz = ({ game }: Props) => {
-
+  const router = useRouter()
   const [correctAnswers, setCorrectAnswers, removeCorrectAnswer] =
     useLocalStorage({ key: "correctAnswers", value: 0 });
   const [wrongAnswers, setWrongAnswers, RemoveWrongAnswer] = useLocalStorage({
@@ -101,7 +100,7 @@ const MCQuiz = ({ game }: Props) => {
             removeItem();
             removeCorrectAnswer();
             RemoveWrongAnswer();
-            redirect(`/statistics/${game.id}`)
+            router.push(`/statistics/${game.id}`)
           }
         }
         else {
@@ -180,6 +179,7 @@ const MCQuiz = ({ game }: Props) => {
               {options.map((option, index) => {
                 return (
                   <ChoicesButton
+                    isChecking={isChecking}
                     key={index}
                     index={index}
                     setSelectedChoice={setSelectedChoice}
