@@ -1,0 +1,30 @@
+{
+    "creation": {
+        "title": "Quiz",
+        "description": "choose a topic",
+        "numberOfQuestions": "Number of Questions",
+        "numberOfQuestionsDesc": "add number of questions min: 3 max: 10",
+        "topic": "Topic",
+        "topicDesc": "add your quiz topic",
+        "questionType": "Type of Questions",
+        "questionTypeDesc": "add type of questions(currently 2 types available)"
+    },
+    "types": {
+        "mcq": "mcq",
+        "openEnded": "open ended"
+    },
+    "gameplay": {
+        "question": "Question",
+        "answer": "Answer",
+        "nextQuestion": "Next Question",
+        "previousQuestion": "Previous Question",
+        "finishQuiz": "Finish Quiz",
+        "timeRemaining": "Time Remaining",
+        "score": "Score",
+        "checkAnswer": "Check Answer",
+        "yourAnswer": "Your Answer",
+        "correctAnswer": "Correct Answer",
+        "loading": "Loading questions...",
+        "pleaseWait": "Please wait while we generate your quiz"
+    }
+}

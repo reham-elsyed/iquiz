@@ -1,0 +1,37 @@
+{
+    "stats": {
+        "title": "إحصائياتك",
+        "totalQuizzes": "إجمالي الاختبارات",
+        "averageScore": "متوسط النتيجة",
+        "studyTime": "وقت الدراسة",
+        "globalRank": "الترتيب العالمي",
+        "currentStreak": "السلسلة الحالية",
+        "bestStreak": "أفضل سلسلة",
+        "first": "الأول"
+    },
+    "performance": {
+        "title": "الأداء الأخير",
+        "accuracy": "الدقة",
+        "timeTaken": "الوقت المستغرق",
+        "questionsAnswered": "الأسئلة المجاب عليها",
+        "weakPerformance": "أسئلة الأداء الضعيف",
+        "weakPerformanceCard": "سؤال أداء ضعيف",
+        "correctAnswer": "الإجابة الصحيحة",
+        "type": "النوع",
+        "viewFullReview": "عرض مراجعة الأداء الكاملة",
+        "doingGreat": "أنت تقوم بعمل رائع حتى الآن"
+    },
+    "activities": {
+        "title": "الأنشطة الأخيرة",
+        "noActivities": "لا توجد أنشطة حديثة"
+    },
+    "trendingTopics": {
+        "title": "المواضيع الرائجة"
+    },
+    "flashcards": {
+        "title": "البطاقات التعليمية",
+        "questionBreakdown": "تفصيل الأسئلة",
+        "sessionInsights": "رؤى الجلسة",
+        "generalStats": "الإحصائيات العامة"
+    }
+}

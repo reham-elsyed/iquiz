@@ -1,0 +1,37 @@
+{
+    "stats": {
+        "title": "Your Stats",
+        "totalQuizzes": "Total Quizzes",
+        "averageScore": "Average Score",
+        "studyTime": "Study Time",
+        "globalRank": "Global Rank",
+        "currentStreak": "Current Streak",
+        "bestStreak": "Best Streak",
+        "first": "first"
+    },
+    "performance": {
+        "title": "Recent Performance",
+        "accuracy": "Accuracy",
+        "timeTaken": "Time Taken",
+        "questionsAnswered": "Questions Answered",
+        "weakPerformance": "Weak Performance Questions",
+        "weakPerformanceCard": "Weak Performance Question",
+        "correctAnswer": "Correct Answer",
+        "type": "Type",
+        "viewFullReview": "View Full Performance Review",
+        "doingGreat": "You're doing great so far"
+    },
+    "activities": {
+        "title": "Recent Activities",
+        "noActivities": "No recent activities"
+    },
+    "trendingTopics": {
+        "title": "Trending Topics"
+    },
+    "flashcards": {
+        "title": "Flashcards",
+        "questionBreakdown": "Question Breakdown",
+        "sessionInsights": "Session Insights",
+        "generalStats": "General Statistics"
+    }
+}

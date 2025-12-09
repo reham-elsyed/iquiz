@@ -25,7 +25,7 @@ export async function POST(req: Request, res: Response) {
       );
     } else if (type === "mcq") {
       questions = await strict_output(
-        `You are a expert question designer and interviewer that is able to generate exactly ${amount} mcq questions and answers about ${topic}, the length of each answer should not be more than 15 words always return one right answer in the choices`,
+        `You are a expert question designer and interviewer that is able to generate exactly ${amount} mcq questions and answers about ${topic} in the same language of this word ${topic}, the length of each answer should not be more than 15 words always return one right answer in the choices`,
         type,
       );
     }
@@ -60,8 +60,15 @@ export async function POST(req: Request, res: Response) {
     }
 
     console.error("elle gpt error", error);
+    if (error instanceof Error) {
+      console.error("Error name:", error.name);
+      console.error("Error message:", error.message);
+      console.error("Error stack:", error.stack);
+      // @ts-ignore
+      if (error.cause) console.error("Error cause:", error.cause);
+    }
     return NextResponse.json(
-      { error: "An unexpected error occurred." },
+      { error: "An unexpected error occurred.", details: error instanceof Error ? error.message : "Unknown error" },
       { status: 500 },
     );
   }

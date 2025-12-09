@@ -1,0 +1,12 @@
+{
+    "links": {
+        "overview": "Overview",
+        "dashboard": "Dashboard",
+        "createFlashcards": "Create flashcards",
+        "home": "Home",
+        "quiz": "Quiz",
+        "history": "History",
+        "about": "About",
+        "trendingTopics": "Trending Topics"
+    }
+}

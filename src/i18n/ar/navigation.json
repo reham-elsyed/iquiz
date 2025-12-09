@@ -1,0 +1,12 @@
+{
+    "links": {
+        "overview": "نظرة عامة",
+        "dashboard": "لوحة التحكم",
+        "createFlashcards": "إنشاء بطاقات تعليمية",
+        "home": "الرئيسية",
+        "quiz": "اختبار",
+        "history": "السجل",
+        "about": "حول",
+        "trendingTopics": "المواضيع الرائجة"
+    }
+}

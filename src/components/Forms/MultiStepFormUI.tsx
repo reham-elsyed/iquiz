@@ -13,7 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 import ProgressBar from "@/components/ProgressBar/ProgressBar"; // Assuming the path
 import FlashCardFormFieldOne from "@/components/FlashCard/FlashCardFormFields/FlashCardFormFieldOne"; // Reused field component
-import { flashcardFormFieldProps, FormFieldsDataType } from "@/types/formTypes"; // Ensure you have this type or define it
+import { flashcardFormFieldProps, FormFieldsDataType } from "@/types/formTypes"; // Ensure you have this type or define ite
+import { TextAtom } from "@/components/TextAtom";
 
 // Define a type for all the props the UI component needs
 type UnifiedFormProps = {
@@ -64,7 +65,7 @@ export default function UnifiedMultiStepFormUI({
             {/* 1. Error Message */}
             {isError && (
                 <div className="absolute top-0 left-0 right-0 p-3 bg-red-600/10 text-red-500 font-medium z-50 text-center border-b border-red-500/30">
-                    <p>⚠️ Error! Please check your input or try again later.</p>
+                    <p>⚠️ <TextAtom>form.error</TextAtom></p>
                 </div>
             )}
 
@@ -73,7 +74,9 @@ export default function UnifiedMultiStepFormUI({
                 <div className="flex items-center justify-center min-h-screen bg-background/80">
                     <div className="flex flex-col items-center gap-4">
                         <Loader className="animate-spin h-10 w-10 text-primary" aria-label="Loading" />
-                        <p className="text-lg text-muted-foreground">Generating your {formTitle.toLowerCase()}...</p>
+                        <p className="text-lg text-muted-foreground">
+                            <TextAtom>form.generating</TextAtom> {formTitle.toLowerCase()}...
+                        </p>
                     </div>
                 </div>
             ) : (
@@ -133,7 +136,7 @@ export default function UnifiedMultiStepFormUI({
                                                 className="min-w-[100px] border-border/80"
                                                 disabled={isPending}
                                             >
-                                                ← Back
+                                                ← <TextAtom>buttons.back</TextAtom>
                                             </Button>
                                         )}
                                         {/* Spacer for alignment */}
@@ -147,7 +150,7 @@ export default function UnifiedMultiStepFormUI({
                                                 className="min-w-[150px] bg-primary hover:bg-primary/90 transition-colors"
                                                 disabled={isPending}
                                             >
-                                                Next Step →
+                                                <TextAtom>buttons.nextStep</TextAtom> →
                                             </Button>
                                         ) : (
                                             /* Final Step: Submit Button */
@@ -159,7 +162,9 @@ export default function UnifiedMultiStepFormUI({
                                                 {isPending ? (
                                                     <Loader className="animate-spin h-5 w-5 mr-2" />
                                                 ) : (
-                                                    "Generate " + formTitle.split(' ')[0]
+                                                    <>
+                                                        <TextAtom>buttons.generate</TextAtom> {formTitle.split(' ')[0]}
+                                                    </>
                                                 )}
                                             </Button>
                                         )}

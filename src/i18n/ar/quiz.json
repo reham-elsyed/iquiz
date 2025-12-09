@@ -1,0 +1,30 @@
+{
+    "creation": {
+        "title": "اختبار",
+        "description": "اختر موضوعًا",
+        "numberOfQuestions": "عدد الأسئلة",
+        "numberOfQuestionsDesc": "أضف عدد الأسئلة الحد الأدنى: 3 الحد الأقصى: 10",
+        "topic": "الموضوع",
+        "topicDesc": "أضف موضوع الاختبار الخاص بك",
+        "questionType": "نوع الأسئلة",
+        "questionTypeDesc": "أضف نوع الأسئلة (يتوفر حاليًا نوعان)"
+    },
+    "types": {
+        "mcq": "اختيار من متعدد",
+        "openEnded": "أسئلة مفتوحة"
+    },
+    "gameplay": {
+        "question": "السؤال",
+        "answer": "الإجابة",
+        "nextQuestion": "السؤال التالي",
+        "previousQuestion": "السؤال السابق",
+        "finishQuiz": "إنهاء الاختبار",
+        "timeRemaining": "الوقت المتبقي",
+        "score": "النتيجة",
+        "checkAnswer": "تحقق من الإجابة",
+        "yourAnswer": "إجابتك",
+        "correctAnswer": "الإجابة الصحيحة",
+        "loading": "جاري تحميل الأسئلة...",
+        "pleaseWait": "يرجى الانتظار بينما نقوم بإنشاء الاختبار الخاص بك"
+    }
+}

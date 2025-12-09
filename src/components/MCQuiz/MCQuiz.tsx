@@ -17,6 +17,7 @@ import useLocalStorage from "@/hooks/useLocalStorage";
 import TitleCard from "../TitleCard/TitleCard";
 import useEventListener from "@/hooks/useEventListener";
 import { useRouter } from "next/navigation";
+import { TextAtom } from "../TextAtom";
 
 type Props = {
   game: Game & { questions: Pick<Question, "id" | "options" | "question">[] };
@@ -199,8 +200,8 @@ const MCQuiz = ({ game }: Props) => {
                   <>
                     {" "}
                     {storedValue === game.questions.length - 1
-                      ? `finish`
-                      : `next`}{" "}
+                      ? <TextAtom>buttons.finish</TextAtom>
+                      : <TextAtom>buttons.next</TextAtom>}{" "}
                     <ChevronRight className="w-4 h-4 ml-2" />
                   </>
                 )}

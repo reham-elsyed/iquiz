@@ -20,6 +20,7 @@ import UserNav from '@/components/UserNav/UserNav';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '../../themeToggle';
+import LanguageSwitcher from '@/components/LanguageSwitcher/LanguageSwitcher';
 
 // Hamburger icon component
 const HamburgerIcon = ({ className, ...props }: React.SVGAttributes<SVGElement>) => (
@@ -241,6 +242,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
           {/* Right side */}
           <div className="flex items-center gap-3">
             <UserNav user={user as User} />
+            <LanguageSwitcher />
             <ThemeToggle />
             {/* <Button
               variant="ghost"

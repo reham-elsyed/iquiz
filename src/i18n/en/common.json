@@ -1,0 +1,69 @@
+{
+    "hero": {
+        "title": "your AI quiz generator for any Topic",
+        "description": "Create, learn, and grow your knowledge effortlessly.",
+        "startQuiz": "Start Quick Quiz",
+        "browseTopics": "Browse Topics"
+    },
+    "buttons": {
+        "submit": "Submit",
+        "cancel": "Cancel",
+        "viewAll": "View All",
+        "loading": "loading",
+        "takeQuiz": "Take Quiz",
+        "next": "Next",
+        "previous": "Previous",
+        "finish": "Finish",
+        "startNow": "Start Now",
+        "back": "Back",
+        "nextStep": "Next Step",
+        "generate": "Generate"
+    },
+    "form": {
+        "error": "Error! Please check your input or try again later.",
+        "generating": "Generating your",
+        "step": "Step",
+        "of": "of"
+    },
+    "time": {
+        "days": "days",
+        "minutes": "minutes",
+        "hours": "hours",
+        "seconds": "seconds"
+    },
+    "popularGames": {
+        "title": "Popular Game",
+        "noGamesFound": "No popular games found",
+        "count": "Count"
+    },
+    "quizTypes": {
+        "title": "Quiz Types Available",
+        "multipleChoice": "Multiple Choice",
+        "trueFalse": "True/False",
+        "fillInBlank": "Fill in the Blank",
+        "essay": "Essay",
+        "available": "available"
+    },
+    "emptyStats": {
+        "trackProgress": "Track Progress",
+        "trackProgressDesc": "See your improvement over time",
+        "performanceAnalytics": "Performance Analytics",
+        "performanceAnalyticsDesc": "Detailed insights into your learning",
+        "studyHistory": "Study History",
+        "studyHistoryDesc": "Review past questions and answers"
+    },
+    "stats": {
+        "yourStats": "Your Stats",
+        "totalQuizzes": "Total Quizzes",
+        "averageScore": "Average Score",
+        "studyTime": "Study Time",
+        "globalRank": "Global Rank",
+        "currentStreak": "Current Streak",
+        "bestStreak": "Best Streak",
+        "first": "first"
+    },
+    "metadata": {
+        "homeTitle": "Home| IQuiz",
+        "quizTitle": "quiz | MENTORA"
+    }
+}

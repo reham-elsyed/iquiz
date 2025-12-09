@@ -30,6 +30,7 @@ import { useRouter } from "next/navigation";
 import { SkeletonComponent } from "../SkeletonComponent/SkeletonComponent";
 import Mockquiz, { mockGame } from "../Mockquiz/Mockquiz";
 import MCQuiz from "../MCQuiz/MCQuiz";
+import { TextAtom } from "../TextAtom";
 
 type Props = {
   topicParam: string;
@@ -100,13 +101,13 @@ const QuizCreation = ({ topicParam }: Props) => {
     <>
       {isPending || isSuccess ? (
         // <SkeletonComponent loading={isPending} component={<Mockquiz />} />
-        <><p>loading</p></>
+        <><p><TextAtom>buttons.loading</TextAtom></p></>
       ) : (
         <div className=" p-8 mx-auto max-w-7xl">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl font-bold">Quiz</CardTitle >
-              <CardDescription>choose a topic</CardDescription>
+              <CardTitle ><TextAtom textVariantComponent="h3" textClassName="text-2xl font-bold"    >creation.title</TextAtom></CardTitle >
+              <CardDescription><TextAtom>creation.description</TextAtom></CardDescription>
               <CardContent>
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -128,7 +129,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                             }
                             className="w-1/2 rounded-none rounded-l-lg app-button"
                           >
-                            <CopyCheck className="w-4 h-4 mr-2" /> mcq
+                            <CopyCheck className="w-4 h-4 mr-2" /> <TextAtom>types.mcq</TextAtom>
                           </Button>
                           <Button
                             type="button"
@@ -142,7 +143,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                             }
                             className="w-1/2 rounded-none rounded-r-lg app-button"
                           >
-                            <BookOpen className="w-4 h-4 mr-2" /> open ended
+                            <BookOpen className="w-4 h-4 mr-2" /> <TextAtom>types.openEnded</TextAtom>
                           </Button>
                         </div>
                       ) : (
@@ -180,7 +181,7 @@ const QuizCreation = ({ topicParam }: Props) => {
                     )}
 
                     <Button className="mt-4" disabled={isPending} type="submit">
-                      Submit
+                      <TextAtom>buttons.submit</TextAtom>
                     </Button>
                   </form>
                 </Form>

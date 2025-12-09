@@ -1,0 +1,69 @@
+{
+    "hero": {
+        "title": "مولد الاختبارات الذكي لأي موضوع",
+        "description": "أنشئ، تعلم، وطور معرفتك بسهولة.",
+        "startQuiz": "ابدأ اختبار سريع",
+        "browseTopics": "تصفح المواضيع"
+    },
+    "buttons": {
+        "submit": "إرسال",
+        "cancel": "إلغاء",
+        "viewAll": "عرض الكل",
+        "loading": "جاري التحميل",
+        "takeQuiz": "ابدأ الاختبار",
+        "next": "التالي",
+        "previous": "السابق",
+        "finish": "إنهاء",
+        "startNow": "ابدأ الآن",
+        "back": "رجوع",
+        "nextStep": "الخطوة التالية",
+        "generate": "إنشاء"
+    },
+    "form": {
+        "error": "خطأ! يرجى التحقق من المدخلات أو المحاولة لاحقاً.",
+        "generating": "جاري إنشاء",
+        "step": "خطوة",
+        "of": "من"
+    },
+    "time": {
+        "days": "أيام",
+        "minutes": "دقائق",
+        "hours": "ساعات",
+        "seconds": "ثواني"
+    },
+    "popularGames": {
+        "title": "الألعاب الشائعة",
+        "noGamesFound": "لم يتم العثور على ألعاب شائعة",
+        "count": "العدد"
+    },
+    "quizTypes": {
+        "title": "أنواع الاختبارات المتاحة",
+        "multipleChoice": "اختيار من متعدد",
+        "trueFalse": "صح أو خطأ",
+        "fillInBlank": "املأ الفراغ",
+        "essay": "مقال",
+        "available": "متاح"
+    },
+    "emptyStats": {
+        "trackProgress": "تتبع التقدم",
+        "trackProgressDesc": "شاهد تحسنك مع مرور الوقت",
+        "performanceAnalytics": "تحليل الأداء",
+        "performanceAnalyticsDesc": "رؤى تفصيلية حول تعلمك",
+        "studyHistory": "سجل الدراسة",
+        "studyHistoryDesc": "راجع الأسئلة والأجوبة السابقة"
+    },
+    "stats": {
+        "yourStats": "إحصائياتك",
+        "totalQuizzes": "إجمالي الاختبارات",
+        "averageScore": "متوسط النتيجة",
+        "studyTime": "وقت الدراسة",
+        "globalRank": "الترتيب العالمي",
+        "currentStreak": "السلسلة الحالية",
+        "bestStreak": "أفضل سلسلة",
+        "first": "الأول"
+    },
+    "metadata": {
+        "homeTitle": "الرئيسية | IQuiz",
+        "quizTitle": "اختبار | MENTORA"
+    }
+}
