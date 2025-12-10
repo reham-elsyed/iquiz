@@ -9,10 +9,13 @@ import { z } from "zod";
 import { Badge } from "@/components/ui/badge";
 import TakeQuizButton from "../Buttons/TakeQuizButton/TakeQuizButton";
 import { Loader2, BookOpenIcon } from "lucide-react";
+import { TextAtom } from "../TextAtom";
+import { useTranslation } from "react-i18next";
 
 type QuizByTopic = z.infer<typeof quizesByTopicsArraySchema>[number];
 
 const TopicsCard = () => {
+    const { t } = useTranslation();
     // Fetch grouped quizzes by topic
     async function getAllTopicsWithQuizzes(): Promise<
         z.infer<typeof quizesByTopicsArraySchema>
@@ -30,7 +33,7 @@ const TopicsCard = () => {
         return (
             <div className="flex justify-center items-center py-10 text-muted-foreground">
                 <Loader2 className="h-5 w-5 animate-spin mr-2" />
-                Loading quizzes...
+                <TextAtom>topicsCard.loading</TextAtom>
             </div>
         );
     }
@@ -38,7 +41,7 @@ const TopicsCard = () => {
     if (error) {
         return (
             <div className="text-center text-red-500 py-10">
-                Error loading quizzes. Please try again later.
+                <TextAtom>topicsCard.error</TextAtom>
             </div>
         );
     }
@@ -46,7 +49,7 @@ const TopicsCard = () => {
     if (!data || data.length === 0) {
         return (
             <div className="text-center text-muted-foreground py-10">
-                No quizzes found.
+                <TextAtom>topicsCard.noQuizzes</TextAtom>
             </div>
         );
     }
@@ -65,7 +68,7 @@ const TopicsCard = () => {
                     <CardContent className="space-y-3 scrollbar-thin overflow-auto max-h-[60vh]">
                         {topicGroup.quizes.length === 0 ? (
                             <div className="text-sm text-muted-foreground">
-                                No quizzes available for this topic.
+                                <TextAtom>topicsCard.noQuizzesTopic</TextAtom>
                             </div>
                         ) : (
                             <ul className="space-y-2">
@@ -77,22 +80,23 @@ const TopicsCard = () => {
                                         <div className="flex flex-col space-y-2">
                                             <div className="flex items-center justify-between">
                                                 <h3 className="font-medium text-foreground text-sm">
-                                                    Quiz #{i + 1}
+                                                    {t("topicsCard.quizNum", { count: i + 1 })}
                                                 </h3>
                                                 <Badge variant="secondary" className="capitalize">
                                                     {quiz.gameType}
                                                 </Badge>
                                             </div>
                                             <p className="text-sm text-muted-foreground leading-relaxed">
-                                                Test your knowledge in{" "}
-                                                <span className="font-medium">{topicGroup.topic}</span>{" "}
-                                                with this {quiz.gameType} quiz.
+                                                {t("topicsCard.testKnowledge", {
+                                                    topic: topicGroup.topic,
+                                                    type: quiz.gameType,
+                                                })}
                                             </p>
 
                                             <div className="flex justify-end">
 
                                                 <TakeQuizButton
-                                                    text="Take quiz"
+                                                    text={t("topicsCard.takeQuiz")}
                                                     id={quiz.id}
                                                     gameType={quiz.gameType}
                                                 />

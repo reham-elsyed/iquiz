@@ -3,6 +3,8 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { ScrollArea } from "../ui/scroll-area";
 import { Activity, TrendingUp } from "lucide-react";
+import { TextAtom } from "../TextAtom";
+import { useTranslation } from "react-i18next";
 
 type Props = {
     gamesCount: number;
@@ -10,6 +12,7 @@ type Props = {
 };
 
 const RecentActivitiesCardWrapper = ({ gamesCount, children }: Props) => {
+    const { t } = useTranslation();
     return (
         <Card className="col-span-3">
             <CardHeader className="pb-3">
@@ -17,18 +20,18 @@ const RecentActivitiesCardWrapper = ({ gamesCount, children }: Props) => {
                     <div className="space-y-1">
                         <CardTitle className="flex items-center gap-2">
                             <Activity className="w-5 h-5" />
-                            Recent Activities
+                            <TextAtom>recentActivities.title</TextAtom>
                         </CardTitle>
                         <p className="text-sm text-muted-foreground">
-                            Your quiz history and performance
+                            <TextAtom>recentActivities.description</TextAtom>
                         </p>
                     </div>
                     <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg border border-primary/20">
                         <TrendingUp className="w-4 h-4 text-primary" />
                         <div className="text-right">
-                            <p className="text-xs text-muted-foreground">Total</p>
+                            <p className="text-xs text-muted-foreground"><TextAtom>recentActivities.total</TextAtom></p>
                             <p className="font-semibold text-sm">
-                                {gamesCount} {gamesCount === 1 ? "game" : "games"}
+                                {t("recentActivities.gamesCount", { count: gamesCount })}
                             </p>
                         </div>
                     </div>

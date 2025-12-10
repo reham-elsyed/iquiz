@@ -115,8 +115,8 @@ export default function QuizCreation({ topicParam }: Props) {
             isError={isError}
             isSuccess={isSuccess}
             currentStepName={formFields[step].name}
-            formTitle="New Quiz"
-            formDescription="Generate custom questions in minutes for focused learning."
+            formTitle="flashCard:newQuiz"
+            formDescription="flashCard:generateCustomQuestions"
         />
     );
 }

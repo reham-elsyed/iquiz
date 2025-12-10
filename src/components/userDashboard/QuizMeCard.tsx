@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { BrainCircuit, History } from "lucide-react";
 import { CardType } from "@/types/cardTypes";
 import { useRouter } from "next/navigation";
+import { TextAtom } from "../TextAtom";
 type Props = {
   card: CardType;
 };
@@ -17,7 +18,9 @@ const QuizMeCard = ({ card }: Props) => {
       onClick={() => router.push(card.path)}
     >
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-        <CardTitle className="text-2xl font-bold text-foreground">{card.Title} </CardTitle>
+        <CardTitle className="text-2xl font-bold text-foreground">
+          <TextAtom>{card.Title}</TextAtom>
+        </CardTitle>
         {card.icon === "BrainCircuit" ? (
           <BrainCircuit size={28} strokeWidth={2.5} />
         ) : (
@@ -25,7 +28,9 @@ const QuizMeCard = ({ card }: Props) => {
         )}
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground">{card.content} </p>
+        <p className="text-sm text-muted-foreground">
+          <TextAtom>{card.content}</TextAtom>
+        </p>
       </CardContent>
     </Card>
   );

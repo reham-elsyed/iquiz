@@ -104,9 +104,9 @@ export default function UnifiedMultiStepFormUI({
                             <div className="flex justify-center mb-3">
                                 {Icon}
                             </div>
-                            <CardTitle className="text-3xl font-extrabold text-foreground">{formTitle}</CardTitle>
+                            <CardTitle className="text-3xl font-extrabold text-foreground"><TextAtom>{formTitle}</TextAtom></CardTitle>
                             <CardDescription className="text-base text-muted-foreground mt-2">
-                                {formDescription}
+                                <TextAtom> {formDescription}</TextAtom>
                             </CardDescription>
                         </CardHeader>
 
@@ -160,7 +160,7 @@ export default function UnifiedMultiStepFormUI({
                                                 className="min-w-[150px] bg-green-600 hover:bg-green-700 transition-colors"
                                             >
                                                 {isPending ? (
-                                                    <Loader className="animate-spin h-5 w-5 mr-2" />
+                                                    <Loader className=" h-5 w-5 mr-2" />
                                                 ) : (
                                                     <>
                                                         <TextAtom>buttons.generate</TextAtom> {formTitle.split(' ')[0]}

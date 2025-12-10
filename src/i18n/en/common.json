@@ -62,8 +62,41 @@
         "bestStreak": "Best Streak",
         "first": "first"
     },
+    "trendingTopics": {
+        "title": "Trending Topics",
+        "noTopicsFound": "No trending topics found",
+        "count": "Count",
+        "viewAll": "View All",
+        "description": "Click on a topic to start a quiz on it!"
+    },
+    "topicsCard": {
+        "loading": "Loading quizzes...",
+        "error": "Error loading quizzes. Please try again later.",
+        "noQuizzes": "No quizzes found.",
+        "noQuizzesTopic": "No quizzes available for this topic.",
+        "quizNum": "Quiz #{{count}}",
+        "testKnowledge": "Test your knowledge in {{topic}} with this {{type}} quiz.",
+        "takeQuiz": "Take quiz"
+    },
+    "recentActivities": {
+        "title": "Recent Activities",
+        "description": "Your quiz history and performance",
+        "total": "Total",
+        "gamesCount_one": "{{count}} game",
+        "gamesCount_other": "{{count}} games"
+    },
+    "dashboardCards": {
+        "quizMe": {
+            "title": "Quiz Me",
+            "content": "challenge Yourself with a Quiz!"
+        },
+        "flashCards": {
+            "title": "Flash Cards",
+            "content": "Learn with Flash Cards"
+        }
+    },
     "metadata": {
-        "homeTitle": "Home| IQuiz",
+        "homeTitle": "Home| MENTORA",
         "quizTitle": "quiz | MENTORA"
     }
 }

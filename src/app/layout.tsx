@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-const i18nNamespaces = ['common', 'auth', 'quiz', 'dashboard', 'navigation'];
+const i18nNamespaces = ['common', 'auth', 'quiz', 'dashboard', 'navigation', 'flashCard'];
 
 export default async function RootLayout({
   children,

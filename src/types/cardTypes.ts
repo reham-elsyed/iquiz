@@ -6,14 +6,14 @@ export interface CardType {
 }
 export const cardData: CardType[] = [
   {
-    Title: "Quiz Me",
-    content: "challenge Yourself with a Quiz!",
+    Title: "dashboardCards.quizMe.title",
+    content: "dashboardCards.quizMe.content",
     icon: "BrainCircuit",
     path: "/quiz",
   },
   {
-    Title: "Flash Cards",
-    content: "Learn with Flash Cards",
+    Title: "dashboardCards.flashCards.title",
+    content: "dashboardCards.flashCards.content",
     icon: "",
     path: "/create-flashcard",
   },

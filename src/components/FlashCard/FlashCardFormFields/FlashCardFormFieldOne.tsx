@@ -5,6 +5,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CopyCheck, BookOpen, Flashlight } from "lucide-react";
+import { TextAtom } from "@/components/TextAtom";
 
 export default function AnimatedFormField({ form, fieldData, step }: any) {
   return (
@@ -34,21 +35,21 @@ export default function AnimatedFormField({ form, fieldData, step }: any) {
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="mcq" id="mcq" />
                       <label htmlFor="mcq" className="flex items-center gap-2 cursor-pointer">
-                        <CopyCheck className="w-4 h-4" /> MCQ
+                        <CopyCheck className="w-4 h-4" /> <TextAtom textVariantComponent="span" className="text-sm">flashCard:mcq</TextAtom>
                       </label>
                     </div>
 
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="open_ended" id="open_ended" />
                       <label htmlFor="open_ended" className="flex items-center gap-2 cursor-pointer">
-                        <BookOpen className="w-4 h-4" /> Open Ended
+                        <BookOpen className="w-4 h-4" /> <TextAtom textVariantComponent="span" className="text-sm">flashCard:openEnded</TextAtom>
                       </label>
                     </div>
 
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="flash_card" id="flash_card" />
                       <label htmlFor="flash_card" className="flex items-center gap-2 cursor-pointer">
-                        <Flashlight className="w-4 h-4" /> Flashcard
+                        <Flashlight className="w-4 h-4" /> <TextAtom textVariantComponent="span" className="text-sm">flashCard:flashCard</TextAtom>
                       </label>
                     </div>
                   </RadioGroup>

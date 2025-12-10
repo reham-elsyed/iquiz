@@ -9,14 +9,15 @@ import {
 import CustomWordCloud from "../CutomWordCloud/CustomWordCloud";
 import prisma from "@/lib/db";
 import trendingTopic from "@/lib/trendingTopics";
+import { TextAtom } from "../TextAtom";
 const TrendingTopics = async () => {
   const formattedTopics = await trendingTopic()
   return (
     <Card className="col-span-4">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Trending Topics</CardTitle>
+        <CardTitle className="text-2xl font-bold"><TextAtom>trendingTopics.title</TextAtom></CardTitle>
         <CardDescription>
-          Click on a topic to start a quiz on it!
+          <TextAtom>trendingTopics.description</TextAtom>
         </CardDescription>
       </CardHeader>
       <CardContent className="pl-2">

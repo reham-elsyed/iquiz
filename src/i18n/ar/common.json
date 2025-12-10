@@ -62,8 +62,45 @@
         "bestStreak": "أفضل سلسلة",
         "first": "الأول"
     },
+    "trendingTopics": {
+        "title": "المواضيع الرائجة",
+        "noTopicsFound": "لم يتم العثور على مواضيع رائجة",
+        "count": "العدد",
+        "viewAll": "عرض الكل",
+        "description": "تصفح المواضيع الشائعة للاختبارات"
+    },
+    "topicsCard": {
+        "loading": "جاري تحميل الاختبارات...",
+        "error": "حدث خطأ أثناء تحميل الاختبارات. يرجى المحاولة مرة أخرى لاحقاً.",
+        "noQuizzes": "لم يتم العثور على اختبارات.",
+        "noQuizzesTopic": "لا توجد اختبارات متاحة لهذا الموضوع.",
+        "quizNum": "اختبار #{{count}}",
+        "testKnowledge": "اختبر معلوماتك في {{topic}} مع هذا الاختبار من نوع {{type}}.",
+        "takeQuiz": "ابدأ الاختبار"
+    },
+    "recentActivities": {
+        "title": "الأنشطة الأخيرة",
+        "description": "سجل اختباراتك وأداءك",
+        "total": "الإجمالي",
+        "gamesCount_zero": "{{count}} لعبة",
+        "gamesCount_one": "لعبة واحدة",
+        "gamesCount_two": "لعبتان",
+        "gamesCount_few": "{{count}} ألعاب",
+        "gamesCount_many": "{{count}} لعبة",
+        "gamesCount_other": "{{count}} لعبة"
+    },
+    "dashboardCards": {
+        "quizMe": {
+            "title": "اختبرني",
+            "content": "تحدى نفسك باختبار!"
+        },
+        "flashCards": {
+            "title": "بطاقات تعليمية",
+            "content": "تعلم باستخدام البطاقات التعليمية"
+        }
+    },
     "metadata": {
-        "homeTitle": "الرئيسية | IQuiz",
+        "homeTitle": "الرئيسية | MENTORA",
         "quizTitle": "اختبار | MENTORA"
     }
 }
