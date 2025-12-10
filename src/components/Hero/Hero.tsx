@@ -23,17 +23,14 @@ const Hero = (props: Props) => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5" aria-hidden="true"></div>
 
       <Card className="flex flex-col md:flex-row justify-center items-center bg-transparent border-none shadow-none h-full w-full p-4 md:p-6 lg:p-8">
-        <CardHeader className="md:w-2/3 h-full w-full p-0 space-y-6 [dir=ltr]md:pr-8 text-start md:text-left">
+        <CardHeader className="md:w-2/3 h-full w-full p-0 space-y-6 md:pe-8 text-center md:text-start">
           <div className="space-y-4">
-            <h1
-              id="hero-title"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-foreground"
-            >
-              <TextAtom>hero.title</TextAtom>
-            </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0">
-              <TextAtom>hero.description</TextAtom>
-            </p>
+
+            <TextAtom textVariantComponent="h1" textClassName="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-foreground">hero.title</TextAtom>
+
+
+            <TextAtom textVariantComponent="p" textClassName="text-lg sm:text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0">hero.description</TextAtom>
+
           </div>
 
           <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
@@ -52,6 +49,7 @@ const Hero = (props: Props) => {
             </Button>
           </div>
         </CardHeader>
+
 
         <div className="hidden md:flex w-1/3 justify-center items-center mt-8 md:mt-0" aria-hidden="true">
           <div className="relative w-full max-w-[400px] aspect-square">
