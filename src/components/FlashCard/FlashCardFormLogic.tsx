@@ -18,18 +18,18 @@ const formFields: FormFieldsDataType = [
     {
         id: 1,
         name: "amount",
-        label: "Number of Cards",
-        desc: "Choose between 3 and 10 flashcards.",
+        label: "createFlashCard.amount.label",
+        desc: "createFlashCard.amount.desc",
         type: "number",
-        placeholder: "3",
+        placeholder: "createFlashCard.amount.placeholder",
     },
     {
         id: 2,
         name: "topic",
-        label: "Flash Card Topic",
-        desc: "Enter the topic you want flashcards about (e.g., 'Historical Rulers').",
+        label: "createFlashCard.topic.label",
+        desc: "createFlashCard.topic.desc",
         type: "text",
-        placeholder: "e.g., Greek Mythology"
+        placeholder: "createFlashCard.topic.placeholder"
     },
 ];
 export type InputValue = z.infer<typeof quizCreationSchema>;
@@ -93,8 +93,8 @@ export default function CreateFlashcardForm() {
             isError={isError}
             isSuccess={isSuccess}
             currentStepName={formFields[step].name}
-            formTitle="Flashcard Deck"
-            formDescription="Fill in the details to generate your custom study set."
+            formTitle="flashCard:newDeck"
+            formDescription="flashCard:generateCustomDeck"
         />
     );
 }

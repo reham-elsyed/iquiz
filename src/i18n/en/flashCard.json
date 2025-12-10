@@ -1,6 +1,8 @@
 {
     "newQuiz": "New Game",
     "generateCustomQuestions": "Generate custom questions in minutes for focused learning.",
+    "newDeck": "Flashcard Deck",
+    "generateCustomDeck": "Fill in the details to generate your custom study set.",
     "mcq": "MCQ",
     "openEnded": "Open Ended",
     "flashCard": "Flashcard"

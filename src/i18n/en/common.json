@@ -95,6 +95,18 @@
             "content": "Learn with Flash Cards"
         }
     },
+    "createFlashCard": {
+        "amount": {
+            "label": "Number of Cards",
+            "desc": "Choose between 3 and 10 flashcards.",
+            "placeholder": "3"
+        },
+        "topic": {
+            "label": "Flash Card Topic",
+            "desc": "Enter the topic you want flashcards about (e.g., 'Historical Rulers').",
+            "placeholder": "e.g., Greek Mythology"
+        }
+    },
     "metadata": {
         "homeTitle": "Home| MENTORA",
         "quizTitle": "quiz | MENTORA"

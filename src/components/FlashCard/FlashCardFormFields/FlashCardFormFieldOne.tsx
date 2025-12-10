@@ -6,8 +6,10 @@ import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CopyCheck, BookOpen, Flashlight } from "lucide-react";
 import { TextAtom } from "@/components/TextAtom";
+import { useTranslation } from "react-i18next";
 
 export default function AnimatedFormField({ form, fieldData, step }: any) {
+  const { t } = useTranslation();
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -23,7 +25,7 @@ export default function AnimatedFormField({ form, fieldData, step }: any) {
           name={fieldData.name}
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="capitalize">{fieldData.label || fieldData.name}</FormLabel>
+              <FormLabel className="capitalize"><TextAtom>{fieldData.label || fieldData.name}</TextAtom></FormLabel>
 
               <FormControl>
                 {fieldData.type === "radio_button_group" ? (
@@ -56,7 +58,7 @@ export default function AnimatedFormField({ form, fieldData, step }: any) {
                 ) : (
                   <Input
                     type={fieldData.type || "text"}
-                    placeholder={fieldData.placeholder || ""}
+                    placeholder={t(fieldData.placeholder) || ""}
                     {...field}
                     onChange={(e) => {
                       const value = e.target.value;

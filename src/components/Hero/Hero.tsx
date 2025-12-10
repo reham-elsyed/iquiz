@@ -23,7 +23,7 @@ const Hero = (props: Props) => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5" aria-hidden="true"></div>
 
       <Card className="flex flex-col md:flex-row justify-center items-center bg-transparent border-none shadow-none h-full w-full p-4 md:p-6 lg:p-8">
-        <CardHeader className="md:w-2/3 h-full w-full p-0 space-y-6 [dir=ltr]md:pr-8 text-center md:text-left">
+        <CardHeader className="md:w-2/3 h-full w-full p-0 space-y-6 [dir=ltr]md:pr-8 text-start md:text-left">
           <div className="space-y-4">
             <h1
               id="hero-title"
