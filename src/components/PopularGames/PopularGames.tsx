@@ -5,6 +5,7 @@ import { Button } from '../ui/button'
 import Link from 'next/link'
 import { TextAurora } from '../ui/Text-Aurora'
 import { TextAtom } from '../TextAtom'
+import AutoDirectionText from '../TextDirection/TextDirextion'
 
 const PopularGames = async () => {
   const popularGames = await trendingTopic()
@@ -21,7 +22,7 @@ const PopularGames = async () => {
 
   return (
     <>
-      <div className=' w-full '>
+      <div className=' w-full ' dir="auto">
         <div className='flex flex-col gap-4 p-3'>
           <div className='flex items-center justify-between mb-6'>
             <TextAurora text="popularGames.title" className='' isTranslated={true} />
@@ -31,8 +32,8 @@ const PopularGames = async () => {
           <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
             {popularGames.map((game) => (
               <Card key={game.text} className=' app-card'>
-                <div className='app-card-content '>
-                  <h3 className='text-lg font-semibold'>{game.text}</h3>
+                <div className='app-card-content flex flex-col gap-2 items-start '>
+                  <AutoDirectionText as="div" forceDirection='auto' className='text-lg font-semibold text-start flex justify-start w-full items-start' text={game.text} />
                   <TextAtom textClassName='text-card-foreground'>popularGames.count</TextAtom>: {game.value}
                 </div>
               </Card>

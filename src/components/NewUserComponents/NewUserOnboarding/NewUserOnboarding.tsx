@@ -1,6 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
 import {
     BookOpen,
     Trophy,
@@ -12,40 +11,60 @@ import {
     Play
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import AutoDirectionText from "@/components/TextDirection/TextDirextion";
+import { useTranslations } from "next-intl";
 
 export default function NewUserOnboarding() {
+    const t = useTranslations('onboarding');
+
     const onboardingSteps = [
         {
             icon: Play,
-            title: "Take Your First Quiz",
-            description: "Start with an easy topic to get familiar with the platform",
-            action: "Start Now",
+            title: t('steps.firstQuiz.title'),
+            description: t('steps.firstQuiz.description'),
+            action: t('steps.firstQuiz.action'),
             color: "bg-blue-50 dark:bg-blue-950/20 text-blue-600 dark:text-blue-400",
             completed: false
         },
         {
             icon: Target,
-            title: "Set Your Goals",
-            description: "Choose topics you want to focus on and set learning targets",
-            action: "Set Goals",
+            title: t('steps.setGoals.title'),
+            description: t('steps.setGoals.description'),
+            action: t('steps.setGoals.action'),
             color: "bg-emerald-50 dark:bg-emerald-950/20 text-emerald-600 dark:text-emerald-400",
             completed: false
         },
         {
             icon: Users,
-            title: "Join the Community",
-            description: "Connect with other learners and compete on leaderboards",
-            action: "Explore",
+            title: t('steps.joinCommunity.title'),
+            description: t('steps.joinCommunity.description'),
+            action: t('steps.joinCommunity.action'),
             color: "bg-purple-50 dark:bg-purple-950/20 text-purple-600 dark:text-purple-400",
             completed: false
         }
     ];
 
     const quickFacts = [
-        { label: "Active Learners", value: "10,000+", color: "text-blue-600 dark:text-blue-400" },
-        { label: "Quizzes Available", value: "500+", color: "text-emerald-600 dark:text-emerald-400" },
-        { label: "Avg. Study Time", value: "15 min/day", color: "text-purple-600 dark:text-purple-400" },
-        { label: "Success Rate", value: "94%", color: "text-orange-600 dark:text-orange-400" }
+        {
+            label: t('communityStats.activeLearners.label'),
+            value: t('communityStats.activeLearners.value'),
+            color: "text-blue-600 dark:text-blue-400"
+        },
+        {
+            label: t('communityStats.quizzesAvailable.label'),
+            value: t('communityStats.quizzesAvailable.value'),
+            color: "text-emerald-600 dark:text-emerald-400"
+        },
+        {
+            label: t('communityStats.avgStudyTime.label'),
+            value: t('communityStats.avgStudyTime.value'),
+            color: "text-purple-600 dark:text-purple-400"
+        },
+        {
+            label: t('communityStats.successRate.label'),
+            value: t('communityStats.successRate.value'),
+            color: "text-orange-600 dark:text-orange-400"
+        }
     ];
 
     return (
@@ -57,8 +76,12 @@ export default function NewUserOnboarding() {
                             <BookOpen className="h-5 w-5 text-primary" />
                         </div>
                         <div>
-                            <h3 className="text-lg font-semibold">Getting Started</h3>
-                            <p className="text-sm text-muted-foreground">Complete these steps to maximize your learning experience</p>
+                            <AutoDirectionText as="h3" className="text-lg font-semibold">
+                                {t('title')}
+                            </AutoDirectionText>
+                            <AutoDirectionText as="p" className="text-sm text-muted-foreground">
+                                {t('subtitle')}
+                            </AutoDirectionText>
                         </div>
                     </div>
 
@@ -80,14 +103,18 @@ export default function NewUserOnboarding() {
 
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <h4 className="font-medium">{step.title}</h4>
+                                            <AutoDirectionText as="h4" className="font-medium">
+                                                {step.title}
+                                            </AutoDirectionText>
                                             {step.completed && (
                                                 <Badge variant="secondary" className="text-xs bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400">
-                                                    Complete
+                                                    {t('badges.complete')}
                                                 </Badge>
                                             )}
                                         </div>
-                                        <p className="text-sm text-muted-foreground">{step.description}</p>
+                                        <AutoDirectionText as="p" className="text-sm text-muted-foreground">
+                                            {step.description}
+                                        </AutoDirectionText>
                                     </div>
 
                                     <Button
@@ -107,23 +134,28 @@ export default function NewUserOnboarding() {
 
             <Card>
                 <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold mb-4">Community Stats</h3>
+                    <AutoDirectionText as="h3" className="text-lg font-semibold mb-4">
+                        {t('communityStats.title')}
+                    </AutoDirectionText>
+
                     <div className="grid grid-cols-2 gap-4">
                         {quickFacts.map((fact, index) => (
                             <div key={index} className="text-center p-4 bg-muted/30 rounded-lg">
                                 <p className={`text-2xl font-bold ${fact.color}`}>{fact.value}</p>
-                                <p className="text-sm text-muted-foreground">{fact.label}</p>
+                                <AutoDirectionText as="p" className="text-sm text-muted-foreground">
+                                    {fact.label}
+                                </AutoDirectionText>
                             </div>
                         ))}
                     </div>
 
                     <div className="mt-6 pt-4 border-t text-center">
-                        <p className="text-sm text-muted-foreground mb-3">
-                            Join thousands of learners improving their knowledge every day
-                        </p>
+                        <AutoDirectionText as="p" className="text-sm text-muted-foreground mb-3">
+                            {t('communityStats.joinMessage')}
+                        </AutoDirectionText>
                         <Button variant="outline" className="gap-2">
                             <Trophy className="h-4 w-4" />
-                            View Global Leaderboard
+                            {t('communityStats.viewLeaderboard')}
                         </Button>
                     </div>
                 </CardContent>

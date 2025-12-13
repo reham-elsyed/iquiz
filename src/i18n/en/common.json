@@ -110,5 +110,58 @@
     "metadata": {
         "homeTitle": "Home| MENTORA",
         "quizTitle": "quiz | MENTORA"
+    },
+    "newUser": {
+        "welcome": "Welcome to MENTORA",
+        "readyToStart": "Ready to start your learning journey? Take your first quiz and begin building your knowledge!",
+        "earnAchievements": "Earn achievements",
+        "climbLeaderboards": "Climb leaderboards",
+        "takeFirstQuiz": "Take Your First Quiz",
+        "joinLearners": "Join 10,000+ learners already improving their knowledge"
+    },
+    "onboarding": {
+        "title": "Getting Started",
+        "subtitle": "Complete these steps to maximize your learning experience",
+        "steps": {
+            "firstQuiz": {
+                "title": "Take Your First Quiz",
+                "description": "Start with an easy topic to get familiar with the platform",
+                "action": "Start Now"
+            },
+            "setGoals": {
+                "title": "Set Your Goals",
+                "description": "Choose topics you want to focus on and set learning targets",
+                "action": "Set Goals"
+            },
+            "joinCommunity": {
+                "title": "Join the Community",
+                "description": "Connect with other learners and compete on leaderboards",
+                "action": "Explore"
+            }
+        },
+        "communityStats": {
+            "title": "Community Stats",
+            "activeLearners": {
+                "label": "Active Learners",
+                "value": "10,000+"
+            },
+            "quizzesAvailable": {
+                "label": "Quizzes Available",
+                "value": "500+"
+            },
+            "avgStudyTime": {
+                "label": "Avg. Study Time",
+                "value": "15 min/day"
+            },
+            "successRate": {
+                "label": "Success Rate",
+                "value": "94%"
+            },
+            "joinMessage": "Join thousands of learners improving their knowledge every day",
+            "viewLeaderboard": "View Global Leaderboard"
+        },
+        "badges": {
+            "complete": "Complete"
+        }
     }
 }

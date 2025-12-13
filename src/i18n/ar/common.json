@@ -114,5 +114,58 @@
     "metadata": {
         "homeTitle": "الرئيسية | MENTORA",
         "quizTitle": "اختبار | MENTORA"
+    },
+    "newUser": {
+        "welcome": "مرحبًا بك في MENTORA",
+        "readyToStart": "مستعد لبدء رحلة التعلم؟ ابدأ بأول اختبار لك وابدأ في بناء معرفتك!",
+        "earnAchievements": "اكسب الإنجازات",
+        "climbLeaderboards": "تسلق لوحات المتصدرين",
+        "takeFirstQuiz": "ابدأ أول اختبار لك",
+        "joinLearners": "انضم إلى أكثر من 10,000 متعلم يحسنون معرفتهم بالفعل"
+    },
+    "onboarding": {
+        "title": "البدء",
+        "subtitle": "أكمل هذه الخطوات لتعظيم تجربة التعلم الخاصة بك",
+        "steps": {
+            "firstQuiz": {
+                "title": "ابدأ أول اختبار لك",
+                "description": "ابدأ بموضوع سهل للتعرف على المنصة",
+                "action": "ابدأ الآن"
+            },
+            "setGoals": {
+                "title": "حدد أهدافك",
+                "description": "اختر المواضيع التي تريد التركيز عليها وضع أهداف التعلم",
+                "action": "تحديد الأهداف"
+            },
+            "joinCommunity": {
+                "title": "انضم إلى المجتمع",
+                "description": "تواصل مع متعلمين آخرين وتنافس على لوحات المتصدرين",
+                "action": "استكشاف"
+            }
+        },
+        "communityStats": {
+            "title": "إحصائيات المجتمع",
+            "activeLearners": {
+                "label": "متعلم نشط",
+                "value": "أكثر من 10,000"
+            },
+            "quizzesAvailable": {
+                "label": "اختبار متاح",
+                "value": "أكثر من 500"
+            },
+            "avgStudyTime": {
+                "label": "متوسط وقت الدراسة",
+                "value": "15 دقيقة/يوم"
+            },
+            "successRate": {
+                "label": "معدل النجاح",
+                "value": "94%"
+            },
+            "joinMessage": "انضم إلى آلاف المتعلمين الذين يحسنون معرفتهم كل يوم",
+            "viewLeaderboard": "عرض لوحة المتصدرين العالمية"
+        },
+        "badges": {
+            "complete": "مكتمل"
+        }
     }
 }

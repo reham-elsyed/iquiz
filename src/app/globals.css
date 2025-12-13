@@ -299,6 +299,13 @@
 
   }
 
+  .dynamic-text-block {
+    /* Use dir="auto" attribute on HTML elements with this class */
+    /* This ensures the block is isolated from its parent's direction, */
+    /* allowing it to auto-detect its own direction. */
+    unicode-bidi: isolate;
+  }
+
   .dark {
     --hover-bg: color-mix(in oklch, var(--interactive-bg), white 10%);
     --active-bg: color-mix(in oklch, var(--interactive-bg), white 20%);

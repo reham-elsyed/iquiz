@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Play, Sparkles, Star, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { TextAtom } from '@/components/TextAtom';
 
 const NewUserGraphReplace = () => {
     return (
@@ -15,20 +16,20 @@ const NewUserGraphReplace = () => {
                     </div>
 
                     <div className="space-y-2">
-                        <h3 className="text-xl font-semibold">Welcome to IQuiz! 🎉</h3>
-                        <p className="text-sm text-muted-foreground">
-                            Ready to start your learning journey? Take your first quiz and begin building your knowledge!
-                        </p>
+                        <TextAtom textVariantComponent='h3' textVariantColor='primary' className="text-xl font-semibold">newUser.welcome</TextAtom>
+                        <TextAtom textVariantComponent='p' textClassName="text-sm text-muted-foreground">
+                            newUser.readyToStart
+                        </TextAtom>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 py-4">
                         <div className="text-center p-3 bg-muted/50 rounded-lg">
                             <Star className="h-5 w-5 text-yellow-500 mx-auto mb-1" />
-                            <p className="text-xs text-muted-foreground">Earn achievements</p>
+                            <TextAtom textVariantComponent='p' textClassName="text-xs text-muted-foreground">newUser.earnAchievements</TextAtom>
                         </div>
                         <div className="text-center p-3 bg-muted/50 rounded-lg">
                             <Trophy className="h-5 w-5 text-orange-500 mx-auto mb-1" />
-                            <p className="text-xs text-muted-foreground">Climb leaderboards</p>
+                            <TextAtom textVariantComponent='p' textClassName="text-xs text-muted-foreground">newUser.climbLeaderboards</TextAtom>
                         </div>
                     </div>
 
@@ -38,15 +39,15 @@ const NewUserGraphReplace = () => {
                         asChild>
                         <Link href='/quiz' className="w-full flex items-center gap-2">
                             <Play className="h-4 w-4" />
-                            Take Your First Quiz
+                            <TextAtom textClassName="text-xs text-muted-foreground"> newUser.takeFirstQuiz</TextAtom>
                         </Link>
                     </Button>
-                    <p className="text-xs text-muted-foreground">
-                        Join 10,000+ learners already improving their knowledge
-                    </p>
+                    <TextAtom textVariantComponent='p' textClassName="text-xs text-muted-foreground">
+                        newUser.joinLearners
+                    </TextAtom>
                 </div>
             </CardContent>
-        </Card>
+        </Card >
     );
 }
 

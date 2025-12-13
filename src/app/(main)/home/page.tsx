@@ -29,7 +29,7 @@ export default async function HomePage() {
     limit: 10
   }) as GameWithQuestions[];
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" dir="auto">
       <div className="container p-8 mx-auto z-10 ">
         <div className="flex flex-col gap-5">
           <Hero />

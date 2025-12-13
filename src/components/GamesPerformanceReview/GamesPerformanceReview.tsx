@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 import Link from 'next/link';
 import EmptySectionWrapper from '../NewUserComponents/EmptySectionWrapper/EmptySectionWrapper';
 import { TextAtom } from '../TextAtom';
+import AutoDirectionText from '../TextDirection/TextDirextion';
 
 interface WeakPerformanceCardProps {
     question: Pick<WeakQuestionType, 'question' | 'answer' | 'questionType' | 'questionId'>;
@@ -21,12 +22,12 @@ export function WeakPerformanceCard({ question }: WeakPerformanceCardProps) {
                 </CardTitle>
             </CardHeader>
             <CardContent className='app-card-content '>
-                <p className="text-foreground font-medium ">{question.question}</p>
+                <AutoDirectionText as="p" className="text-foreground font-medium ">{question.question}</AutoDirectionText>
                 <div className="text-sm text-muted-foreground ">
-                    <span className="font-semibold"><TextAtom>dashboard:performance.correctAnswer</TextAtom>:</span> {question.answer}
+                    <span className="font-semibold"><TextAtom>dashboard:performance.correctAnswer</TextAtom>:</span> <AutoDirectionText as="p" className="text-foreground font-medium ">{question.answer}</AutoDirectionText>
                 </div>
                 <div className="text-xs text-muted-foreground italic">
-                    <TextAtom>dashboard:performance.type</TextAtom>: {question.questionType}
+                    <TextAtom>dashboard:performance.type</TextAtom>   <AutoDirectionText as="p" className="text-foreground font-medium ">: {question.questionType}</AutoDirectionText>
                 </div>
             </CardContent>
         </Card>

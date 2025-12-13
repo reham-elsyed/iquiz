@@ -32,14 +32,14 @@ export default async function RootLayout({
   const dir = i18n.dir(locale);
 
   return (
-    <html lang={locale} dir={dir}>
+    <html lang={locale} className="dynamic-text-block" data-auto-dir="true">
       <head>
       </head>
       <TranslationsProvider resources={resources} namespaces={i18nNamespaces}>
 
         <NextAuthProvider>
           <GradientEffect />
-          <body className={cn("font-geist antialiased flex flex-col min-h-screen relative")}>
+          <body className={cn("font-geist antialiased flex  flex-col min-h-screen relative")}>
             {children}
           </body>
           <Toaster />
