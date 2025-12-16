@@ -118,7 +118,7 @@ export async function strict_output(prompt: string, type: string) {
     let result;
     try {
       // Try with gemini-2.0-flash first
-      result = await callWithRetry("gemini-1.5-flash", prompt, schema);
+      result = await callWithRetry("gemini-2.5-flash", prompt, schema);
     } catch (error) {
       console.error("Primary model (gemini-1.5-flash) failed, trying fallback to gemini-2.0-flash...", error);
       // Fallback to secondary model

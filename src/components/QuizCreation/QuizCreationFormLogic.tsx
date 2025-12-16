@@ -23,18 +23,18 @@ const formFields: FormFieldsDataType = [
     {
         id: 1,
         name: "amount",
-        label: "Number of Questions",
-        desc: "Choose between 3 and 10 quiz questions.",
+        label: "createFlashCard.amount.label",
+        desc: "createFlashCard.amount.desc",
         type: "number",
-        placeholder: "5",
+        placeholder: "createFlashCard.amount.placeholder",
     },
     {
         id: 2,
         name: "topic",
-        label: "Quiz Topic",
-        desc: "Enter the subject for your quiz (e.g., 'The Roman Empire').",
+        label: "createFlashCard.topic.label",
+        desc: "createFlashCard.topic.desc",
         type: "text",
-        placeholder: "e.g., Basic Calculus"
+        placeholder: "createFlashCard.topic.placeholder"
     },
     {
         id: 3,

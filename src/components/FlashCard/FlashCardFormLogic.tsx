@@ -94,7 +94,7 @@ export default function CreateFlashcardForm() {
             isSuccess={isSuccess}
             currentStepName={formFields[step].name}
             formTitle="flashCard:newDeck"
-            formDescription="flashCard:generateCustomDeck"
+            formDescription="flashCard:generateCustomQuestions"
         />
     );
 }

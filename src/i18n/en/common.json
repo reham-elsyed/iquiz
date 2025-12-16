@@ -163,5 +163,9 @@
         "badges": {
             "complete": "Complete"
         }
+    },
+    "performanceReview": {
+        "title": "Performance Review",
+        "description": "Review your previous quiz attempts and retake any games to improve your scores."
     }
 }

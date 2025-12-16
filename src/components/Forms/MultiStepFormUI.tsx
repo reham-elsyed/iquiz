@@ -54,10 +54,8 @@ export default function UnifiedMultiStepFormUI({
     formDescription,
 }: UnifiedFormProps) {
 
-    // Use currentStepName to dynamically select the icon
     const Icon = stepIcons[currentStepName] || stepIcons.default;
 
-    // Create an on-submit handler that uses the form's handleSubmit and the passed-in onSubmit function
     const handleSubmitWrapper = form.handleSubmit(onSubmit);
 
     return (
@@ -74,14 +72,13 @@ export default function UnifiedMultiStepFormUI({
                 <div className="flex items-center justify-center min-h-screen bg-background/80">
                     <div className="flex flex-col items-center gap-4">
                         <Loader className="animate-spin h-10 w-10 text-primary" aria-label="Loading" />
-                        <p className="text-lg text-muted-foreground">
-                            <TextAtom>form.generating</TextAtom> {formTitle.toLowerCase()}...
-                        </p>
+                        <TextAtom textVariantComponent="p" textClassName="text-primary">form.generating</TextAtom><TextAtom textVariantComponent="span" textClassName="text-primary">{formTitle.toLowerCase()}</TextAtom>
+
                     </div>
                 </div>
             ) : (
                 /* 3. Main Content Wrapper */
-                <div className="min-h-screen flex items-center justify-center p-8 ">
+                <div className="min-h-screen flex items-center justify-center py-8 ">
                     <Card className="
             w-full max-w-xl mx-auto shadow-2xl border-border/50 
             bg-card backdrop-blur-sm overflow-hidden rounded-2xl
@@ -105,9 +102,9 @@ export default function UnifiedMultiStepFormUI({
                                 {Icon}
                             </div>
                             <CardTitle className="text-3xl font-extrabold text-foreground"><TextAtom>{formTitle}</TextAtom></CardTitle>
-                            <CardDescription className="text-base text-muted-foreground mt-2">
-                                <TextAtom> {formDescription}</TextAtom>
-                            </CardDescription>
+
+                            <TextAtom textVariantComponent="p" textClassName="text-base text-muted-foreground mt-2">{formDescription}</TextAtom>
+
                         </CardHeader>
 
                         {/* Card Content */}
@@ -128,9 +125,14 @@ export default function UnifiedMultiStepFormUI({
                                     {/* 5. Navigation/CTA Area */}
                                     <div className="flex justify-between items-center pt-3 gap-3">
                                         {/* Back Button */}
+                                        {/* Back Button */}
                                         {step > 0 && (
                                             <Button
-                                                onClick={handleBack}
+                                                key="back-button"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleBack();
+                                                }}
                                                 type="button"
                                                 variant="outline"
                                                 className="min-w-[100px] border-border/80"
@@ -145,7 +147,11 @@ export default function UnifiedMultiStepFormUI({
                                         {/* Next/Submit Buttons */}
                                         {step < formFields.length - 1 ? (
                                             <Button
-                                                onClick={handleNext}
+                                                key="next-button"
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    handleNext();
+                                                }}
                                                 type="button"
                                                 className="min-w-[150px] bg-primary hover:bg-primary/90 transition-colors"
                                                 disabled={isPending}
@@ -155,15 +161,17 @@ export default function UnifiedMultiStepFormUI({
                                         ) : (
                                             /* Final Step: Submit Button */
                                             <Button
+                                                key="submit-button"
                                                 disabled={isPending}
                                                 type="submit"
                                                 className="min-w-[150px] bg-green-600 hover:bg-green-700 transition-colors"
                                             >
                                                 {isPending ? (
                                                     <Loader className=" h-5 w-5 mr-2" />
+
                                                 ) : (
                                                     <>
-                                                        <TextAtom>buttons.generate</TextAtom> {formTitle.split(' ')[0]}
+                                                        <TextAtom>buttons.generate</TextAtom> <TextAtom>{formTitle.split(' ')[0]}</TextAtom>
                                                     </>
                                                 )}
                                             </Button>

@@ -4,6 +4,7 @@ import { getAuthSession } from '@/lib/nextAuth';
 import { singeUserWeekPerformanceQuestions } from '@/lib/singleUserGames';
 
 import React from 'react'
+import { TextAtom } from '@/components/TextAtom';
 
 
 
@@ -28,10 +29,12 @@ const PerformanceReview = async () => {
         <div className='app-container'>
             <div className="flex flex-col items-center justify-center min-h-screen">
                 <div className='text-start w-full'>
-                    <h1 className="text-3xl font-bold mb-4 text-foreground">Performance Review</h1>
-                    <p className="text-lg text-foreground ">
-                        Review your previous quiz attempts and retake any games to improve your scores.
-                    </p>
+                    <TextAtom textVariantComponent="h1" className="text-3xl font-bold mb-4 text-foreground">
+                        performanceReview.title
+                    </TextAtom>
+                    <TextAtom textVariantComponent="p" className="text-lg text-foreground ">
+                        performanceReview.description
+                    </TextAtom>
                 </div>
                 <div className='mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
                     {flattened.map((game, idx) => {
