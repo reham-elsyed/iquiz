@@ -20,6 +20,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     }
 
     return {
+        locale,
         messages: {
             ...(await load_messages('common')),
             auth: await load_messages('auth'),
