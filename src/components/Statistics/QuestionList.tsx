@@ -25,14 +25,14 @@ const QuestionList = ({ questions }: Props) => {
       </TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[10px]">
+          <TableHead className="w-[10px] text-start">
             <TextAtom>statistics.table.no</TextAtom>
           </TableHead>
-          <TableHead>
+          <TableHead className="text-start">
             <TextAtom>statistics.table.questionsAndAnswer</TextAtom>
           </TableHead>
 
-          <TableHead>
+          <TableHead className="text-start">
             <TextAtom>statistics.table.yourAnswer</TextAtom>
           </TableHead>
           {gameType === "open_ended" && (

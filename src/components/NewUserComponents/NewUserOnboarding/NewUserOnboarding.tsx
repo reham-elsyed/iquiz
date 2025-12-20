@@ -13,6 +13,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import AutoDirectionText from "@/components/TextDirection/TextDirextion";
 import { useTranslations } from "next-intl";
+import { TextAtom } from "@/components/TextAtom";
 
 export default function NewUserOnboarding() {
     const t = useTranslations('onboarding');
@@ -150,12 +151,12 @@ export default function NewUserOnboarding() {
                     </div>
 
                     <div className="mt-6 pt-4 border-t text-center">
-                        <AutoDirectionText as="p" className="text-sm text-muted-foreground mb-3">
-                            {t('communityStats.joinMessage')}
-                        </AutoDirectionText>
+                        <TextAtom textVariantComponent="p" textClassName="text-sm text-muted-foreground mb-3">
+                            communityStats.joinMessage
+                        </TextAtom>
                         <Button variant="outline" className="gap-2">
                             <Trophy className="h-4 w-4" />
-                            {t('communityStats.viewLeaderboard')}
+                            <TextAtom textVariantComponent="span" textClassName="text-sm">communityStats.viewLeaderboard</TextAtom>
                         </Button>
                     </div>
                 </CardContent>
