@@ -167,5 +167,18 @@
     "performanceReview": {
         "title": "Performance Review",
         "description": "Review your previous quiz attempts and retake any games to improve your scores."
+    },
+    "statistics": {
+        "table": {
+            "endOfList": "End Of List",
+            "no": "No",
+            "questionsAndAnswer": "Questions & Correct Answer",
+            "yourAnswer": "Your Answer",
+            "accuracy": "Accuracy"
+        },
+        "accuracyCard": {
+            "title": "Average Accuracy",
+            "ariaLabel": "Average accuracy: {{val}} percent"
+        }
     }
 }

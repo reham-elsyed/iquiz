@@ -171,5 +171,18 @@
     "performanceReview": {
         "title": "مراجعة الأداء",
         "description": "راجع محاولات الاختبار السابقة وأعد إجراء أي ألعاب لتحسين درجاتك."
+    },
+    "statistics": {
+        "table": {
+            "endOfList": "نهاية القائمة",
+            "no": "رقم",
+            "questionsAndAnswer": "الأسئلة والإجابة الصحيحة",
+            "yourAnswer": "إجابتك",
+            "accuracy": "الدقة"
+        },
+        "accuracyCard": {
+            "title": "متوسط الدقة",
+            "ariaLabel": "متوسط الدقة: {{val}} بالمائة"
+        }
     }
 }

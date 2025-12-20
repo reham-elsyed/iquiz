@@ -10,6 +10,7 @@ import {
 } from "../ui/table";
 import { Question } from "@prisma/client";
 import { cn } from "@/lib/utils";
+import { TextAtom } from "../TextAtom";
 
 type Props = {
   questions: Question[];
@@ -19,15 +20,25 @@ const QuestionList = ({ questions }: Props) => {
   let gameType = questions[0]?.questionType;
   return (
     <Table className="mt-4">
-      <TableCaption>End Of List</TableCaption>
+      <TableCaption>
+        <TextAtom>statistics.table.endOfList</TextAtom>
+      </TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[10px]">No</TableHead>
-          <TableHead className="">Questions & Correct Answer</TableHead>
+          <TableHead className="w-[10px]">
+            <TextAtom>statistics.table.no</TextAtom>
+          </TableHead>
+          <TableHead>
+            <TextAtom>statistics.table.questionsAndAnswer</TextAtom>
+          </TableHead>
 
-          <TableHead>Your Answer</TableHead>
+          <TableHead>
+            <TextAtom>statistics.table.yourAnswer</TextAtom>
+          </TableHead>
           {gameType === "open_ended" && (
-            <TableHead className="w-[10px] text-right">accuracy</TableHead>
+            <TableHead className="w-[10px] text-right">
+              <TextAtom>statistics.table.accuracy</TextAtom>
+            </TableHead>
           )}
         </TableRow>
       </TableHeader>
@@ -54,10 +65,14 @@ const QuestionList = ({ questions }: Props) => {
                   </TableCell>
                 )}
                 {gameType === "open_ended" && (
-                  <TableCell>{question.userAnswer}</TableCell>
+                  <TableCell>
+                    {question.userAnswer}
+                  </TableCell>
                 )}
                 {gameType === "open_ended" && (
-                  <TableCell>{question.percentageCorrect}</TableCell>
+                  <TableCell>
+                    {question.percentageCorrect}
+                  </TableCell>
                 )}
               </TableRow>
             );

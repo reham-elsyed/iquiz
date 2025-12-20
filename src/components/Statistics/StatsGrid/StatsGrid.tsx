@@ -1,3 +1,4 @@
+"use client";
 import React from 'react'
 import TimeTakenCard from '../TimeTakenCard'
 import AccuracyCard from '../AccuracyCard'
